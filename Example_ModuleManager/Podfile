@@ -1,0 +1,38 @@
+#source 'https://github.com/CocoaPods/Specs.git'
+
+use_frameworks!
+#inhibit_all_warnings!
+
+#require_relative '/Users/neroxie/Dropbox/Coverage/coverage_scripts/coverage_config.rb'
+
+platform :ios, '10.0'
+
+target 'Example_ModuleManager' do
+  pod 'NNModule', :path => '../'
+  pod 'ModuleServices', :path => '../Modules/ModuleServices'
+  pod 'LoginModule', :path => '../Modules/LoginModule'
+  pod 'AModule', :path => '../Modules/AModule'
+  pod 'BModule', :path => '../Modules/BModule'
+  pod 'CModule', :path => '../Modules/CModule'
+  pod 'ApplicationModule', :path => '../Modules/ApplicationModule'
+  pod 'TabBarController', :path => '../Modules/TabBarController'
+  pod 'BaseModule', :path => '../Modules/BaseModule'
+  pod 'SnapKit'
+  pod 'ESTabBarController-swift'
+  #pod 'Coverage', :path => '/Users/neroxie/Dropbox/Coverage'
+  
+end
+
+# $project_path = './Example_ModuleManager.xcodeproj'
+# $coverage_recover = false
+# $static_frameworks = ['ModuleServices', 'LoginModule', 'AModule', 'BModule', 'CModule', 'ApplicationModule', 'TabBarController', 'BaseModule']
+
+# coverage_setup($project_path, $coverage_recover)
+
+# pre_install do |installer|
+#   coverage_static_frameworks_config($static_frameworks, installer)
+# end
+
+# post_install do |installer|
+#   coverage_pods_project_config(installer, $coverage_recover)
+# end

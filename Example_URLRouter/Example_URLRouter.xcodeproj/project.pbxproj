@@ -1,0 +1,664 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		61BFF47731F3AA53D7A3675E /* Pods_Example_URLRouter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E4D347422563F43DCDBAD69 /* Pods_Example_URLRouter.framework */; };
+		AE78A63927B77862001323A8 /* RouteUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE78A63827B77862001323A8 /* RouteUtils.swift */; };
+		AEE7B7EA26C94660004AFE9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE7B7E926C94660004AFE9F /* AppDelegate.swift */; };
+		AEE7B7EE26C94660004AFE9F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE7B7ED26C94660004AFE9F /* ViewController.swift */; };
+		AEE7B7F126C94660004AFE9F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEE7B7EF26C94660004AFE9F /* Main.storyboard */; };
+		AEE7B7F326C94661004AFE9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEE7B7F226C94661004AFE9F /* Assets.xcassets */; };
+		AEE7B7F626C94661004AFE9F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEE7B7F426C94661004AFE9F /* LaunchScreen.storyboard */; };
+		AEE7B80126C94662004AFE9F /* Example_URLRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE7B80026C94662004AFE9F /* Example_URLRouterTests.swift */; };
+		AEE7B80C26C94662004AFE9F /* Example_URLRouterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE7B80B26C94662004AFE9F /* Example_URLRouterUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AEE7B7FD26C94662004AFE9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AEE7B7DE26C94660004AFE9F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AEE7B7E526C94660004AFE9F;
+			remoteInfo = Example_URLRouter;
+		};
+		AEE7B80826C94662004AFE9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AEE7B7DE26C94660004AFE9F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AEE7B7E526C94660004AFE9F;
+			remoteInfo = Example_URLRouter;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		31B3C0B6C47D4FBDA6B5D231 /* Pods-Example_URLRouter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example_URLRouter.release.xcconfig"; path = "Target Support Files/Pods-Example_URLRouter/Pods-Example_URLRouter.release.xcconfig"; sourceTree = "<group>"; };
+		6E4D347422563F43DCDBAD69 /* Pods_Example_URLRouter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example_URLRouter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE78A63827B77862001323A8 /* RouteUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteUtils.swift; sourceTree = "<group>"; };
+		AEE7B7E626C94660004AFE9F /* Example_URLRouter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example_URLRouter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AEE7B7E926C94660004AFE9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		AEE7B7ED26C94660004AFE9F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		AEE7B7F026C94660004AFE9F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		AEE7B7F226C94661004AFE9F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AEE7B7F526C94661004AFE9F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		AEE7B7F726C94661004AFE9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AEE7B7FC26C94662004AFE9F /* Example_URLRouterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Example_URLRouterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AEE7B80026C94662004AFE9F /* Example_URLRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example_URLRouterTests.swift; sourceTree = "<group>"; };
+		AEE7B80226C94662004AFE9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AEE7B80726C94662004AFE9F /* Example_URLRouterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Example_URLRouterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AEE7B80B26C94662004AFE9F /* Example_URLRouterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example_URLRouterUITests.swift; sourceTree = "<group>"; };
+		AEE7B80D26C94662004AFE9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F0CDE5E79FDDB53E20AADA57 /* Pods-Example_URLRouter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example_URLRouter.debug.xcconfig"; path = "Target Support Files/Pods-Example_URLRouter/Pods-Example_URLRouter.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AEE7B7E326C94660004AFE9F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61BFF47731F3AA53D7A3675E /* Pods_Example_URLRouter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AEE7B7F926C94662004AFE9F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AEE7B80426C94662004AFE9F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		480FECDDF5596DDF132C8E1D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6E4D347422563F43DCDBAD69 /* Pods_Example_URLRouter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		81C1A1A5B8074ACE612DFC04 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F0CDE5E79FDDB53E20AADA57 /* Pods-Example_URLRouter.debug.xcconfig */,
+				31B3C0B6C47D4FBDA6B5D231 /* Pods-Example_URLRouter.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		AEE7B7DD26C94660004AFE9F = {
+			isa = PBXGroup;
+			children = (
+				AEE7B7E826C94660004AFE9F /* Example_URLRouter */,
+				AEE7B7FF26C94662004AFE9F /* Example_URLRouterTests */,
+				AEE7B80A26C94662004AFE9F /* Example_URLRouterUITests */,
+				AEE7B7E726C94660004AFE9F /* Products */,
+				81C1A1A5B8074ACE612DFC04 /* Pods */,
+				480FECDDF5596DDF132C8E1D /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		AEE7B7E726C94660004AFE9F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AEE7B7E626C94660004AFE9F /* Example_URLRouter.app */,
+				AEE7B7FC26C94662004AFE9F /* Example_URLRouterTests.xctest */,
+				AEE7B80726C94662004AFE9F /* Example_URLRouterUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AEE7B7E826C94660004AFE9F /* Example_URLRouter */ = {
+			isa = PBXGroup;
+			children = (
+				AEE7B7E926C94660004AFE9F /* AppDelegate.swift */,
+				AEE7B7ED26C94660004AFE9F /* ViewController.swift */,
+				AE78A63827B77862001323A8 /* RouteUtils.swift */,
+				AEE7B7EF26C94660004AFE9F /* Main.storyboard */,
+				AEE7B7F226C94661004AFE9F /* Assets.xcassets */,
+				AEE7B7F426C94661004AFE9F /* LaunchScreen.storyboard */,
+				AEE7B7F726C94661004AFE9F /* Info.plist */,
+			);
+			path = Example_URLRouter;
+			sourceTree = "<group>";
+		};
+		AEE7B7FF26C94662004AFE9F /* Example_URLRouterTests */ = {
+			isa = PBXGroup;
+			children = (
+				AEE7B80026C94662004AFE9F /* Example_URLRouterTests.swift */,
+				AEE7B80226C94662004AFE9F /* Info.plist */,
+			);
+			path = Example_URLRouterTests;
+			sourceTree = "<group>";
+		};
+		AEE7B80A26C94662004AFE9F /* Example_URLRouterUITests */ = {
+			isa = PBXGroup;
+			children = (
+				AEE7B80B26C94662004AFE9F /* Example_URLRouterUITests.swift */,
+				AEE7B80D26C94662004AFE9F /* Info.plist */,
+			);
+			path = Example_URLRouterUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AEE7B7E526C94660004AFE9F /* Example_URLRouter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AEE7B81026C94662004AFE9F /* Build configuration list for PBXNativeTarget "Example_URLRouter" */;
+			buildPhases = (
+				69093EBDC30B24896F8D4FB1 /* [CP] Check Pods Manifest.lock */,
+				AEE7B7E226C94660004AFE9F /* Sources */,
+				AEE7B7E326C94660004AFE9F /* Frameworks */,
+				AEE7B7E426C94660004AFE9F /* Resources */,
+				1021B6EB850067DA055044F2 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Example_URLRouter;
+			productName = Example_URLRouter;
+			productReference = AEE7B7E626C94660004AFE9F /* Example_URLRouter.app */;
+			productType = "com.apple.product-type.application";
+		};
+		AEE7B7FB26C94662004AFE9F /* Example_URLRouterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AEE7B81326C94662004AFE9F /* Build configuration list for PBXNativeTarget "Example_URLRouterTests" */;
+			buildPhases = (
+				AEE7B7F826C94662004AFE9F /* Sources */,
+				AEE7B7F926C94662004AFE9F /* Frameworks */,
+				AEE7B7FA26C94662004AFE9F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AEE7B7FE26C94662004AFE9F /* PBXTargetDependency */,
+			);
+			name = Example_URLRouterTests;
+			productName = Example_URLRouterTests;
+			productReference = AEE7B7FC26C94662004AFE9F /* Example_URLRouterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		AEE7B80626C94662004AFE9F /* Example_URLRouterUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AEE7B81626C94662004AFE9F /* Build configuration list for PBXNativeTarget "Example_URLRouterUITests" */;
+			buildPhases = (
+				AEE7B80326C94662004AFE9F /* Sources */,
+				AEE7B80426C94662004AFE9F /* Frameworks */,
+				AEE7B80526C94662004AFE9F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AEE7B80926C94662004AFE9F /* PBXTargetDependency */,
+			);
+			name = Example_URLRouterUITests;
+			productName = Example_URLRouterUITests;
+			productReference = AEE7B80726C94662004AFE9F /* Example_URLRouterUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AEE7B7DE26C94660004AFE9F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1250;
+				LastUpgradeCheck = 1250;
+				TargetAttributes = {
+					AEE7B7E526C94660004AFE9F = {
+						CreatedOnToolsVersion = 12.5.1;
+					};
+					AEE7B7FB26C94662004AFE9F = {
+						CreatedOnToolsVersion = 12.5.1;
+						TestTargetID = AEE7B7E526C94660004AFE9F;
+					};
+					AEE7B80626C94662004AFE9F = {
+						CreatedOnToolsVersion = 12.5.1;
+						TestTargetID = AEE7B7E526C94660004AFE9F;
+					};
+				};
+			};
+			buildConfigurationList = AEE7B7E126C94660004AFE9F /* Build configuration list for PBXProject "Example_URLRouter" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AEE7B7DD26C94660004AFE9F;
+			productRefGroup = AEE7B7E726C94660004AFE9F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AEE7B7E526C94660004AFE9F /* Example_URLRouter */,
+				AEE7B7FB26C94662004AFE9F /* Example_URLRouterTests */,
+				AEE7B80626C94662004AFE9F /* Example_URLRouterUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AEE7B7E426C94660004AFE9F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AEE7B7F626C94661004AFE9F /* LaunchScreen.storyboard in Resources */,
+				AEE7B7F326C94661004AFE9F /* Assets.xcassets in Resources */,
+				AEE7B7F126C94660004AFE9F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AEE7B7FA26C94662004AFE9F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AEE7B80526C94662004AFE9F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1021B6EB850067DA055044F2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Example_URLRouter/Pods-Example_URLRouter-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Example_URLRouter/Pods-Example_URLRouter-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Example_URLRouter/Pods-Example_URLRouter-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		69093EBDC30B24896F8D4FB1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Example_URLRouter-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AEE7B7E226C94660004AFE9F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AEE7B7EE26C94660004AFE9F /* ViewController.swift in Sources */,
+				AE78A63927B77862001323A8 /* RouteUtils.swift in Sources */,
+				AEE7B7EA26C94660004AFE9F /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AEE7B7F826C94662004AFE9F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AEE7B80126C94662004AFE9F /* Example_URLRouterTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AEE7B80326C94662004AFE9F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AEE7B80C26C94662004AFE9F /* Example_URLRouterUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AEE7B7FE26C94662004AFE9F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AEE7B7E526C94660004AFE9F /* Example_URLRouter */;
+			targetProxy = AEE7B7FD26C94662004AFE9F /* PBXContainerItemProxy */;
+		};
+		AEE7B80926C94662004AFE9F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AEE7B7E526C94660004AFE9F /* Example_URLRouter */;
+			targetProxy = AEE7B80826C94662004AFE9F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		AEE7B7EF26C94660004AFE9F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AEE7B7F026C94660004AFE9F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		AEE7B7F426C94661004AFE9F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AEE7B7F526C94661004AFE9F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AEE7B80E26C94662004AFE9F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AEE7B80F26C94662004AFE9F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AEE7B81126C94662004AFE9F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F0CDE5E79FDDB53E20AADA57 /* Pods-Example_URLRouter.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = Example_URLRouter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.neroxie.Example-URLRouter";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AEE7B81226C94662004AFE9F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 31B3C0B6C47D4FBDA6B5D231 /* Pods-Example_URLRouter.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = Example_URLRouter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.neroxie.Example-URLRouter";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		AEE7B81426C94662004AFE9F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = Example_URLRouterTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.neroxie.Example_URLRouterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example_URLRouter.app/Example_URLRouter";
+			};
+			name = Debug;
+		};
+		AEE7B81526C94662004AFE9F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = Example_URLRouterTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.neroxie.Example_URLRouterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example_URLRouter.app/Example_URLRouter";
+			};
+			name = Release;
+		};
+		AEE7B81726C94662004AFE9F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = Example_URLRouterUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.neroxie.Example_URLRouterUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Example_URLRouter;
+			};
+			name = Debug;
+		};
+		AEE7B81826C94662004AFE9F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = Example_URLRouterUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.neroxie.Example_URLRouterUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Example_URLRouter;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AEE7B7E126C94660004AFE9F /* Build configuration list for PBXProject "Example_URLRouter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AEE7B80E26C94662004AFE9F /* Debug */,
+				AEE7B80F26C94662004AFE9F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AEE7B81026C94662004AFE9F /* Build configuration list for PBXNativeTarget "Example_URLRouter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AEE7B81126C94662004AFE9F /* Debug */,
+				AEE7B81226C94662004AFE9F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AEE7B81326C94662004AFE9F /* Build configuration list for PBXNativeTarget "Example_URLRouterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AEE7B81426C94662004AFE9F /* Debug */,
+				AEE7B81526C94662004AFE9F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AEE7B81626C94662004AFE9F /* Build configuration list for PBXNativeTarget "Example_URLRouterUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AEE7B81726C94662004AFE9F /* Debug */,
+				AEE7B81826C94662004AFE9F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AEE7B7DE26C94660004AFE9F /* Project object */;
+}

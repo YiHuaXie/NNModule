@@ -1,0 +1,84 @@
+PODS:
+  - AModule (0.1.0):
+    - ModuleServices
+    - NNModule
+    - TabBarController
+  - ApplicationModule (0.1.0):
+    - ModuleServices
+    - NNModule
+  - BaseModule (0.1.0)
+  - BModule (0.1.0):
+    - ModuleServices
+    - NNModule
+    - SnapKit
+    - TabBarController
+  - CModule (0.1.0)
+  - ESTabBarController-swift (2.8.0)
+  - LoginModule (0.1.0):
+    - ModuleServices
+    - NNModule
+  - ModuleServices (0.1.0):
+    - NNModule
+  - NNModule (1.0.0):
+    - NNModule/URLRouter (= 1.0.0)
+  - NNModule/URLRouter (1.0.0)
+  - SnapKit (5.0.1)
+  - TabBarController (0.1.0):
+    - BaseModule
+    - ESTabBarController-swift
+    - NNModule
+
+DEPENDENCIES:
+  - AModule (from `../Modules/AModule`)
+  - ApplicationModule (from `../Modules/ApplicationModule`)
+  - BaseModule (from `../Modules/BaseModule`)
+  - BModule (from `../Modules/BModule`)
+  - CModule (from `../Modules/CModule`)
+  - ESTabBarController-swift
+  - LoginModule (from `../Modules/LoginModule`)
+  - ModuleServices (from `../Modules/ModuleServices`)
+  - NNModule (from `../`)
+  - SnapKit
+  - TabBarController (from `../Modules/TabBarController`)
+
+SPEC REPOS:
+  trunk:
+    - ESTabBarController-swift
+    - SnapKit
+
+EXTERNAL SOURCES:
+  AModule:
+    :path: "../Modules/AModule"
+  ApplicationModule:
+    :path: "../Modules/ApplicationModule"
+  BaseModule:
+    :path: "../Modules/BaseModule"
+  BModule:
+    :path: "../Modules/BModule"
+  CModule:
+    :path: "../Modules/CModule"
+  LoginModule:
+    :path: "../Modules/LoginModule"
+  ModuleServices:
+    :path: "../Modules/ModuleServices"
+  NNModule:
+    :path: "../"
+  TabBarController:
+    :path: "../Modules/TabBarController"
+
+SPEC CHECKSUMS:
+  AModule: f91877dd0dd24c86d3363cb81f64622ed2bf564b
+  ApplicationModule: c038e69f81a51779bb71149276f1fbf8255617d2
+  BaseModule: 597dc41b48d6e0aea17563291f3a8e55794281f8
+  BModule: cba110d00bde79ad43b329ff5485381af4b6e408
+  CModule: 78f2887954a5121f5e9c8c04f603a71d9ad4dcf9
+  ESTabBarController-swift: 05593a6ad64700b03c0eb60ff625916370aa4136
+  LoginModule: 990640e82a0cb2c9821be232d605132236f6aeb0
+  ModuleServices: 540a208d8dfe518da747551da833a75b89eeb824
+  NNModule: a2c9e8a32fb0654f95d83323c33d897b344c4121
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  TabBarController: feb8684f8b57b95c61f6a1b504d85670d5fefce0
+
+PODFILE CHECKSUM: 24bc003ac2ab6a2c31dc76ca1a7024b1662f0fb3
+
+COCOAPODS: 1.10.0
