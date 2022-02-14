@@ -1,4 +1,4 @@
-import NNModule
+import NNModule_swift
 
 // Home service
 public protocol HomeService: ModuleFunctionalService {

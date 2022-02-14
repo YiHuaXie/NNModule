@@ -1,6 +1,6 @@
 import Foundation
 import ModuleServices
-import NNModule
+import NNModule_swift
 
 extension Module.RegisterService {
     

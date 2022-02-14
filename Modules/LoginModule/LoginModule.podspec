@@ -32,7 +32,7 @@ TODO: Add long description of the pod here.
 
   s.source_files = 'LoginModule/Classes/**/*'
   
-  s.dependency 'NNModule'
+  s.dependency 'NNModule-swift'
   s.dependency 'ModuleServices'
   
   # s.resource_bundles = {

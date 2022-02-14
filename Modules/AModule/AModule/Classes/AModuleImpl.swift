@@ -1,4 +1,4 @@
-import NNModule
+import NNModule_swift
 import ModuleServices
 import TabBarController
 import ESTabBarController_swift

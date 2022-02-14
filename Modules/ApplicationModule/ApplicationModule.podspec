@@ -31,7 +31,7 @@ TODO: Add long description of the pod here.
   s.ios.deployment_target = '10.0'
 
   s.source_files = 'ApplicationModule/Classes/**/*'
-  s.dependency 'NNModule'
+  s.dependency 'NNModule-swift'
   s.dependency 'ModuleServices'
   
   # s.resource_bundles = {

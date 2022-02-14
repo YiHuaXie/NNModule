@@ -6,7 +6,7 @@ use_frameworks!
 platform :ios, '10.0'
 
 target 'Example_ModuleManager' do
-  pod 'NNModule', :path => '../'
+  pod 'NNModule-swift', :path => '../'
   pod 'ModuleServices', :path => '../Modules/ModuleServices'
   pod 'LoginModule', :path => '../Modules/LoginModule'
   pod 'AModule', :path => '../Modules/AModule'

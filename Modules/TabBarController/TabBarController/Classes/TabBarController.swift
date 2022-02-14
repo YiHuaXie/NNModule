@@ -1,4 +1,4 @@
-import NNModule
+import NNModule_swift
 import BaseModule
 import ESTabBarController_swift
 

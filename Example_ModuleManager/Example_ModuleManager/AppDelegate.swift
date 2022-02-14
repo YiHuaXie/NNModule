@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import NNModule
+import NNModule_swift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {

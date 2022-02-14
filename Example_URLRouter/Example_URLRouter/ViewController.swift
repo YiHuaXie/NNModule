@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import NNModule
+import NNModule_swift
 import SnapKit
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {

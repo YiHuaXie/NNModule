@@ -3,6 +3,6 @@ use_frameworks!
 platform :ios, '10.0'
 
 target 'Example_URLRouter' do
-  pod 'NNModule/URLRouter', :path => '../'
+  pod 'NNModule-swift/URLRouter', :path => '../'
   pod 'SnapKit'
 end

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import NNModule
+import NNModule_swift
 import ModuleServices
 
 final class HomeManager: HomeService, RegisterLaunchTaskService {

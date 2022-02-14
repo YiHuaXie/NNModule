@@ -1,9 +1,9 @@
 PODS:
-  - NNModule/URLRouter (1.0.0)
+  - NNModule-swift/URLRouter (1.0.0)
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
-  - NNModule/URLRouter (from `../`)
+  - NNModule-swift/URLRouter (from `../`)
   - SnapKit
 
 SPEC REPOS:
@@ -11,13 +11,13 @@ SPEC REPOS:
     - SnapKit
 
 EXTERNAL SOURCES:
-  NNModule:
+  NNModule-swift:
     :path: "../"
 
 SPEC CHECKSUMS:
-  NNModule: a2c9e8a32fb0654f95d83323c33d897b344c4121
+  NNModule-swift: 27e96c27e8a467094787e6c09709fbf7a43d3cb4
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: 0a8c20202cefd4ed8ffbf254ac340b7aeaa41103
+PODFILE CHECKSUM: 330a011a29aba58f7869cbcd532c61c376c9b4ff
 
 COCOAPODS: 1.10.0
