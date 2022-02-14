@@ -1,22 +1,22 @@
-# NNModule
+# NNModule-swift
 
 [![CI Status](https://img.shields.io/travis/NeroXie/NNModule.svg?style=flat)](https://travis-ci.org/NeroXie/NNModule)
-[![Version](https://img.shields.io/cocoapods/v/NNModule.svg?style=flat)](https://cocoapods.org/pods/NNModule)
-[![License](https://img.shields.io/cocoapods/l/NNModule.svg?style=flat)](https://cocoapods.org/pods/NNModule)
-[![Platform](https://img.shields.io/cocoapods/p/NNModule.svg?style=flat)](https://cocoapods.org/pods/NNModule)
+[![Version](https://img.shields.io/cocoapods/v/NNModule-swift.svg?style=flat)](https://cocoapods.org/pods/NNModule-swift)
+[![License](https://img.shields.io/cocoapods/l/NNModule-swift.svg?style=flat)](https://cocoapods.org/pods/NNModule-swift)
+[![Platform](https://img.shields.io/cocoapods/p/NNModule-swift.svg?style=flat)](https://cocoapods.org/pods/NNModule-swift)
 
 ## 简介
 
-NNModule用于Swift项目的模块管理，主要用于业务模块之间的解耦（以协议的方式进行解耦）， 希望通过 NNModule 向大家提供一种思路，对遇到类似问题的同学能有所启发。
+NNModule-swift 用于Swift项目的模块管理，主要用于业务模块之间的解耦（以协议的方式进行解耦）， 希望通过 NNModule 向大家提供一种思路，对遇到类似问题的同学能有所启发。
 
-NNModule提供的功能如下：
+NNModule-swift 提供的功能如下：
 
 + 组件化管理器：[ModuleManager](./Resources/ModuleManager.md)
 + 路由：[URLRouter](./Resources/URLRouter.md)
 
 ## 使用
 
-在使用NNModule之前建议阅读[ModuleManager设计介绍](./Resources/ModuleManager.md)来理解服务解耦以及如何注册服务。另外提供了一个[Example App](../Example_ModuleManager/)来方便更好地理解。
+在使用 NNModule-swift 之前建议阅读[ModuleManager设计介绍](./Resources/ModuleManager.md)来理解服务解耦以及如何注册服务。另外提供了一个[Example App](../Example_ModuleManager/)来方便更好地理解。
 
 ### 主工程（壳工程）改造
 
@@ -313,13 +313,13 @@ class ApplicationModuleImpl: NSObject, ModuleApplicationService {
 
 ## 安装
 
-NNModule支持对单个功能的单独引用
+NNModule-swift 支持对单个功能的单独引用
 
 ```ruby
 # 全量安装
-pod 'NNModule'
+pod 'NNModule-swift'
 # URLRouter安装
-pod 'NNBox/URLRouter'
+pod 'NNModule-swift/URLRouter'
 ```
 
 ## Example
