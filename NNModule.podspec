@@ -10,22 +10,10 @@ Pod::Spec.new do |s|
   s.name             = 'NNModule'
   s.version          = '1.0.0'
   s.summary          = 'a module decoupling tool under Swift project'
-
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
-
-  s.description      = <<-DESC
-TODO: Add long description of the pod here.
-                       DESC
-
-  s.homepage         = 'https://github.com/NeroXie/NNModule'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
+  s.homepage         = 'https://github.com/YiHuaXie/NNModule'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'NeroXie' => 'xyh30902@163.com' }
-  s.source           = { :git => 'https://github.com/NeroXie/NNModule.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/YiHuaXie/NNModule.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '10.0'
