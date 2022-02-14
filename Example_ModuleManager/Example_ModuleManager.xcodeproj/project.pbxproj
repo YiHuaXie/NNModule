@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		609BFCF7124C2DDD1F59FB55 /* Pods_Example_ModuleManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB5A5BF87549F1EB5E2471F5 /* Pods_Example_ModuleManager.framework */; };
-		AE5D00CD270359BC00DC4BDF /* module_config.json in Resources */ = {isa = PBXBuildFile; fileRef = AE5D00CC270359BC00DC4BDF /* module_config.json */; };
 		AEE7B8A026CA913A004AFE9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE7B89F26CA913A004AFE9F /* AppDelegate.swift */; };
 		AEE7B8A726CA913A004AFE9F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEE7B8A526CA913A004AFE9F /* Main.storyboard */; };
 		AEE7B8A926CA913C004AFE9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEE7B8A826CA913C004AFE9F /* Assets.xcassets */; };
@@ -37,7 +36,6 @@
 /* Begin PBXFileReference section */
 		19C50C99D52D47B8279C9187 /* Pods-Example_ModuleManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example_ModuleManager.release.xcconfig"; path = "Target Support Files/Pods-Example_ModuleManager/Pods-Example_ModuleManager.release.xcconfig"; sourceTree = "<group>"; };
 		701F30F11C84D23CE684CE6C /* Pods-Example_ModuleManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example_ModuleManager.debug.xcconfig"; path = "Target Support Files/Pods-Example_ModuleManager/Pods-Example_ModuleManager.debug.xcconfig"; sourceTree = "<group>"; };
-		AE5D00CC270359BC00DC4BDF /* module_config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = module_config.json; sourceTree = "<group>"; };
 		AEE7B89C26CA913A004AFE9F /* Example_ModuleManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example_ModuleManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEE7B89F26CA913A004AFE9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AEE7B8A626CA913A004AFE9F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -121,7 +119,6 @@
 		AEE7B89E26CA913A004AFE9F /* Example_ModuleManager */ = {
 			isa = PBXGroup;
 			children = (
-				AE5D00CC270359BC00DC4BDF /* module_config.json */,
 				AEE7B89F26CA913A004AFE9F /* AppDelegate.swift */,
 				AEE7B8A526CA913A004AFE9F /* Main.storyboard */,
 				AEE7B8A826CA913C004AFE9F /* Assets.xcassets */,
@@ -255,7 +252,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AEE7B8AC26CA913C004AFE9F /* LaunchScreen.storyboard in Resources */,
-				AE5D00CD270359BC00DC4BDF /* module_config.json in Resources */,
 				AEE7B8A926CA913C004AFE9F /* Assets.xcassets in Resources */,
 				AEE7B8A726CA913A004AFE9F /* Main.storyboard in Resources */,
 			);

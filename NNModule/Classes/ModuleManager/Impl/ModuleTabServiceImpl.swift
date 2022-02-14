@@ -14,18 +14,15 @@ public class ModuleTabServiceImpl: ModuleTabService {
     private var tabItemImpls: [RegisterTabItemService] = []
     
     public private(set) var tabBarItemMeta: [TabBarItemMeta] = []
-  
+    
+    public var tabBarControllerType: UITabBarController.Type = TabBarController.self
+    
     public var tabBarController: UITabBarController {
         if let tabBarController = _tabBarController {
             return tabBarController
         }
         
-        if let tabBarClass = Module.configService.tabBar {
-            return tabBarClass.init()
-        }
-        
-        return TabBarController()
-        
+        return tabBarControllerType.init()
     }
     
     public func setupTabBarController(with tabBarController: UITabBarController) {

@@ -15,9 +15,9 @@ public final class Module {
         ModuleServiceCenter.shared
     }
 
-    public static var configService: ModuleConfigService {
-        serviceCenter.service(of: ModuleConfigService.self)
-    }
+//    public static var configService: ModuleConfigService {
+//        serviceCenter.service(of: ModuleConfigService.self)
+//    }
     
     public static var routeService: ModuleRouteService {
         serviceCenter.service(of: ModuleRouteService.self)

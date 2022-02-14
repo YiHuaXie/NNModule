@@ -14,7 +14,6 @@ extension Module.RegisterService {
 extension Module.Awake {
     
     @objc static func aModuleAwake() {
-        
         Module.tabService.addRegister(AModuleImpl.self)
         
         Module.launchTaskService.addRegister(HomeManager.self)

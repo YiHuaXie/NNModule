@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
     ) -> Bool {
-        return ModuleManager.shared.application(application, willFinishLaunchingWithOptions: launchOptions)
+        ModuleManager.shared.application(application, willFinishLaunchingWithOptions: launchOptions)
     }
     
     func application(
@@ -33,12 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ModuleManager.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
     
-    override func forwardingTarget(for aSelector: Selector!) -> Any? {
-        Module.applicationService
-    }
+    override func forwardingTarget(for aSelector: Selector!) -> Any? { Module.applicationService }
     
     override func responds(to aSelector: Selector!) -> Bool {
         super.responds(to: aSelector) || Module.applicationService.responds(to: aSelector)
     }
 }
-

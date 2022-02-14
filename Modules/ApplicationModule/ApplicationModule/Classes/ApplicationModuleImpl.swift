@@ -3,19 +3,28 @@ import NNModule
 import SafariServices
 import ModuleServices
 
+extension Module.RegisterService {
+    
+    @objc static func applicationModule() {
+        Module.register(service: ModuleApplicationService.self, used: ApplicationModuleImpl.self)
+    }
+}
+
 extension Module.Awake {
     
-    @objc static func applicationAwake() {
+    @objc static func applicationModule() {
+        if let cls = NSClassFromString("TabBarController.TabBarController"),
+           let tabBarType = cls as? UITabBarController.Type {
+            Module.tabService.tabBarControllerType = tabBarType
+        }
         
-        
-        let webLink = Module.routeService.webLink
-        Module.routeService.registerRoute(webLink) { url, navigator in
-            guard let urlString = url.parameters["url"] as? String, let url = URL(string: urlString) else {
+        Module.routeService.update(defaultScheme: "app")
+        Module.routeService.registerRoute(Module.routeService.webLink) { url, navigator in
+            guard let string = url.parameters["url"] as? String, let url = URL(string: string) else {
                 return false
             }
-
+            
             navigator.push(SFSafariViewController(url: url))
-
             return true
         }
     }
@@ -23,9 +32,10 @@ extension Module.Awake {
 
 class ApplicationModuleImpl: NSObject, ModuleApplicationService {
     
+    static var implPriority: Int { 100 }
+    
     required override init() {
         super.init()
-        Module.routeService.update(defaultScheme: "app")
         
         [LoginNotice.didLoginSuccess, LoginNotice.didLogoutSuccess]
         .map { Notification.Name($0.rawValue) }

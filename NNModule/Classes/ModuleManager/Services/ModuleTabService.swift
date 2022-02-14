@@ -10,6 +10,9 @@ import UIKit
 /// TabBar service.
 public protocol ModuleTabService: ModuleFunctionalService {
     
+    /// The Type of tabBar controller
+    var tabBarControllerType: UITabBarController.Type { set get }
+    
     /// The instance of tabBar controller
     var tabBarController: UITabBarController { get }
     

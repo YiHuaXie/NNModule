@@ -18,12 +18,11 @@ public final class ModuleManager {
     
     private init() {
         // register services
-        Module.register(service: ModuleConfigService.self, used: ModuleConfigSeriveImpl.self)
         Module.register(service: ModuleRouteService.self, used: URLRouter.self)
         Module.register(service: ModuleTabService.self, used: ModuleTabServiceImpl.self)
         Module.register(service: ModuleLaunchTaskService.self, used: ModuleLaunchTaskServiceImpl.self)
         Module.register(service: ModuleNoticeService.self, used: ModuleNoticeServiceImpl.self)
-        Module.register(service: ModuleApplicationService.self, used: Module.configService.applicationService)
+        Module.register(service: ModuleApplicationService.self, used: ModuleApplicationServiceImpl.self)
         
         // register more services
         loadAllMethods(from: Module.RegisterService.self)
