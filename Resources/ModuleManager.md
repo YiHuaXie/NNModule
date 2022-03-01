@@ -206,7 +206,7 @@ ModuleManager 中声明了`Module.RegisterService`和`Module.AModule`这两个�
 通过面向协议的服务注册方案是整个ModuleManager的核心思路，它通过服务注册的方式来实现远程接口调用的。业务模块提供自己对外服务的协议声明到中间层（这个中间层指的是所有业务模块均需要依赖的某个公共模块），调用方可以通过查看中间层定义的接口来进行具体的调用。
 
 如下图：
-<img src="https://neroblog.oss-cn-hangzhou.aliyuncs.com/modulemanager_module_services.jpg" width = "399" height = "457.8" alt="ModuleSerivces中定义的服务" />
+![ModuleSerivces中定义的服务](https://neroblog.oss-cn-hangzhou.aliyuncs.com/nn_module_services.jpg)
 
 示例代码如下：
 
@@ -220,7 +220,7 @@ let loginImpl = Module.service(of: LoginService.self)
 
 ### 基于URL的路由方案
 
-使用路由进行跳转是最常见的页面解耦方式，关于路由的具体的使用方式可以查看[NNModule/URLRouter](https://github.com/YiHuaXie/NNBox/blob/main/Resources/URLRouter.md)。
+使用路由进行跳转是最常见的页面解耦方式，关于路由的具体的使用方式可以查看[NNModule/URLRouter](./URLRouter.md)。
 
 示例代码如下：
 
