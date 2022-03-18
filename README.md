@@ -78,9 +78,9 @@ extension Module.Awake {
             return true
         }
         
-        Module.routeService.registerRoute("A3Page") { url, navigtor in
+        Module.routeService.registerRoute("A3Page") { url, navigator in
             let vc = A3ViewController()
-            navigtor.present(vc, wrap: UINavigationController.self)
+            navigator.present(vc, wrap: UINavigationController.self)
             return true
         }
     }

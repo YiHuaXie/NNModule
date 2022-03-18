@@ -7,7 +7,7 @@
 
 import Foundation
 
-public typealias HandleRouteFactory = (_ url: RouteURL, _ navigtor: NavigatorType) -> Bool
+public typealias HandleRouteFactory = (_ url: RouteURL, _ navigator: NavigatorType) -> Bool
 
 // MARK: - RouteManagement
 
@@ -84,8 +84,8 @@ public class URLRouter: URLRouterType {
         }
         
         let newRoute = "\(routeUrl.scheme)://\(routeUrl.host)"
-        registerRoute(newRoute) { [weak combiner] url, navigtor in
-            combiner?.handleRoute(with: url, navigator: navigtor) ?? false
+        registerRoute(newRoute) { [weak combiner] url, navigator in
+            combiner?.handleRoute(with: url, navigator: navigator) ?? false
         }
     }
     
