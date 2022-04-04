@@ -58,7 +58,9 @@ public class URLRouter: URLRouterType {
     
     private var handleRouteFactories = [String: HandleRouteFactory]()
     
-    public var lazyRegister: ((_ router: URLRouterType) -> Void)? = nil
+    public var lazyRegister: (URLRouterType) -> Void = { _ in }
+    
+    private var didLoadLazyRegister = false
     
     public required init() {}
     
@@ -91,6 +93,11 @@ public class URLRouter: URLRouterType {
     
     @discardableResult
     public func openRoute(_ route: URLRouteConvertible, parameters: [String: Any]) -> Bool {
+        if !didLoadLazyRegister {
+            lazyRegister(self)
+            didLoadLazyRegister = true
+        }
+        
         guard let routeUrl = routeParser.routeUrl(from: route, params: parameters) else {
             log("route for (\(route)) is invalid")
             return false
@@ -146,31 +153,8 @@ public class URLRouter: URLRouterType {
 extension URLRouter: URLRouteCombine {
     
     public func handleRoute(with routeUrl: RouteURL, navigator: NavigatorType) -> Bool {
-        // Use URLRouter as a sub-router and `lazyRegister` for lazy routing
-        DispatchQueue.once { self.lazyRegister?(self) }
         let originalData = routeUrl.originalData
         return openRoute(originalData.route, parameters: originalData.params)
-    }
-}
-
-extension DispatchQueue {
-    
-    fileprivate static var _onceTracker = [String]()
-    
-    class func once(_ file: String = #file, function: String = #function, line: Int = #line, block: ()-> Void) {
-        let token = file + ":" + function + ":" + String(line)
-        once(token: token, block: block)
-    }
-
-    public class func once(token: String, block: ()-> Void) {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-        
-        if _onceTracker.contains(token) { return }
-        
-        _onceTracker.append(token)
-        
-        block()
     }
 }
 
