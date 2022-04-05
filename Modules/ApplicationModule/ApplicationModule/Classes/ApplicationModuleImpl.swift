@@ -37,11 +37,11 @@ class ApplicationModuleImpl: NSObject, ModuleApplicationService {
     required override init() {
         super.init()
         
-        [LoginNotice.didLoginSuccess, LoginNotice.didLogoutSuccess]
-        .map { Notification.Name($0.rawValue) }
+        [LoginNotification.didLoginSuccess, LoginNotification.didLogoutSuccess]
         .forEach {
-            Module.noticeService.observe(name: $0) { [weak self] _ in self?.reloadMainViewController() }
-            .disposed(by: self)
+            Module.notificationeService
+                .observe(name: $0.rawValue) { [weak self] _ in self?.reloadMainViewController() }
+                .disposed(by: self)
         }
     }
     

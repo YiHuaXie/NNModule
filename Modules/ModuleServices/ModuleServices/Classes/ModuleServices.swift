@@ -22,7 +22,7 @@ public protocol LoginService: ModuleFunctionalService {
 }
 
 /// The notification of LoginModule
-public enum LoginNotice: String {
+public enum LoginNotification: String {
     
     case didLoginSuccess
     

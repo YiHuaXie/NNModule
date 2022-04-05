@@ -11,6 +11,7 @@ import Foundation
 /// This service is used to implement the functions which in `UIApplicationDelegate`.
 public protocol ModuleApplicationService: ModuleFunctionalService, UIApplicationDelegate {
     
+    /// Reload the main view controller
     func reloadMainViewController()
     
     func application(

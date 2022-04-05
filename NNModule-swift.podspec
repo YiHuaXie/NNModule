@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'NNModule-swift'
-  s.version          = '1.0.0'
+  s.version          = '1.0.1'
   s.summary          = 'a module decoupling tool under Swift project'
   s.homepage         = 'https://github.com/YiHuaXie/NNModule'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
@@ -19,12 +19,17 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '10.0'
   s.swift_version = '5.0'
 
-  s.source_files = 'NNModule/Classes/**/*'
+  s.source_files = 'NNModule/**/*'
   
   # URLRouter
   s.subspec 'URLRouter' do |ss|
-    ss.source_files = 'NNModule/Classes/URLRouter/*'
+    ss.source_files = 'NNModule/URLRouter/*'
   end
+  
+#  # EventBus
+#  s.subspec 'EventBus' do |ss|
+#    ss.source_files = 'NNModule/EventBus/*'
+#  end
 
   # s.resource_bundles = {
   #   'NNModule' => ['NNModule/Assets/*.png']

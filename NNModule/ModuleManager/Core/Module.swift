@@ -27,6 +27,10 @@ public final class Module {
         serviceCenter.service(of: ModuleApplicationService.self)
     }
     
+//    public static var eventBusSerivce: ModuleEventBusService {
+//        serviceCenter.service(of: ModuleEventBusService.self)
+//    }
+    
     public static var tabService: ModuleTabService {
         serviceCenter.service(of: ModuleTabService.self)
     }
@@ -35,8 +39,8 @@ public final class Module {
         serviceCenter.service(of: ModuleLaunchTaskService.self)
     }
     
-    public static var noticeService: ModuleNoticeService {
-        serviceCenter.service(of: ModuleNoticeService.self)
+    public static var notificationeService: ModuleNotificationService {
+        serviceCenter.service(of: ModuleNotificationService.self)
     }
     
     public static var topViewController: UIViewController? {

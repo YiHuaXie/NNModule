@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 ### 使用路由
 
-`ModuleRouteService`提供了路由功能，具体定义可以查看[ModuleRouteService](./NNModule/Classes/ModuleManager/Services/ModuleRouteService.swift)。
+`ModuleRouteService`提供了路由功能，具体定义可以查看[ModuleRouteService](./NNModule/ModuleManager/Services/ModuleRouteService.swift)。
 `ModuleRouteService`的Impl类是内部的 URLRouter，路由完整的使用方式可以查看[URLRouter](./Resources/URLRouter.md)。
 
 #### 注册路由
@@ -95,7 +95,7 @@ Module.routeService.openRoute("A2Page", parameters: ["model": self])
 
 ### 使用TabBar
 
-`ModuleTabService`用于获取项目中TabBar相关的功能，具体定义可以查看[ModuleTabService](./NNModule/Classes/ModuleManager/Services/ModuleTabService.swift)。
+`ModuleTabService`用于获取项目中TabBar相关的功能，具体定义可以查看[ModuleTabService](./NNModule/ModuleManager/Services/ModuleTabService.swift)。
 
 #### 指定TabBarController的类型
 
@@ -113,7 +113,7 @@ extension Module.Awake {
 
 #### 注册TabBarItem
 
-`RegisterTabItemService`提供为`ModuleTabService`注册tabBarItem的功能，具体定义可以查看[RegisterTabItemService](./NNModule/Classes/ModuleManager/Services/ModuleTabService.swift)。
+`RegisterTabItemService`提供为`ModuleTabService`注册tabBarItem的功能，具体定义可以查看[RegisterTabItemService](./NNModule/ModuleManager/Services/ModuleTabService.swift)。
 
 注册 tabBar item 示例代码如下：
 
@@ -161,12 +161,12 @@ class AModuleImpl: NSObject, RegisterTabItemService {
 
 ### 其他功能类服务
 
-除了上面提到的基础服务外还有`ModuleNoticeService`（通知）和`ModuleLaunchTaskService`(启动任务)，用法和上面类似这里就不一一介绍了。
+除了上面提到的基础服务外还有`ModuleNotificationService`（通知）和`ModuleLaunchTaskService`(启动任务)，用法和上面类似这里就不一一介绍了。
 
 其他可以查看
 
-+ [ModuleNoticeService](./NNModule/Classes/ModuleManager/Services/ModuleNoticeService.swift)
-+ [ModuleLaunchTaskService](./NNModule/Classes/ModuleManager/Services/ModuleLaunchTaskService.swift)
++ [ModuleNotificationService](./NNModule/ModuleManager/Services/ModuleNotificationService.swift)
++ [ModuleLaunchTaskService](./NNModule/ModuleManager/Services/ModuleLaunchTaskService.swift)
 
 
 ### 创建自定义的服务
@@ -188,7 +188,7 @@ public protocol LoginService: ModuleFunctionalService {
 }
 
 /// The notification of LoginModule
-public enum LoginNotice: String {
+public enum LoginNotification: String {
     
     case didLoginSuccess
     
@@ -226,8 +226,8 @@ internal final class LoginManager: LoginService {
     
     func updateLoginStatus(with login: Bool) {
         isLogin = login
-        let notice: LoginNotice = login ? .didLoginSuccess : .didLogoutSuccess
-        Module.noticeService.post(name: Notification.Name(notice.rawValue))
+        let notification: LoginNotification = login ? .didLoginSuccess : .didLogoutSuccess
+        Module.notificationeService.post(name: notification.rawValue)
     }
 }
 ```

@@ -21,7 +21,7 @@ public final class ModuleManager {
         Module.register(service: ModuleRouteService.self, used: URLRouter.self)
         Module.register(service: ModuleTabService.self, used: ModuleTabServiceImpl.self)
         Module.register(service: ModuleLaunchTaskService.self, used: ModuleLaunchTaskServiceImpl.self)
-        Module.register(service: ModuleNoticeService.self, used: ModuleNoticeServiceImpl.self)
+        Module.register(service: ModuleNotificationService.self, used: ModuleNotificationServiceImpl.self)
         Module.register(service: ModuleApplicationService.self, used: ModuleApplicationServiceImpl.self)
         
         // register more services
