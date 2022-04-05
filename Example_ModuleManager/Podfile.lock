@@ -19,9 +19,12 @@ PODS:
     - NNModule-swift
   - ModuleServices (0.1.0):
     - NNModule-swift
-  - NNModule-swift (1.0.0):
-    - NNModule-swift/URLRouter (= 1.0.0)
-  - NNModule-swift/URLRouter (1.0.0)
+  - NNModule-swift (1.0.1):
+    - NNModule-swift/ModuleManager (= 1.0.1)
+    - NNModule-swift/URLRouter (= 1.0.1)
+  - NNModule-swift/ModuleManager (1.0.1):
+    - NNModule-swift/URLRouter
+  - NNModule-swift/URLRouter (1.0.1)
   - SnapKit (5.0.1)
   - TabBarController (0.1.0):
     - BaseModule
@@ -75,7 +78,7 @@ SPEC CHECKSUMS:
   ESTabBarController-swift: 05593a6ad64700b03c0eb60ff625916370aa4136
   LoginModule: 86c33a1cb88f5078eedb78c69e0c8b1bc54939c0
   ModuleServices: b442f888295644a399f6893365e56853f5584880
-  NNModule-swift: e0f0d9eb5cf4fdbc762fd812bab89c20b7b60781
+  NNModule-swift: b64c2c86a168d6b7e6eb8f1891f1553b010b0c49
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   TabBarController: 1022ae0cd42087e68fa1092da506a4ed9410b2e0
 

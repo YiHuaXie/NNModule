@@ -19,12 +19,18 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '10.0'
   s.swift_version = '5.0'
 
-  s.source_files = 'NNModule/**/*'
+  # ModuleManager
+  s.subspec 'ModuleManager' do |ss|
+    ss.source_files = 'NNModule/ModuleManager/**/*'
+    ss.dependency 'NNModule-swift/URLRouter'
+  end
   
   # URLRouter
   s.subspec 'URLRouter' do |ss|
     ss.source_files = 'NNModule/URLRouter/*'
   end
+  
+  
   
 #  # EventBus
 #  s.subspec 'EventBus' do |ss|
