@@ -18,7 +18,7 @@ NNModule-swift 提供的功能如下：
 
 ## 使用
 
-在使用 NNModule-swift 之前建议阅读[ModuleManager设计介绍](./Resources/ModuleManager.md)来理解服务解耦以及如何注册服务。另外提供了一个[Example App](../Example_ModuleManager/)来方便更好地理解。
+在使用 NNModule-swift 之前建议阅读[ModuleManager设计介绍](./Resources/ModuleManager.md)来理解服务解耦以及如何注册服务。另外提供了一个[Example App](./Example_ModuleManager/)来方便更好地理解。
 
 ### 主工程（壳工程）改造
 
@@ -326,7 +326,7 @@ pod 'NNModule-swift/URLRouter'
 
 ## Example
 
-这里提供了一个[Example App](../Example_ModuleManager/)来方便更好地理解。
+这里提供了一个[Example App](./Example_ModuleManager/)来方便更好地理解。
 
 1. 编译并安装Example App
 2. 运行`pod install`或者`pod update`
