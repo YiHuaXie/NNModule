@@ -34,6 +34,8 @@ class ApplicationModuleImpl: NSObject, ModuleApplicationService {
     
     static var implPriority: Int { 100 }
     
+    var window: UIWindow?
+    
     required override init() {
         super.init()
         
@@ -44,6 +46,16 @@ class ApplicationModuleImpl: NSObject, ModuleApplicationService {
                 .disposed(by: self)
         }
     }
+    
+//    func application(
+//        _ application: UIApplication,
+//        willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
+//    ) -> Bool {
+//        window = UIWindow(frame: UIScreen.main.bounds)
+//        window?.backgroundColor = .red
+//
+//        return true
+//    }
     
     func application(
         _ application: UIApplication,
@@ -80,10 +92,7 @@ class ApplicationModuleImpl: NSObject, ModuleApplicationService {
     func reloadMainViewController() {
         let loginImpl = Module.service(of: LoginService.self)
         let viewController: UIViewController = loginImpl.isLogin ? Module.tabService.tabBarController : loginImpl.loginMain
-        
-        if let delegate = UIApplication.shared.delegate, let window = delegate.window as? UIWindow {
-            window.rootViewController = viewController
-        }
+        window?.rootViewController = viewController
     }
 }
 

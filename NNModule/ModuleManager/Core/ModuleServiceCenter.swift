@@ -12,9 +12,9 @@ final class ModuleServiceCenter {
     
     static let shared = ModuleServiceCenter()
     
-    private var serviceImplClassMap: [ObjectIdentifier: ModuleFunctionalService.Type] = [:]
+    private var serviceTypeMap: [ObjectIdentifier: ModuleFunctionalService.Type] = [:]
     
-    private var implMap: [ObjectIdentifier: ModuleBasicService] = [:]
+    private var implInstanceMap: [ObjectIdentifier: ModuleBasicService] = [:]
 
     private init() {}
     
@@ -34,41 +34,41 @@ final class ModuleServiceCenter {
         }
         
         let key = ObjectIdentifier(serviceType)
-        guard let oldImplClass = serviceImplClassMap[key] else {
-            serviceImplClassMap[key] = newImplClass
+        guard let oldImplClass = serviceTypeMap[key] else {
+            serviceTypeMap[key] = newImplClass
             return
         }
         
         if oldImplClass.implPriority < newImplClass.implPriority {
-            serviceImplClassMap[key] = newImplClass
+            serviceTypeMap[key] = newImplClass
         }
     }
     
     /// Get the instance of the service.
     /// Since the instance is lazy loaded, so pay attention to whether there is a service mutual reference in the constructor.
     /// - Parameter serviceType: The type of serivce
-    func service<Service>(of serviceType: Service.Type) -> Service {
-        let key = ObjectIdentifier(serviceType)
-        let basicImpl = implMap[key]
-        if let impl = basicImpl as? Service { return impl }
-        
-        guard let implClass = serviceImplClassMap[key] else {
-            assertionFailure("the impl of \(serviceType) is nil, please register the service first")
-            return basicImpl as! Service
+    func service<Service>(of serviceType: Service.Type) -> Service? {
+        let serviceTypeKey = ObjectIdentifier(serviceType)
+        guard let implClass = serviceTypeMap[serviceTypeKey] else {
+            assertionFailure("the impl class of \(serviceType) is nil, please register it first")
+            return nil
         }
+    
+        let implKey = ObjectIdentifier(implClass)
+        if let impl = implInstanceMap[implKey] as? Service { return impl }
         
-        let impl = implClass.implInstance
-        implMap[key] = impl
-        
-        return impl as! Service
+        let newImpl = implClass.implInstance
+        implInstanceMap[implKey] = newImpl
+
+        return newImpl as? Service
     }
     
     /// Remove service
     /// - Parameter serviceType: The type of serivce
     func removeService<Service>(of serviceType: Service.Type) {
         let key = ObjectIdentifier(serviceType)
-        serviceImplClassMap.removeValue(forKey: key)
-        implMap.removeValue(forKey: key)
+        serviceTypeMap.removeValue(forKey: key)
+        implInstanceMap.removeValue(forKey: key)
     }
     
     /// Get the register impl instance of class
@@ -78,12 +78,14 @@ final class ModuleServiceCenter {
 
         let key = ObjectIdentifier(registerImplClass)
         let keepaliveRegiteredImpl = registerImplClass.keepaliveRegiteredImpl
-        if keepaliveRegiteredImpl, let impl = implMap[key] { return impl as? ModuleRegisteredService }
+        if keepaliveRegiteredImpl, let impl = implInstanceMap[key] {
+            return impl as? ModuleRegisteredService
+        }
         
         let newImpl = registerImplClass.implInstance
         // save impl of this class if it is possible
-        if keepaliveRegiteredImpl { implMap[key] = newImpl }
-
+        if keepaliveRegiteredImpl { implInstanceMap[key] = newImpl }
+        
         return newImpl
     }
 }

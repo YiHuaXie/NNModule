@@ -11,48 +11,26 @@ public final class Module {
     
     private init() {}
     
-    static var serviceCenter: ModuleServiceCenter {
-        ModuleServiceCenter.shared
-    }
+    static var serviceCenter: ModuleServiceCenter { ModuleServiceCenter.shared }
 
-//    public static var configService: ModuleConfigService {
-//        serviceCenter.service(of: ModuleConfigService.self)
-//    }
+    public static var routeService: ModuleRouteService { service(of: ModuleRouteService.self) }
     
-    public static var routeService: ModuleRouteService {
-        serviceCenter.service(of: ModuleRouteService.self)
-    }
+    public static var applicationService: ModuleApplicationService { service(of: ModuleApplicationService.self) }
     
-    public static var applicationService: ModuleApplicationService {
-        serviceCenter.service(of: ModuleApplicationService.self)
-    }
+    public static var tabService: ModuleTabService { service(of: ModuleTabService.self) }
     
-//    public static var eventBusSerivce: ModuleEventBusService {
-//        serviceCenter.service(of: ModuleEventBusService.self)
-//    }
+    public static var launchTaskService: ModuleLaunchTaskService { service(of: ModuleLaunchTaskService.self) }
     
-    public static var tabService: ModuleTabService {
-        serviceCenter.service(of: ModuleTabService.self)
-    }
+    public static var notificationeService: ModuleNotificationService { service(of: ModuleNotificationService.self) }
     
-    public static var launchTaskService: ModuleLaunchTaskService {
-        serviceCenter.service(of: ModuleLaunchTaskService.self)
-    }
-    
-    public static var notificationeService: ModuleNotificationService {
-        serviceCenter.service(of: ModuleNotificationService.self)
-    }
-    
-    public static var topViewController: UIViewController? {
-        Navigator.default.topViewController
-    }
+    public static var topViewController: UIViewController? { Navigator.default.topViewController }
     
     public static func register<Service>(service serviceType: Service.Type, used implClass: AnyClass) {
         serviceCenter.register(service: serviceType, used: implClass)
     }
     
     public static func service<Service>(of serviceType: Service.Type) -> Service {
-        serviceCenter.service(of: serviceType)
+        serviceCenter.service(of: serviceType)!
     }
     
     public static func removeService<Service>(of serviceType: Service.Type) {
@@ -62,7 +40,7 @@ public final class Module {
     public static func registerImpl(of implClass: AnyClass) -> ModuleRegisteredService? {
         serviceCenter.registerImpl(of: implClass)
     }
-    
+        
     public final class RegisterService {}
     
     public final class Awake {}

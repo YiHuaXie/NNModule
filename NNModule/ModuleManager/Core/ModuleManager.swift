@@ -52,19 +52,19 @@ public final class ModuleManager {
 private extension ModuleManager {
     
     func loadWindowIfNeed() {
-        guard UIApplication.shared.keyWindow != nil else { return }
+        guard UIApplication.shared.keyWindow == nil else { return }
         
+        // forcibly load the window
         let sel = NSSelectorFromString("setWindow:")
-        if let delegate = UIApplication.shared.delegate,
-           delegate.responds(to: sel),
-           delegate.window == nil {
-            // 强行装载window
-            var window = UIWindow(frame: UIScreen.main.bounds)
-            window.backgroundColor = .white
-            if let theWindow = (Module.applicationService.window as? UIWindow) { window = theWindow }
+        var window = UIWindow(frame: UIScreen.main.bounds)
+        window.backgroundColor = .white
+        if let win = Module.applicationService.window as? UIWindow { window = win }
+        Module.applicationService.perform(sel, with: window)
+        if let delegate = UIApplication.shared.delegate, delegate.responds(to: sel) {
             delegate.perform(sel, with: window)
-            window.makeKeyAndVisible()
         }
+        
+        window.makeKeyAndVisible()
     }
     
     func loadAllMethods(from aClass: AnyClass) {
