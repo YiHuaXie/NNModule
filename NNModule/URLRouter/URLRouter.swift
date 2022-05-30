@@ -9,7 +9,7 @@ import Foundation
 
 public typealias HandleRouteFactory = (_ url: RouteURL, _ navigator: NavigatorType) -> Bool
 
-// MARK: - RouteManagement
+// MARK: - URLRouterType
 
 public protocol URLRouterType: AnyObject {
     

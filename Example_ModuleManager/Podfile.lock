@@ -20,8 +20,10 @@ PODS:
   - ModuleServices (0.1.0):
     - NNModule-swift
   - NNModule-swift (1.0.1):
+    - NNModule-swift/Broadcast (= 1.0.1)
     - NNModule-swift/ModuleManager (= 1.0.1)
     - NNModule-swift/URLRouter (= 1.0.1)
+  - NNModule-swift/Broadcast (1.0.1)
   - NNModule-swift/ModuleManager (1.0.1):
     - NNModule-swift/URLRouter
   - NNModule-swift/URLRouter (1.0.1)
@@ -78,10 +80,10 @@ SPEC CHECKSUMS:
   ESTabBarController-swift: 05593a6ad64700b03c0eb60ff625916370aa4136
   LoginModule: 86c33a1cb88f5078eedb78c69e0c8b1bc54939c0
   ModuleServices: b442f888295644a399f6893365e56853f5584880
-  NNModule-swift: 3225a06739fc51678166cc9b6c664bf8069f97d9
+  NNModule-swift: bbaf4a1358cb59f65c13325699d84cee8c7005b8
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   TabBarController: 1022ae0cd42087e68fa1092da506a4ed9410b2e0
 
 PODFILE CHECKSUM: 43c6871c33dec9b8ddd17e98d81a332475f38863
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.11.3

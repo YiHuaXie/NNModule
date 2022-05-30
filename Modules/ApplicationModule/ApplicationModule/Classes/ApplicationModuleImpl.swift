@@ -39,8 +39,8 @@ class ApplicationModuleImpl: NSObject, ModuleApplicationService {
     required override init() {
         super.init()
         
-        [LoginNotification.didLoginSuccess, LoginNotification.didLogoutSuccess]
-        .forEach {
+        Module.service(of: LoginService.self).loginMulticast.registerTarget(self)
+        [LoginNotification.didLoginSuccess, LoginNotification.didLogoutSuccess].forEach {
             Module.notificationeService
                 .observe(name: $0.rawValue) { [weak self] _ in self?.reloadMainViewController() }
                 .disposed(by: self)
@@ -93,6 +93,17 @@ class ApplicationModuleImpl: NSObject, ModuleApplicationService {
         let loginImpl = Module.service(of: LoginService.self)
         let viewController: UIViewController = loginImpl.isLogin ? Module.tabService.tabBarController : loginImpl.loginMain
         window?.rootViewController = viewController
+    }
+}
+
+extension ApplicationModuleImpl: LoginEvent {
+    
+    func didLoginSuccess() {
+        debugPrint("\(self) \(#function)")
+    }
+    
+    func didLogoutSuccess() {
+        debugPrint("\(self) \(#function)")
     }
 }
 

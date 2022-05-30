@@ -1,0 +1,16 @@
+PODS:
+  - NNModule-swift/Broadcast (1.0.1)
+
+DEPENDENCIES:
+  - NNModule-swift/Broadcast (from `../`)
+
+EXTERNAL SOURCES:
+  NNModule-swift:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  NNModule-swift: bbaf4a1358cb59f65c13325699d84cee8c7005b8
+
+PODFILE CHECKSUM: a2626a9ce6cc58e46a7d142581e9d5462a2fd020
+
+COCOAPODS: 1.11.3

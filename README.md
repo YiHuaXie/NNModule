@@ -13,6 +13,7 @@ NNModule-swift 提供的功能如下：
 
 + 组件化管理器：[ModuleManager](./Resources/ModuleManager.md)
 + 路由：[URLRouter](./Resources/URLRouter.md)
++ 广播：[Broadcast](./Resources/Broadcast.md)
 
 ## 使用
 
@@ -159,10 +160,11 @@ class AModuleImpl: NSObject, RegisterTabItemService {
 
 ### 其他功能类服务
 
-除了上面提到的基础服务外还有`ModuleNotificationService`（通知）和`ModuleLaunchTaskService`(启动任务)，用法和上面类似这里就不一一介绍了。
+除了上面提到的基础服务外还有`ModuleNotificationService`（通知）、`ModuleBroadcastService`（[广播](./Resources/Broadcast.md)）、`ModuleLaunchTaskService`(启动任务)，用法和上面类似这里就不一一介绍了。
 
 其他可以查看
 
++ [ModuleBroadcastService](./NNModule/ModuleManager/Services/ModuleBroadcastService.swift)
 + [ModuleNotificationService](./NNModule/ModuleManager/Services/ModuleNotificationService.swift)
 + [ModuleLaunchTaskService](./NNModule/ModuleManager/Services/ModuleLaunchTaskService.swift)
 
@@ -320,14 +322,17 @@ NNModule-swift 支持对单个功能的单独引用
 pod 'NNModule-swift'
 # URLRouter安装
 pod 'NNModule-swift/URLRouter'
+# Broadcast安装
+pod 'NNModule-swift/Broadcast'
 ```
 
 ## Example
 
 这里提供了一个[Example App](./Example_ModuleManager/)来方便更好地理解。
 
-1. 编译并安装Example App
+1. 下载Example App
 2. 运行`pod install`或者`pod update`
+3. 编译并运行App
 
 ## 作者
 

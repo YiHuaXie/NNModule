@@ -153,17 +153,19 @@ let viewController: UIViewController? = Navigator.default.topViewController
 ## 安装
 
 ```ruby
-pod NNModule/URLRouter
+pod 'NNModule-swift/URLRouter'
 ```
 
 ## Example
 
 这里提供了一个[Example App](../Example_URLRouter/)，支持DeepLink。
 
-1. 编译并安装Example App
-2. 打开Safari
-3. 输入`nn://`即可打开Example App
+1. 下载Example App
+2. 运行`pod install`或者`pod update`
+3. 编译并运行App
+4. 打开Safari
+5. 输入`nn://`即可打开Example App
 
 ## 其他功能
 
-点击[这里](../README.md)可查看NNModule的其他功能。
+点击[这里](../README.md)可查看 NNModule-swift 的其他功能。

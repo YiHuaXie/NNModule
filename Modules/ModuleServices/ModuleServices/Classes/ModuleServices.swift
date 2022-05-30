@@ -10,6 +10,7 @@ public protocol HomeService: ModuleFunctionalService {
     var home: AnyObject { get }
 }
 
+
 // Login service
 public protocol LoginService: ModuleFunctionalService {
     
@@ -18,7 +19,10 @@ public protocol LoginService: ModuleFunctionalService {
     
     var isLogin: Bool { get }
     
+    var loginMulticast: Multicast<LoginEvent> { get }
+    
     func updateLoginStatus(with login: Bool)
+    
 }
 
 /// The notification of LoginModule
@@ -27,6 +31,13 @@ public enum LoginNotification: String {
     case didLoginSuccess
     
     case didLogoutSuccess
+}
+
+public protocol LoginEvent {
+    
+    func didLoginSuccess()
+    
+    func didLogoutSuccess()
 }
 
 // other functional services

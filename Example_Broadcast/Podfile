@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '10.0'
+
+target 'Example_Broadcast' do
+  pod 'NNModule-swift/Broadcast', :path => '../'
+  
+  target 'Example_BroadcastTests' do
+      inherit! :search_paths
+      pod 'NNModule-swift/Broadcast', :path => '../'
+      
+    end
+end

@@ -201,7 +201,7 @@ ModuleManager 中声明了`Module.RegisterService`和`Module.AModule`这两个�
 
 ## ModuleManager提供的解耦方式
 
-### 面向协议的服务注册
+### 1. 面向协议的服务注册
 
 通过面向协议的服务注册方案是整个ModuleManager的核心思路，它通过服务注册的方式来实现远程接口调用的。业务模块提供自己对外服务的协议声明到中间层（这个中间层指的是所有业务模块均需要依赖的某个公共模块），调用方可以通过查看中间层定义的接口来进行具体的调用。
 
@@ -218,9 +218,9 @@ Module.register(service: LoginService.self, used: LoginManager.self)
 let loginImpl = Module.service(of: LoginService.self)
 ```
 
-### 基于URL的路由方案
+### 2. 基于URL的路由方案
 
-使用路由进行跳转是最常见的页面解耦方式，关于路由的具体的使用方式可以查看[NNModule/URLRouter](./URLRouter.md)。
+使用路由进行跳转是最常见的页面解耦方式，关于路由的具体的使用方式可以查看[NNModule-swift/URLRouter](./URLRouter.md)。
 
 示例代码如下：
 
@@ -237,7 +237,23 @@ Module.routeService.register("A2Page") { url, navigator in
 Module.routeService.open("A2Page", parameters: ["model": self])
 ```
 
-### 基于NotificationCenter的通知方案
+### 3. 基于协议的远程接口调用
+
+基于协议的远程接口调用设计初衷是为了替代使用`performSelector`进行远程接口调用，`performSelector`函数除了自身语法比较有些隐晦以外，API只支持1对1的调用（虽然可以通过封装做到1对多的效果）。思前想后最终还是决定使用协议的方式进行远程接口调用。
+
+ModuleManager 提供了 Broadcast 和 Mulicast 类，均通过事先定义好的接口进行远程调用。Mulicast可以满足1对多的要求，Broadcast可以理解为是一个面向协议的通知中心。关于 Broadcast 和 Mulicast 的具体的使用方式可以查看[NNModule-swift/Broadcast](./Broadcast.md)。
+
+示例代码如下：
+
+```swift
+// 监听登录相关接口
+Module.broadcastService.register(LoginEvent.self, target: self)
+
+// 调用登录成功
+Module.broadcastService.send(LoginEvent.self) { $0.didLoginSuccess() }
+```
+
+### 4. 基于NotificationCenter的通知方案
 
 基于通知的模块间通讯方案，实现思路非常简单, 直接基于系统的 NSNotificationCenter 即可。 优势是实现简单，非常适合处理一对多的通讯场景。 劣势是仅适用于简单通讯场景。复杂数据传输，同步调用等方式都不太方便。模块化通讯方案中，更多的是把通知方案作为以上几种方案的补充。
 

@@ -17,14 +17,22 @@ internal final class LoginManager: LoginService {
     
     var isLogin: Bool = false
     
+    var loginMulticast = Multicast<LoginEvent>()
+    
     required init() {}
     
     var loginMain: UIViewController { LoginViewController() }
     
     func updateLoginStatus(with login: Bool) {
+        let impl = Module.service(of: LoginService.self)
         isLogin = login
-        let notification: LoginNotification = login ? .didLoginSuccess : .didLogoutSuccess
-        Module.notificationeService.post(name: notification.rawValue)
+        if isLogin {
+            Module.notificationeService.post(name: LoginNotification.didLoginSuccess.rawValue)
+            impl.loginMulticast.send { $0.didLoginSuccess() }
+        } else {
+            Module.notificationeService.post(name: LoginNotification.didLogoutSuccess.rawValue)
+            impl.loginMulticast.send { $0.didLogoutSuccess() }
+        }
     }
 }
 
