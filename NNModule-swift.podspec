@@ -23,6 +23,7 @@ Pod::Spec.new do |s|
   s.subspec 'ModuleManager' do |ss|
     ss.source_files = 'NNModule/ModuleManager/**/*'
     ss.dependency 'NNModule-swift/URLRouter'
+    ss.dependency 'NNModule-swift/Broadcast'
   end
   
   # URLRouter
