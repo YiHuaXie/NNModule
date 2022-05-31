@@ -241,16 +241,16 @@ Module.routeService.open("A2Page", parameters: ["model": self])
 
 基于协议的远程接口调用设计初衷是为了替代使用`performSelector`进行远程接口调用，`performSelector`函数除了自身语法比较有些隐晦以外，API只支持1对1的调用（虽然可以通过封装做到1对多的效果）。思前想后最终还是决定使用协议的方式进行远程接口调用。
 
-ModuleManager 提供了 Broadcast 和 Mulicast 类，均通过事先定义好的接口进行远程调用。Mulicast可以满足1对多的要求，Broadcast可以理解为是一个面向协议的通知中心。关于 Broadcast 和 Mulicast 的具体的使用方式可以查看[NNModule-swift/Broadcast](./Broadcast.md)。
+NNModule-swift 提供了 EventSet 和 EventBus 类，均通过事先定义好的接口进行远程调用。EventSet可以满足1对多的要求，EventBus可以理解为是一个面向协议的通知中心。关于 EventSet 和 EventBus 的具体的使用方式可以查看[NNModule-swift/EventTransfer](./EventTransfer.md)。
 
 示例代码如下：
 
 ```swift
 // 监听登录相关接口
-Module.broadcastService.register(LoginEvent.self, target: self)
+Module.eventBusService.register(LoginEvent.self, target: self)
 
 // 调用登录成功
-Module.broadcastService.send(LoginEvent.self) { $0.didLoginSuccess() }
+Module.eventBusService.send(LoginEvent.self) { $0.didLoginSuccess() }
 ```
 
 ### 4. 基于NotificationCenter的通知方案

@@ -1,13 +1,13 @@
 //
-//  Example_BroadcastUITests.swift
-//  Example_BroadcastUITests
+//  Example_EventTransferUITests.swift
+//  Example_EventTransferUITests
 //
 //  Created by NeroXie on 2021/8/16.
 //
 
 import XCTest
 
-class Example_BroadcastUITests: XCTestCase {
+class Example_EventTransferUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

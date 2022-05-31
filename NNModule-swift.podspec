@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
   s.subspec 'ModuleManager' do |ss|
     ss.source_files = 'NNModule/ModuleManager/**/*'
     ss.dependency 'NNModule-swift/URLRouter'
-    ss.dependency 'NNModule-swift/Broadcast'
+    ss.dependency 'NNModule-swift/EventTransfer'
   end
   
   # URLRouter
@@ -31,9 +31,9 @@ Pod::Spec.new do |s|
     ss.source_files = 'NNModule/URLRouter/*'
   end
 
-  # Broadcast
-  s.subspec 'Broadcast' do |ss|
-    ss.source_files = 'NNModule/Broadcast/*'
+  # EventTransfer
+  s.subspec 'EventTransfer' do |ss|
+    ss.source_files = 'NNModule/EventTransfer/*'
   end
 
   # s.resource_bundles = {

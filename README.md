@@ -13,7 +13,7 @@ NNModule-swift 提供的功能如下：
 
 + 组件化管理器：[ModuleManager](./Resources/ModuleManager.md)
 + 路由：[URLRouter](./Resources/URLRouter.md)
-+ 广播：[Broadcast](./Resources/Broadcast.md)
++ 事件传输：[EventTransfer](./Resources/EventTransfer.md)
 
 ## 使用
 
@@ -160,14 +160,13 @@ class AModuleImpl: NSObject, RegisterTabItemService {
 
 ### 其他功能类服务
 
-除了上面提到的基础服务外还有`ModuleNotificationService`（通知）、`ModuleBroadcastService`（[广播](./Resources/Broadcast.md)）、`ModuleLaunchTaskService`(启动任务)，用法和上面类似这里就不一一介绍了。
+除了上面提到的基础服务外还有`ModuleNotificationService`（通知）、`ModuleEventBusService`（[事件总线](./Resources/EventTransfer.md)）、`ModuleLaunchTaskService`(启动任务)，用法和上面类似这里就不一一介绍了。
 
 其他可以查看
 
-+ [ModuleBroadcastService](./NNModule/ModuleManager/Services/ModuleBroadcastService.swift)
++ [ModuleEventBusService](./NNModule/ModuleManager/Services/ModuleEventBusService.swift)
 + [ModuleNotificationService](./NNModule/ModuleManager/Services/ModuleNotificationService.swift)
 + [ModuleLaunchTaskService](./NNModule/ModuleManager/Services/ModuleLaunchTaskService.swift)
-
 
 ### 创建自定义的服务
 
@@ -322,8 +321,8 @@ NNModule-swift 支持对单个功能的单独引用
 pod 'NNModule-swift'
 # URLRouter安装
 pod 'NNModule-swift/URLRouter'
-# Broadcast安装
-pod 'NNModule-swift/Broadcast'
+# EventTransfer安装
+pod 'NNModule-swift/EventTransfer'
 ```
 
 ## Example

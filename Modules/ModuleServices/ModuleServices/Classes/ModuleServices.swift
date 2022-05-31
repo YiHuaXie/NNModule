@@ -19,7 +19,7 @@ public protocol LoginService: ModuleFunctionalService {
     
     var isLogin: Bool { get }
     
-    var loginMulticast: Multicast<LoginEvent> { get }
+    var eventSet: EventSet<LoginEvent> { get }
     
     func updateLoginStatus(with login: Bool)
     

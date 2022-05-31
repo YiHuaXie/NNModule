@@ -21,7 +21,7 @@ public final class Module {
     
     public static var launchTaskService: ModuleLaunchTaskService { service(of: ModuleLaunchTaskService.self) }
     
-    public static var broadcastService: ModuleBroadcastService { service(of: ModuleBroadcastService.self) }
+    public static var eventBusService: ModuleEventBusService { service(of: ModuleEventBusService.self) }
     
     public static var notificationeService: ModuleNotificationService { service(of: ModuleNotificationService.self) }
     

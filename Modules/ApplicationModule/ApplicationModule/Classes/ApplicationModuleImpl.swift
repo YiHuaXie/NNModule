@@ -39,7 +39,7 @@ class ApplicationModuleImpl: NSObject, ModuleApplicationService {
     required override init() {
         super.init()
         
-        Module.service(of: LoginService.self).loginMulticast.registerTarget(self)
+        Module.service(of: LoginService.self).eventSet.registerTarget(self)
         [LoginNotification.didLoginSuccess, LoginNotification.didLogoutSuccess].forEach {
             Module.notificationeService
                 .observe(name: $0.rawValue) { [weak self] _ in self?.reloadMainViewController() }

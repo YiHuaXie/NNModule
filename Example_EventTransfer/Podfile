@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '10.0'
+
+target 'Example_EventTransfer' do
+  pod 'NNModule-swift/EventTransfer', :path => '../'
+    
+    target 'Example_EventTransferTests' do
+        inherit! :search_paths
+        pod 'NNModule-swift/EventTransfer', :path => '../'
+        
+      end
+end

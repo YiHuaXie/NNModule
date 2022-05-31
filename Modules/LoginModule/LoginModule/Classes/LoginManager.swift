@@ -17,7 +17,7 @@ internal final class LoginManager: LoginService {
     
     var isLogin: Bool = false
     
-    var loginMulticast = Multicast<LoginEvent>()
+    var eventSet = EventSet<LoginEvent>()
     
     required init() {}
     
@@ -28,10 +28,10 @@ internal final class LoginManager: LoginService {
         isLogin = login
         if isLogin {
             Module.notificationeService.post(name: LoginNotification.didLoginSuccess.rawValue)
-            impl.loginMulticast.send { $0.didLoginSuccess() }
+            impl.eventSet.send { $0.didLoginSuccess() }
         } else {
             Module.notificationeService.post(name: LoginNotification.didLogoutSuccess.rawValue)
-            impl.loginMulticast.send { $0.didLogoutSuccess() }
+            impl.eventSet.send { $0.didLogoutSuccess() }
         }
     }
 }

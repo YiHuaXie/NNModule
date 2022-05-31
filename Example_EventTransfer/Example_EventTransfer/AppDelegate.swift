@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Example_Broadcast
+//  Example_EventTransfer
 //
 //  Created by NeroXie on 2021/8/16.
 //
