@@ -15,26 +15,34 @@ extension Module.Awake {
     
     @objc static func aModuleAwake() {
         Module.tabService.addRegister(AModuleImpl.self)
-        
         Module.launchTaskService.addRegister(HomeManager.self)
-        
-        Module.routeService.registerRoute("A2Page") { url, navigator in
-            print(url.parameters)
-            navigator.push(A2ViewController())
-            
-            return true
-        }
-        
-        Module.routeService.registerRoute("A3Page") { url, navigator in
-            let vc = A3ViewController()
-            navigator.present(vc, wrap: UINavigationController.self)
-            return true
-        }
+        Module.routeService.registerRoute("amodule", combiner: AModuleImpl.router)
     }
 }
 
 class AModuleImpl: NSObject, RegisterTabItemService {
 
+    fileprivate static var router: URLRouter {
+        let router = URLRouter()
+        router.routeParser.defaultScheme = Module.routeService.routeParser.defaultScheme
+        router.lazyRegister = {
+            $0.registerRoute("amodule/a2") { url, navigator in
+                print(url.parameters)
+                navigator.push(A2ViewController())
+                
+                return true
+            }
+            
+            $0.registerRoute("amodule/a3") { url, navigator in
+                let vc = A3ViewController()
+                navigator.present(vc, wrap: UINavigationController.self)
+                return true
+            }
+        }
+        
+        return router
+    }
+    
     override required init() {
         super.init()
     }
@@ -42,7 +50,7 @@ class AModuleImpl: NSObject, RegisterTabItemService {
     func setupTabBarController(_ tabBarController: UITabBarController) {
         if let tabBarController = tabBarController as? TabBarController {
             tabBarController.shouldHijackHandler = { _ ,_ , index in index == 1 }
-            tabBarController.didHijackHandler = { _, _, _ in Module.routeService.openRoute("A3Page") }
+            tabBarController.didHijackHandler = { _, _, _ in Module.routeService.openRoute("amodule/a3") }
         }
     }
     

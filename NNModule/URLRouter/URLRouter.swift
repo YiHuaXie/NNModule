@@ -79,16 +79,14 @@ public class URLRouter: URLRouterType {
         handleRouteFactories[key] = handleRouteFactory
     }
     
-    public func registerRoute(_ route: URLRouteConvertible, combiner: URLRouteCombine) {
+    public func registerRoute(_ route: URLRouteConvertible, combiner: URLRouteCombine) {        
         guard let routeUrl = routeParser.routeUrl(from: route) else {
             log("route for (\(route)) is invalid")
             return
         }
         
         let newRoute = "\(routeUrl.scheme)://\(routeUrl.host)"
-        registerRoute(newRoute) { [weak combiner] url, navigator in
-            combiner?.handleRoute(with: url, navigator: navigator) ?? false
-        }
+        registerRoute(newRoute) { combiner.handleRoute(with: $0, navigator: $1) }
     }
     
     @discardableResult

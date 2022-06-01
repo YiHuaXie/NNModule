@@ -35,7 +35,7 @@ class A1ViewController: UIViewController {
     }
     
     @objc private func didButtonPressed() {
-        Module.routeService.openRoute("A2Page", parameters: ["model": self])
+        Module.routeService.openRoute("amodule/a2", parameters: ["model": self])
     }
     
     @objc private func exitApp() {

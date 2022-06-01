@@ -9,18 +9,13 @@ import Foundation
 import NNModule_swift
 import SafariServices
 
-class RouteUtils{
-    
-    let subRouter = URLRouter()
-    
-    let webCombiner = WebCombiner()
+class RouteUtils {
 
     init() {}
     
     func registerRoutes() {
         let router = URLRouter.default
         router.routeParser.defaultScheme = "nn"
-        subRouter.routeParser.defaultScheme = router.routeParser.defaultScheme
         
         // 无效路由
         router.registerRoute("") { _, _ in true }
@@ -43,11 +38,13 @@ class RouteUtils{
             return true
         }
         
+        let webCombiner = WebCombiner()
         router.registerRoute("https://nero.com", combiner: webCombiner)
         router.registerRoute("https://nero.com", combiner: webCombiner)
         
         // register native
-        router.registerRoute("module", combiner: subRouter)
+        let subRouter = URLRouter()
+        subRouter.routeParser.defaultScheme = router.routeParser.defaultScheme
         subRouter.lazyRegister = {
             debugPrint("lazy load")
             
@@ -68,6 +65,7 @@ class RouteUtils{
                 return true
             }
         }
+        router.registerRoute("module", combiner: subRouter)
 
         // new scheme
         router.registerRoute("nero://aaa/sss/c") { url, navigator in
@@ -79,9 +77,7 @@ class RouteUtils{
     
 }
 
-class WebCombiner: URLRouteCombine {
-    
-    init() {}
+struct WebCombiner: URLRouteCombine {
     
     func handleRoute(with routeUrl: RouteURL, navigator: NavigatorType) -> Bool {
         switch routeUrl.path {

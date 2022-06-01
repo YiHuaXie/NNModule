@@ -27,7 +27,7 @@ public struct RouteURL {
 }
 
 /// A protocol used to convert URL or String to RouteURL.
-public protocol URLRouteParserType: AnyObject {
+public protocol URLRouteParserType {
     
     /// Default URL scheme.
     /// If the url string does not contain a scheme, the default scheme will be used.
@@ -53,11 +53,13 @@ public extension URLRouteParserType {
     }
 }
 
-public class URLRouteParser: URLRouteParserType {
+public struct URLRouteParser: URLRouteParserType {
     
-    public var defaultScheme: String = "nn"
+    public var defaultScheme: String
     
-    public required init() {}
+    public init(defaultScheme: String = "nn") {
+        self.defaultScheme = defaultScheme
+    }
     
     public func url(from route: URLRouteConvertible) -> URL? {
         let urlString = route.routeString

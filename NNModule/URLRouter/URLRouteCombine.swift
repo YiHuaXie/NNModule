@@ -8,7 +8,7 @@
 import Foundation
 
 /// Provides a combiner that can handle multiple routes
-public protocol URLRouteCombine: AnyObject {
+public protocol URLRouteCombine {
     
     func handleRoute(with routeUrl: RouteURL, navigator: NavigatorType) -> Bool
 }

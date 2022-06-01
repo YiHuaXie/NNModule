@@ -7,6 +7,8 @@ extension Module.RegisterService {
     
     @objc static func applicationModule() {
         Module.register(service: ModuleApplicationService.self, used: ApplicationModuleImpl.self)
+        // Ensure the consistency of default scheme
+        Module.routeService.routeParser.defaultScheme = "app"
     }
 }
 
@@ -18,7 +20,6 @@ extension Module.Awake {
             Module.tabService.tabBarControllerType = tabBarType
         }
         
-        Module.routeService.update(defaultScheme: "app")
         Module.routeService.registerRoute(Module.routeService.webLink) { url, navigator in
             guard let string = url.parameters["url"] as? String, let url = URL(string: string) else {
                 return false
@@ -79,7 +80,7 @@ class ApplicationModuleImpl: NSObject, ModuleApplicationService {
         _ app: UIApplication,
         open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]
     ) -> Bool {
-        if let scheme = url.scheme?.lowercased(), scheme == Module.routeService.defaultScheme  {
+        if let scheme = url.scheme?.lowercased(), scheme == Module.routeService.routeParser.defaultScheme  {
             var newOptions = [String: Any]()
             options.forEach { newOptions[$0.rawValue] = $1 }
             
