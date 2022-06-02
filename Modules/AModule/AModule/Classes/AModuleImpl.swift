@@ -24,6 +24,7 @@ class AModuleImpl: NSObject, RegisterTabItemService {
 
     fileprivate static var router: URLRouter {
         let router = URLRouter()
+        debugPrint("default scheme: \(Module.routeService.routeParser.defaultScheme)")
         router.routeParser.defaultScheme = Module.routeService.routeParser.defaultScheme
         router.lazyRegister = {
             $0.registerRoute("amodule/a2") { url, navigator in

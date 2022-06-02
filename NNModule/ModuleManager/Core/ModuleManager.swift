@@ -33,12 +33,14 @@ public final class ModuleManager {
         _ application: UIApplication,
         willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]?
     ) -> Bool {
+        // load application service early
+        let applicationImpl = Module.applicationService
         // wake up all modules to register
         loadAllMethods(from: Module.Awake.self)
         // execute launch task
         Module.launchTaskService.execute()
         
-        return Module.applicationService.application?(application, willFinishLaunchingWithOptions: launchOptions) ?? true
+        return applicationImpl.application?(application, willFinishLaunchingWithOptions: launchOptions) ?? true
     }
     
     public func application(

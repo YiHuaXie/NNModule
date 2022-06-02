@@ -7,27 +7,6 @@ extension Module.RegisterService {
     
     @objc static func applicationModule() {
         Module.register(service: ModuleApplicationService.self, used: ApplicationModuleImpl.self)
-        // Ensure the consistency of default scheme
-        Module.routeService.routeParser.defaultScheme = "app"
-    }
-}
-
-extension Module.Awake {
-    
-    @objc static func applicationModule() {
-        if let cls = NSClassFromString("TabBarController.TabBarController"),
-           let tabBarType = cls as? UITabBarController.Type {
-            Module.tabService.tabBarControllerType = tabBarType
-        }
-        
-        Module.routeService.registerRoute(Module.routeService.webLink) { url, navigator in
-            guard let string = url.parameters["url"] as? String, let url = URL(string: string) else {
-                return false
-            }
-            
-            navigator.push(SFSafariViewController(url: url))
-            return true
-        }
     }
 }
 
@@ -39,12 +18,29 @@ class ApplicationModuleImpl: NSObject, ModuleApplicationService {
     
     required override init() {
         super.init()
+  
+        if let cls = NSClassFromString("TabBarController.TabBarController"),
+           let tabBarType = cls as? UITabBarController.Type {
+            Module.tabService.tabBarControllerType = tabBarType
+        }
+        
+        let routeImpl = Module.routeService
+        routeImpl.routeParser.defaultScheme = "app"
+        routeImpl.registerRoute(routeImpl.webLink) { url, navigator in
+            guard let string = url.parameters["url"] as? String, let url = URL(string: string) else {
+                return false
+            }
+            
+            navigator.push(SFSafariViewController(url: url))
+            return true
+        }
         
         Module.service(of: LoginService.self).eventSet.registerTarget(self)
-        [LoginNotification.didLoginSuccess, LoginNotification.didLogoutSuccess].forEach {
-            Module.notificationeService
-                .observe(name: $0.rawValue) { [weak self] _ in self?.reloadMainViewController() }
-                .disposed(by: self)
+        
+        let notifications: [LoginNotification] = [.didLoginSuccess, .didLogoutSuccess]
+        let notificationImpl = Module.notificationeService
+        notifications.forEach {
+            notificationImpl.observe(name: $0.rawValue) { [weak self] _ in self?.reloadMainViewController() }.disposed(by: self)
         }
     }
     
@@ -94,7 +90,7 @@ class ApplicationModuleImpl: NSObject, ModuleApplicationService {
         let loginImpl = Module.service(of: LoginService.self)
         let viewController: UIViewController = loginImpl.isLogin ? Module.tabService.tabBarController : loginImpl.loginMain
         window?.rootViewController = viewController
-    }
+    }    
 }
 
 extension ApplicationModuleImpl: LoginEvent {
