@@ -8,19 +8,10 @@
 import Foundation
 
 /// Services used to provide routing
-public protocol ModuleRouteService: ModuleFunctionalService, URLRouterType {}
-
-//extension ModuleRouteService {
-//
-//    /// Returns the default scheme of Router
-//    public var defaultScheme: String { routeParser.defaultScheme }
-//
-//    /// Update defaultScheme
-//    /// - Parameter defaultScheme: default scheme
-//    public func update(defaultScheme: String) {
-//        routeParser.defaultScheme = defaultScheme
-//    }
-//}
+public protocol ModuleRouteService: ModuleFunctionalService, URLRouterType {
+    
+    func addLazyRegister(_ register: @escaping (URLRouterType) -> Void)
+}
 
 extension URLRouter: ModuleRouteService {
         

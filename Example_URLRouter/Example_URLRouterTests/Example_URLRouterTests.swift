@@ -20,13 +20,7 @@ class Example_URLRouterTests: XCTestCase {
     }
 
     func testExample() throws {
-        let routeHandler: HandleRouteFactory = { url, _ in
-            debugPrint(url)
-            return true
-        }
         
-        URLRouter.default.register("", routeHandler)
-        URLRouter.default.open("")
     }
 
     func testPerformanceExample() throws {

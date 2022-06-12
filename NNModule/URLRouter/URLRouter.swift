@@ -7,6 +7,8 @@
 
 import Foundation
 
+fileprivate var globalRedirectRoutesMap: [String: String] = [:]
+
 public typealias HandleRouteFactory = (_ url: RouteURL, _ navigator: NavigatorType) -> Bool
 
 // MARK: - URLRouterType
@@ -20,7 +22,7 @@ public protocol URLRouterType: AnyObject {
     /// - Parameters:
     ///   - route: The route name
     ///   - handleRouteFactory: The route handler
-    func registerRoute(_ route: URLRouteConvertible, _ handleRouteFactory: @escaping HandleRouteFactory)
+    func registerRoute(_ route: URLRouteConvertible, handleRouteFactory: @escaping HandleRouteFactory)
     
     /// Registers an URL
     /// - Parameters:
@@ -39,66 +41,82 @@ public protocol URLRouterType: AnyObject {
 
 public extension URLRouterType {
     
+    /// The default route to handle the URL has http or https
+    var webLink: URLRouteConvertible { "weblink" }
+    
+    /// redirect routes
+    var redirectRoutesMap: [String: String] { globalRedirectRoutesMap }
+    
+    /// update global redirect routes
+    /// - Parameter map: original redirect routes
+    func updateRedirectRoutes(_ map: [String: String]) {
+        globalRedirectRoutesMap = [:]
+        map.forEach {
+            if let routeUrl = routeParser.routeUrl(from: $0) {
+                globalRedirectRoutesMap[routeUrl.identifier] = $1
+            }
+        }
+    }
+    
     @discardableResult
     func openRoute(_ route: URLRouteConvertible, parameters: [String: Any] = [:]) -> Bool {
         openRoute(route, parameters: parameters)
     }
-    
-    /// The default route to handle the URL has http or https
-    var webLink: URLRouteConvertible { "weblink" }
 }
 
 // MARK: - Router
 
 public class URLRouter: URLRouterType {
     
+    private typealias RouteRedirectData = RouteOriginalData
+    
+    private var handleRouteFactories = [String: HandleRouteFactory]()
+    
+    private var lazyRegisters: [(URLRouterType) -> Void] = []
+    
     public static let `default` = URLRouter()
     
     public var routeParser: URLRouteParserType = URLRouteParser()
     
-    private var handleRouteFactories = [String: HandleRouteFactory]()
-    
-    public var lazyRegister: (URLRouterType) -> Void = { _ in }
-    
-    private var didLoadLazyRegister = false
-    
     public required init() {}
     
-    public func registerRoute(_ route: URLRouteConvertible, _ handleRouteFactory: @escaping HandleRouteFactory) {
+    public func registerRoute(_ route: URLRouteConvertible, handleRouteFactory: @escaping HandleRouteFactory) {
         guard let routeUrl = routeParser.routeUrl(from: route) else {
-            log("route for (\(route)) is invalid")
+            URLRouterLog("route for (\(route)) is invalid")
             return
         }
         
-        let key = handleRouteFactoryKey(from: routeUrl)
+        let key = routeUrl.identifier
         if handleRouteFactories[key] != nil {
-            log("route for (\(route)) already exist")
+            URLRouterLog("route for (\(route)) already exist")
             return
         }
         
         handleRouteFactories[key] = handleRouteFactory
     }
     
-    public func registerRoute(_ route: URLRouteConvertible, combiner: URLRouteCombine) {        
+    public func registerRoute(_ route: URLRouteConvertible, combiner: URLRouteCombine) {
         guard let routeUrl = routeParser.routeUrl(from: route) else {
-            log("route for (\(route)) is invalid")
+            URLRouterLog("route for (\(route)) is invalid")
             return
         }
         
-        let newRoute = "\(routeUrl.scheme)://\(routeUrl.host)"
-        registerRoute(newRoute) { combiner.handleRoute(with: $0, navigator: $1) }
+        registerRoute(routeUrl.combinedRoute) {
+            combiner.handleRoute(with: $0, navigator: $1)
+        }
     }
     
     @discardableResult
     public func openRoute(_ route: URLRouteConvertible, parameters: [String: Any]) -> Bool {
-        if !didLoadLazyRegister {
-            lazyRegister(self)
-            didLoadLazyRegister = true
+        loadLazyRegistersIfNeed()
+        guard let routeUrl = routeParser.routeUrl(from: route, params: parameters) else {
+            URLRouterLog("route for (\(route)) is invalid")
+            return false
         }
         
-        guard let routeUrl = routeParser.routeUrl(from: route, params: parameters) else {
-            log("route for (\(route)) is invalid")
-            return false
+        // fix redirect route
+        if let redirectRouteData = self.redirectRouteData(from: routeUrl)  {
+            return openRoute(redirectRouteData.route, parameters: redirectRouteData.params)
         }
         
         // handle web link
@@ -112,39 +130,48 @@ public class URLRouter: URLRouterType {
                 return webLinkHandler(routeUrl, Navigator.default)
             }
             
-            log("route for (\(route)) is web link, please register handler for web links")
+            URLRouterLog("route for (\(route)) is web link, please register handler for web links")
             return false
         }
         
         guard let handler = findRouteHandler(with: routeUrl) else {
-            log("route for (\(route)) is not exist")
+            URLRouterLog("route for (\(route)) is not exist")
             return false
         }
         
         return handler(routeUrl, Navigator.default)
     }
     
-    private func findRouteHandler(with routeUrl: RouteURL) -> HandleRouteFactory? {
-        let key = handleRouteFactoryKey(from: routeUrl)
-        if let handler = handleRouteFactories[key]  { return handler }
+    public func addLazyRegister(_ register: @escaping (URLRouterType) -> Void) {
+        lazyRegisters.append(register)
+    }
+    
+    private func redirectRouteData(from originalRouteUrl: RouteURL) -> RouteRedirectData? {
+        guard let redirectRoute = redirectRoutesMap[originalRouteUrl.identifier] else {
+            return nil
+        }
         
-        let combinerRoute = "\(routeUrl.scheme)://\(routeUrl.host)"
-        if let combinerRouteUrl = routeParser.routeUrl(from: combinerRoute) {
-            let combinerKey = handleRouteFactoryKey(from: combinerRouteUrl)
-            if let combinerHandler = handleRouteFactories[combinerKey] { return combinerHandler }
+        var newParameters = originalRouteUrl.parameters
+        if originalRouteUrl.isWebLink { newParameters.removeValue(forKey: "url") }
+        return (redirectRoute, newParameters)
+    }
+    
+    private func findRouteHandler(with routeUrl: RouteURL) -> HandleRouteFactory? {
+        if let handler = handleRouteFactories[routeUrl.identifier]  { return handler }
+        
+        if let combinedRouteUrl = routeParser.routeUrl(from: routeUrl.combinedRoute),
+           let combinedHandler = handleRouteFactories[combinedRouteUrl.identifier] {
+            return combinedHandler
         }
         
         return nil
     }
     
-    private func log<T>(_ message: T) {
-#if DEBUG
-        print("URLRouter Error ⚠️ :\(message)")
-#endif
-    }
-    
-    private func handleRouteFactoryKey(from routeUrl: RouteURL) -> String {
-        routeUrl.scheme.lowercased() + routeUrl.host.lowercased() + routeUrl.path
+    private func loadLazyRegistersIfNeed() {
+        guard lazyRegisters.count > 0 else { return }
+        
+        lazyRegisters.forEach { register in register(self) }
+        lazyRegisters.removeAll()
     }
 }
 
@@ -156,3 +183,8 @@ extension URLRouter: URLRouteCombine {
     }
 }
 
+fileprivate func URLRouterLog<T>(_ message: T) {
+#if DEBUG
+    print("URLRouter Error ⚠️ :\(message)")
+#endif
+}

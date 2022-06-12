@@ -23,10 +23,12 @@ extension Module.Awake {
 class AModuleImpl: NSObject, RegisterTabItemService {
 
     fileprivate static var router: URLRouter {
+        let defaultScheme = Module.routeService.routeParser.defaultScheme
+        debugPrint("default scheme: \(defaultScheme)")
+        
         let router = URLRouter()
-        debugPrint("default scheme: \(Module.routeService.routeParser.defaultScheme)")
-        router.routeParser.defaultScheme = Module.routeService.routeParser.defaultScheme
-        router.lazyRegister = {
+        router.routeParser.defaultScheme = defaultScheme
+        router.addLazyRegister {
             $0.registerRoute("amodule/a2") { url, navigator in
                 print(url.parameters)
                 navigator.push(A2ViewController())

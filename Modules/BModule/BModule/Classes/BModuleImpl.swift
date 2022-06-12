@@ -8,11 +8,9 @@ extension Module.Awake {
     
     @objc static func bModuleAwake() {
         Module.tabService.addRegister(BModuleImpl.self)
-        
         Module.launchTaskService.addRegister(HomeManager.self)
-        
         Module.routeService.registerRoute("B2Page") { url, navigator in
-            print(url.parameters)
+            print(url)
             navigator.present(B2ViewController())
             
             return true
@@ -36,7 +34,7 @@ class BModuleImpl: NSObject, RegisterTabItemService {
     }
     
     override required init() {
-        super.init()
+        super.init()    
     }
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {

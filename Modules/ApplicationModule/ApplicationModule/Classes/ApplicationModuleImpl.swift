@@ -7,26 +7,33 @@ extension Module.RegisterService {
     
     @objc static func applicationModule() {
         Module.register(service: ModuleApplicationService.self, used: ApplicationModuleImpl.self)
+        Module.register(service: ModuleRouteService.self, used: ApplicationModuleImpl.self)
     }
 }
 
-class ApplicationModuleImpl: NSObject, ModuleApplicationService {
-    
+class ApplicationModuleImpl: NSObject, ModuleApplicationService, ModuleRouteService {
+
     static var implPriority: Int { 100 }
+    
+    private var router: URLRouter = URLRouter()
+    
+    var routeParser: URLRouteParserType {
+        set { router.routeParser = newValue }
+        get { router.routeParser }
+    }
     
     var window: UIWindow?
     
     required override init() {
         super.init()
-  
+
         if let cls = NSClassFromString("TabBarController.TabBarController"),
            let tabBarType = cls as? UITabBarController.Type {
             Module.tabService.tabBarControllerType = tabBarType
         }
         
-        let routeImpl = Module.routeService
-        routeImpl.routeParser.defaultScheme = "app"
-        routeImpl.registerRoute(routeImpl.webLink) { url, navigator in
+        router.routeParser.defaultScheme = "app"
+        router.registerRoute(router.webLink) { url, navigator in
             guard let string = url.parameters["url"] as? String, let url = URL(string: string) else {
                 return false
             }
@@ -60,6 +67,11 @@ class ApplicationModuleImpl: NSObject, ModuleApplicationService {
     ) -> Bool {
         setupAppearance()
         reloadMainViewController()
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//            let routes: [String: String] = ["b2page": "amodule/a3"]
+//            self.updateRedirectRoutes(routes)
+//        }
        
         return true
     }
@@ -76,7 +88,7 @@ class ApplicationModuleImpl: NSObject, ModuleApplicationService {
         _ app: UIApplication,
         open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]
     ) -> Bool {
-        if let scheme = url.scheme?.lowercased(), scheme == Module.routeService.routeParser.defaultScheme  {
+        if let scheme = url.scheme?.lowercased(), scheme == Module.routeService.routeParser.defaultScheme {
             var newOptions = [String: Any]()
             options.forEach { newOptions[$0.rawValue] = $1 }
             
@@ -90,7 +102,23 @@ class ApplicationModuleImpl: NSObject, ModuleApplicationService {
         let loginImpl = Module.service(of: LoginService.self)
         let viewController: UIViewController = loginImpl.isLogin ? Module.tabService.tabBarController : loginImpl.loginMain
         window?.rootViewController = viewController
-    }    
+    }
+    
+    func addLazyRegister(_ register: @escaping (URLRouterType) -> Void) {
+        router.addLazyRegister(register)
+    }
+    
+    func registerRoute(_ route: URLRouteConvertible, handleRouteFactory: @escaping HandleRouteFactory) {
+        router.registerRoute(route, handleRouteFactory: handleRouteFactory)
+    }
+    
+    func registerRoute(_ route: URLRouteConvertible, combiner: URLRouteCombine) {
+        router.registerRoute(route, combiner: combiner)
+    }
+    
+    func openRoute(_ route: URLRouteConvertible, parameters: [String : Any]) -> Bool {
+        router.openRoute(route, parameters: parameters)
+    }
 }
 
 extension ApplicationModuleImpl: LoginEvent {

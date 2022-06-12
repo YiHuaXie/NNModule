@@ -12,7 +12,7 @@ public typealias RouteOriginalData = (route: URLRouteConvertible, params: [Strin
 /// RouteURL is a data structure used to describe a routing entry.
 /// Generally speaking, the URL data will be filled in RouteURL.
 public struct RouteURL {
-    
+
     public let scheme: String
     
     public let host: String
@@ -24,6 +24,10 @@ public struct RouteURL {
     public let originalData: RouteOriginalData
     
     public var isWebLink: Bool { scheme.isWebScheme }
+
+    public var combinedRoute: String { "\(scheme)://\(host)" }
+    
+    public var identifier: String { scheme + host + path }
 }
 
 /// A protocol used to convert URL or String to RouteURL.
@@ -58,7 +62,7 @@ public struct URLRouteParser: URLRouteParserType {
     public var defaultScheme: String
     
     public init(defaultScheme: String = "nn") {
-        self.defaultScheme = defaultScheme
+        self.defaultScheme = defaultScheme.lowercased()
     }
     
     public func url(from route: URLRouteConvertible) -> URL? {
@@ -94,13 +98,13 @@ public struct URLRouteParser: URLRouteParserType {
     public func routeUrl(from route: URLRouteConvertible, params: [String : Any]) -> RouteURL? {
         guard let url = url(from: route) else { return nil }
         
-        var scheme = url.scheme?.removingPercentEncoding ?? ""
-        let host = url.host?.removingPercentEncoding ?? ""
+        var scheme = url.scheme?.lowercased().removingPercentEncoding ?? ""
+        let host = url.host?.lowercased().removingPercentEncoding ?? ""
         let path = url.path.removingPercentEncoding ?? ""
         
         var parameters = parameters(with: url.query, extraParameters: params)
         if scheme.isWebScheme { parameters["url"] = url.absoluteString }
-        if scheme.lowercased() == defaultScheme.lowercased() { scheme = "" }
+        if scheme == defaultScheme { scheme = "" }
         
         return RouteURL(
             scheme: scheme,
