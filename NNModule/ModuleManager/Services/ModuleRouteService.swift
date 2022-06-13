@@ -8,10 +8,7 @@
 import Foundation
 
 /// Services used to provide routing
-public protocol ModuleRouteService: ModuleFunctionalService, URLRouterType {
-    
-    func addLazyRegister(_ register: @escaping (URLRouterType) -> Void)
-}
+public protocol ModuleRouteService: ModuleFunctionalService, URLRouterType {}
 
 extension URLRouter: ModuleRouteService {
         

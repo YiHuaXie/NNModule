@@ -12,7 +12,7 @@ public typealias RouteOriginalData = (route: URLRouteConvertible, params: [Strin
 /// RouteURL is a data structure used to describe a routing entry.
 /// Generally speaking, the URL data will be filled in RouteURL.
 public struct RouteURL {
-
+    
     public let scheme: String
     
     public let host: String
@@ -24,10 +24,18 @@ public struct RouteURL {
     public let originalData: RouteOriginalData
     
     public var isWebLink: Bool { scheme.isWebScheme }
-
+    
     public var combinedRoute: String { "\(scheme)://\(host)" }
     
     public var identifier: String { scheme + host + path }
+    
+    public init(scheme: String, host: String, path: String, parameters: [String: Any], originalData: RouteOriginalData) {
+        self.scheme = scheme
+        self.host = host
+        self.path = path
+        self.parameters = parameters
+        self.originalData = originalData
+    }
 }
 
 /// A protocol used to convert URL or String to RouteURL.
@@ -41,7 +49,7 @@ public protocol URLRouteParserType {
     /// - Parameter route: Specify a route
     /// - Returns: URL
     func url(from route: URLRouteConvertible) -> URL?
- 
+    
     /// Returns the RouteURL through the route and custom parameters.
     /// - Parameters:
     ///   - route: Specify a route
@@ -51,7 +59,7 @@ public protocol URLRouteParserType {
 }
 
 public extension URLRouteParserType {
-
+    
     func routeUrl(from route: URLRouteConvertible, params: [String: Any] = [:]) -> RouteURL? {
         routeUrl(from: route, params: params)
     }
@@ -94,7 +102,7 @@ public struct URLRouteParser: URLRouteParserType {
         
         return URL(string: newUrlString)
     }
-  
+    
     public func routeUrl(from route: URLRouteConvertible, params: [String : Any]) -> RouteURL? {
         guard let url = url(from: route) else { return nil }
         
@@ -106,13 +114,7 @@ public struct URLRouteParser: URLRouteParserType {
         if scheme.isWebScheme { parameters["url"] = url.absoluteString }
         if scheme == defaultScheme { scheme = "" }
         
-        return RouteURL(
-            scheme: scheme,
-            host: host,
-            path: path,
-            parameters: parameters,
-            originalData: (route, params)
-        )
+        return RouteURL(scheme: scheme, host: host, path: path, parameters: parameters, originalData: (route, params))
     }
 }
 

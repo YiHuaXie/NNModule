@@ -12,7 +12,7 @@ extension Module.RegisterService {
 }
 
 class ApplicationModuleImpl: NSObject, ModuleApplicationService, ModuleRouteService {
-
+    
     static var implPriority: Int { 100 }
     
     private var router: URLRouter = URLRouter()
@@ -21,6 +21,8 @@ class ApplicationModuleImpl: NSObject, ModuleApplicationService, ModuleRouteServ
         set { router.routeParser = newValue }
         get { router.routeParser }
     }
+    
+    var navigator: NavigatorType { router.navigator }
     
     var window: UIWindow?
     
@@ -102,10 +104,6 @@ class ApplicationModuleImpl: NSObject, ModuleApplicationService, ModuleRouteServ
         let loginImpl = Module.service(of: LoginService.self)
         let viewController: UIViewController = loginImpl.isLogin ? Module.tabService.tabBarController : loginImpl.loginMain
         window?.rootViewController = viewController
-    }
-    
-    func addLazyRegister(_ register: @escaping (URLRouterType) -> Void) {
-        router.addLazyRegister(register)
     }
     
     func registerRoute(_ route: URLRouteConvertible, handleRouteFactory: @escaping HandleRouteFactory) {
