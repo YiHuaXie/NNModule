@@ -16,8 +16,6 @@ public typealias HandleRouteFactory = (_ url: RouteURL, _ navigator: NavigatorTy
 
 public typealias RouteRedirectData = RouteOriginalData
 
-public typealias RouteDataMeta = (routeUrl: RouteURL, redirectData: RouteRedirectData?)
-
 // MARK: - URLRouterType
 
 public protocol URLRouterType: AnyObject {
@@ -65,67 +63,44 @@ extension URLRouterType {
         }
     }
     
-    /// Get `RouteURL` and `RouteRedirectData` by parsing original route and parameters.
-    /// - Parameters:
-    ///   - route: original route
-    ///   - parameters: original parameters
-    /// - Returns: `RouteDataMeta`
-    public func routeDataMeta(from route: URLRouteConvertible, parameters: [String: Any]) -> RouteDataMeta? {
-        guard let originalRouteUrl = routeParser.routeUrl(from: route, params: parameters) else {
-            return nil
-        }
-        
-        guard let redirectRoute = globalRedirectRoutesMap[originalRouteUrl.identifier] else {
-            return (originalRouteUrl, nil)
-        }
+    /// Get redirect route via original route.
+    /// - Parameter originalRouteUrl: original `RouteURL`
+    /// - Returns: `RouteRedirectData`
+    public func routeRedirectData(from originalRouteUrl: RouteURL) -> RouteRedirectData? {
+        guard let redirectRoute = globalRedirectRoutesMap[originalRouteUrl.identifier] else { return nil }
         
         var redirectParams = originalRouteUrl.parameters
         if originalRouteUrl.isWebLink { redirectParams.removeValue(forKey: "url") }
-        let redirectData = (redirectRoute, redirectParams)
         
-        return (originalRouteUrl, redirectData)
+        return (redirectRoute, redirectParams)
     }
-    
+        
     /// Add lazy route registration
     /// - Parameter register: lazy route registration
     public func addLazyRegister(_ register: @escaping (URLRouterType) -> Void) {
-        lazyRegisters.append(register)
+        var registers = objc_getAssociatedObject(self, &lazyRegistersKey) as? [(URLRouterType) -> Void] ?? []
+        registers.append(register)
+        objc_setAssociatedObject(self, &lazyRegistersKey, registers, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
     
     /// Load all lazy route registration
     public func loadLazyRegistersIfNeed() {
-        guard lazyRegisters.count > 0 else { return }
+        let registers = objc_getAssociatedObject(self, &lazyRegistersKey) as? [(URLRouterType) -> Void] ?? []
+        guard registers.count > 0 else { return }
         
-        lazyRegisters.forEach { register in register(self) }
-        lazyRegisters.removeAll()
+        registers.forEach { register in register(self) }
+        objc_setAssociatedObject(self, &lazyRegistersKey, [], .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
     
     @discardableResult
     public func openRoute(_ route: URLRouteConvertible, parameters: [String: Any] = [:]) -> Bool {
         openRoute(route, parameters: parameters)
     }
-    
-    private var lazyRegisters: [(URLRouterType) -> Void] {
-        set { objc_setAssociatedObject(self, &lazyRegistersKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
-        
-        get {
-            if let data = objc_getAssociatedObject(self, &lazyRegistersKey) as? [(URLRouterType) -> Void] {
-                return data
-            }
-            
-            let data = [(URLRouterType) -> Void]()
-            objc_setAssociatedObject(self, &lazyRegistersKey, data, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            
-            return data
-        }
-    }
 }
 
 // MARK: - Router
 
 public class URLRouter: URLRouterType {
-    
-    private typealias RouteRedirectData = RouteOriginalData
     
     private var handleRouteFactories = [String: HandleRouteFactory]()
     
@@ -166,17 +141,16 @@ public class URLRouter: URLRouterType {
     @discardableResult
     public func openRoute(_ route: URLRouteConvertible, parameters: [String: Any]) -> Bool {
         loadLazyRegistersIfNeed()
-        guard let meta = routeDataMeta(from: route, parameters: parameters) else {
+        guard let routeUrl = routeParser.routeUrl(from: route, params: parameters) else {
             URLRouterLog("route for (\(route)) is invalid")
             return false
         }
         
         // fix redirect route
-        if let redirectData = meta.redirectData  {
+        if let redirectData = routeRedirectData(from: routeUrl)  {
             return openRoute(redirectData.route, parameters: redirectData.params)
         }
         
-        let routeUrl = meta.routeUrl
         // handle web link
         if routeUrl.isWebLink {
             if let handler = findRouteHandler(with: routeUrl) {
