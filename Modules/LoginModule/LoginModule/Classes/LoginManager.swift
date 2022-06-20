@@ -27,10 +27,10 @@ internal final class LoginManager: LoginService {
         let impl = Module.service(of: LoginService.self)
         isLogin = login
         if isLogin {
-            Module.notificationeService.post(name: LoginNotification.didLoginSuccess.rawValue)
+            Module.notificationService.post(name: LoginNotification.didLoginSuccess.rawValue)
             impl.eventSet.send { $0.didLoginSuccess() }
         } else {
-            Module.notificationeService.post(name: LoginNotification.didLogoutSuccess.rawValue)
+            Module.notificationService.post(name: LoginNotification.didLogoutSuccess.rawValue)
             impl.eventSet.send { $0.didLogoutSuccess() }
         }
     }

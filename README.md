@@ -226,7 +226,7 @@ internal final class LoginManager: LoginService {
     func updateLoginStatus(with login: Bool) {
         isLogin = login
         let notification: LoginNotification = login ? .didLoginSuccess : .didLogoutSuccess
-        Module.notificationeService.post(name: notification.rawValue)
+        Module.notificationService.post(name: notification.rawValue)
     }
 }
 ```

@@ -47,7 +47,7 @@ class ApplicationModuleImpl: NSObject, ModuleApplicationService, ModuleRouteServ
         Module.service(of: LoginService.self).eventSet.registerTarget(self)
         
         let notifications: [LoginNotification] = [.didLoginSuccess, .didLogoutSuccess]
-        let notificationImpl = Module.notificationeService
+        let notificationImpl = Module.notificationService
         notifications.forEach {
             notificationImpl.observe(name: $0.rawValue) { [weak self] _ in self?.reloadMainViewController() }.disposed(by: self)
         }
@@ -122,10 +122,12 @@ class ApplicationModuleImpl: NSObject, ModuleApplicationService, ModuleRouteServ
 extension ApplicationModuleImpl: LoginEvent {
     
     func didLoginSuccess() {
+        debugPrint(Thread.current)
         debugPrint("\(self) \(#function)")
     }
     
     func didLogoutSuccess() {
+        debugPrint(Thread.current)
         debugPrint("\(self) \(#function)")
     }
 }

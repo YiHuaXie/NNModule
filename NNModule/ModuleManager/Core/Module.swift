@@ -23,7 +23,7 @@ public final class Module {
     
     public static var eventBusService: ModuleEventBusService { service(of: ModuleEventBusService.self) }
     
-    public static var notificationeService: ModuleNotificationService { service(of: ModuleNotificationService.self) }
+    public static var notificationService: ModuleNotificationService { service(of: ModuleNotificationService.self) }
     
     public static var topViewController: UIViewController? { Navigator.default.topViewController }
     
