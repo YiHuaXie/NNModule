@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'NNModule-swift'
-  s.version          = '1.0.3'
+  s.version          = '1.0.4'
   s.summary          = 'a module decoupling tool under Swift project'
   s.homepage         = 'https://github.com/YiHuaXie/NNModule'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
