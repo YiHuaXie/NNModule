@@ -224,6 +224,8 @@ func loadAllMethods(from aClass: AnyClass) {
 
 基于这个方案，我们在业务模块中注册服务将会变得异常的简单，只需要添加分类，在分类中添加带有`@objc`标记的类方法即可。由于分类添加函数的灵活性，对于解决 **ModuleImpl** 类中代码臃肿也起到了比较大的帮助。
 
+经过模拟测试，假设某个类有1000个分类，每个分类中都有一个类方法，通过 `method_invoke` 调用这个1000个不包含具体代码的类方法的耗时小于2毫秒，方案的函数耗时比对可以运行 [Example_RegisterationTime](../Example_RegisterationTime)
+
 ### Module.RegisterService
 
 ModuleManager 中声明了 `Module.RegisterService` 用来提供注册功能类服务的时机。
