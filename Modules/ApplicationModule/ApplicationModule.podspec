@@ -33,6 +33,9 @@ TODO: Add long description of the pod here.
   s.source_files = 'ApplicationModule/Classes/**/*'
   s.dependency 'NNModule-swift'
   s.dependency 'ModuleServices'
+  s.dependency 'BaseModule'
+
+#  s.dependency 'LinkedOrder'
   
   # s.resource_bundles = {
   #   'ApplicationModule' => ['ApplicationModule/Assets/*.png']

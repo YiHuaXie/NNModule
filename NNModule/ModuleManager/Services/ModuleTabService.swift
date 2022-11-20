@@ -25,6 +25,8 @@ public protocol ModuleTabService: ModuleFunctionalService {
     
     /// Add register of tabBar item
     func addRegister(_ register: RegisterTabItemService.Type)
+    
+    func needReloadTabBarController()
 }
 
 public extension ModuleTabService {

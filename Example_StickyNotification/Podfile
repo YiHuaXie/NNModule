@@ -1,0 +1,11 @@
+use_frameworks!
+
+platform :ios, '10.0'
+
+target 'Example_StickyNotification' do
+  pod 'NNModule-swift/StickyNotification', :path => '../'
+end
+
+target 'Example_StickyNotificationTests' do
+  pod 'NNModule-swift/StickyNotification', :path => '../'
+end

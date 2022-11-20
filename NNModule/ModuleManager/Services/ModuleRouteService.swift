@@ -12,7 +12,7 @@ public protocol ModuleRouteService: ModuleFunctionalService, URLRouterType {}
 
 extension URLRouter: ModuleRouteService {
         
-    public static var serviceImpl: ModuleBasicService { URLRouter.default }
+    public static var implInstance: ModuleBasicService { URLRouter.default }
 }
 
 

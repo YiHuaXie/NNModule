@@ -59,12 +59,13 @@ class Example_EventTransferTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testEventSet() {
+    func testEventSet() throws {
         var aModel = AModel()
         var bModel = BModel()
-        let aEventSet = EventSet<AEvent>()
-        aEventSet.registerTarget(aModel)
-        aEventSet.registerTarget(bModel)
+        
+        let aEventSet = EventSet<AEvent>(isThreadSafe: true)
+        aEventSet.addTarget(aModel)
+        aEventSet.addTarget(bModel)
         aEventSet.send { $0.aMethod1() }
         aEventSet.send { $0.aMethod2() }
         aModel = AModel()
@@ -77,10 +78,9 @@ class Example_EventTransferTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         
-        let evnetBus = EventBus.default
         var aModel = AModel()
         var bModel = BModel()
-        
+        let evnetBus = EventBus.default
         evnetBus.register(AEvent.self, target: aModel)
         evnetBus.register(AEvent.self, target: bModel)
         evnetBus.register(BEvent.self, target: aModel)
@@ -103,6 +103,7 @@ class Example_EventTransferTests: XCTestCase {
         evnetBus.removeNilTargets(AEvent.self)
     }
 
+    
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         self.measure {

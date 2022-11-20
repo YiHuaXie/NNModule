@@ -33,12 +33,15 @@ TODO: Add long description of the pod here.
   s.source_files = 'BModule/Classes/**/*'
   s.dependency 'NNModule-swift'
   s.dependency 'ModuleServices'
+  s.dependency 'BaseModule'
   s.dependency 'TabBarController'
+  s.dependency 'MBProgressHUD'
   s.dependency 'SnapKit'
+  s.dependency 'HandyJSON'
 #  s.dependency 'ESTabBarController_swift'
   
    s.resource_bundles = {
-     'BModule' => ['BModule/Assets/*.png']
+     'BModule' => ['BModule/Assets/*.xcassets']
    }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'

@@ -15,12 +15,12 @@ public protocol ModuleBasicService: AnyObject {
     init()
     
     /// The instance of implementing service.
-    static var implInstance: Self { get }
+    static var implInstance: ModuleBasicService { get }
 }
 
 public extension ModuleBasicService {
     
-    static var implInstance: Self { self.init() }
+    static var implInstance: ModuleBasicService { self.init() }
 }
 
 /// Functional service

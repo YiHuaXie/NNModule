@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1320"
+   LastUpgradeVersion = "1410"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "AEE7B89B26CA913A004AFE9F"
-               BuildableName = "Example_ModuleManager.app"
-               BlueprintName = "Example_ModuleManager"
-               ReferencedContainer = "container:Example_ModuleManager.xcodeproj">
+               BuildableName = "Example_StickyNotification.app"
+               BlueprintName = "Example_StickyNotification"
+               ReferencedContainer = "container:Example_StickyNotification.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,6 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "AEE7B8B126CA913D004AFE9F"
+               BuildableName = "Example_StickyNotificationTests.xctest"
+               BlueprintName = "Example_StickyNotificationTests"
+               ReferencedContainer = "container:Example_StickyNotification.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "AEE7B8BC26CA913D004AFE9F"
+               BuildableName = "Example_StickyNotificationUITests.xctest"
+               BlueprintName = "Example_StickyNotificationUITests"
+               ReferencedContainer = "container:Example_StickyNotification.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -45,9 +65,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AEE7B89B26CA913A004AFE9F"
-            BuildableName = "Example_ModuleManager.app"
-            BlueprintName = "Example_ModuleManager"
-            ReferencedContainer = "container:Example_ModuleManager.xcodeproj">
+            BuildableName = "Example_StickyNotification.app"
+            BlueprintName = "Example_StickyNotification"
+            ReferencedContainer = "container:Example_StickyNotification.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +82,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AEE7B89B26CA913A004AFE9F"
-            BuildableName = "Example_ModuleManager.app"
-            BlueprintName = "Example_ModuleManager"
-            ReferencedContainer = "container:Example_ModuleManager.xcodeproj">
+            BuildableName = "Example_StickyNotification.app"
+            BlueprintName = "Example_StickyNotification"
+            ReferencedContainer = "container:Example_StickyNotification.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

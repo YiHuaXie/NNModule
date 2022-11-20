@@ -31,21 +31,21 @@ public class TabBarController: ESTabBarController {
         }
         
         let container = UIView(frame: CGRect(x: 0, y: -21, width: UIScreen.main.bounds.width, height: .safeAreaBottom + 70))
-
-        let leftImage = UIImage(named: "tabbar_background_left", in: bundle, compatibleWith: nil)
-        let leftImageView = UIImageView(image: leftImage)
-        leftImageView.contentMode = .scaleToFill
-        leftImageView.frame = CGRect(x: 0, y: 0, width: container.width / 2.0, height: container.height)
-
-        let rightImage = UIImage(named: "tabbar_background_right", in: bundle, compatibleWith: nil)
-        let rightImageView = UIImageView(image: rightImage)
-        rightImageView.contentMode = .scaleToFill
-        rightImageView.frame = CGRect(x: container.width / 2.0, y: 0, width: container.width / 2.0, height: container.height)
-
-        container.addSubview(leftImageView)
-        container.addSubview(rightImageView)
-
         tabBar.insertSubview(container, at: 0)
+        
+        let leftCapInsets = UIEdgeInsets(top: 21, left: 0, bottom: 0, right: 50)
+        let leftImage = UIImage(named: "tabbar_background_left", in: bundle, compatibleWith: nil)?
+            .resizableImage(withCapInsets: leftCapInsets, resizingMode: .stretch)
+        let leftImageView = UIImageView(image: leftImage)
+        leftImageView.frame = CGRect(x: 0, y: 0, width: container.width / 2.0, height: container.height)
+        container.addSubview(leftImageView)
+        
+        let rightCapInsets = UIEdgeInsets(top: 21, left: 50, bottom: 0, right: 0)
+        let rightImage = UIImage(named: "tabbar_background_right", in: bundle, compatibleWith: nil)?
+            .resizableImage(withCapInsets: rightCapInsets, resizingMode: .stretch)
+        let rightImageView = UIImageView(image: rightImage)
+        rightImageView.frame = CGRect(x: container.width / 2.0, y: 0, width: container.width / 2.0, height: container.height)
+        container.addSubview(rightImageView)
     }
 }
 

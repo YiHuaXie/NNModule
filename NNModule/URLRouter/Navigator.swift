@@ -14,11 +14,7 @@ public protocol NavigatorType {
     ///   - viewController: The view controller to push onto the stack.
     ///   - from: Specify a navigation controller stack.
     ///   - animated: Specify true to animate the transition or false if you do not want the transition to be animated.
-    func push(
-        _ viewController: UIViewController,
-        from: UINavigationController?,
-        animated: Bool
-    )
+    func push(_ viewController: UIViewController, from: UINavigationController?, animated: Bool)
 
     /// Presents a matching view controller.
     /// - Parameters:
@@ -27,22 +23,12 @@ public protocol NavigatorType {
     ///   - from: The current view controller.
     ///   - animated: Pass true to animate the presentation.
     ///   - completion: The block to execute after the presentation finishes.
-    func present(
-        _ viewController: UIViewController,
-        wrap: UINavigationController.Type?,
-        from: UIViewController?,
-        animated: Bool,
-        completion: (() -> Void)?
-    )
+    func present(_ viewController: UIViewController, wrap: UINavigationController.Type?, from: UIViewController?, animated: Bool, completion: (() -> Void)?)
 }
 
 public extension NavigatorType {
     
-    func push(
-        _ viewController: UIViewController,
-        from: UINavigationController? = nil,
-        animated: Bool = true
-    ) {
+    func push(_ viewController: UIViewController, from: UINavigationController? = nil, animated: Bool = true) {
         push(viewController, from: from, animated: animated)
     }
 
@@ -55,9 +41,43 @@ public extension NavigatorType {
     ) {
         present(viewController, wrap: wrap, from: from, animated: animated, completion: completion)
     }
+}
+
+public struct Navigator: NavigatorType {
+    
+    public init() {}
+
+    public func push(_ viewController: UIViewController, from: UINavigationController?, animated: Bool) {
+        guard (viewController is UINavigationController) == false else { return }
+        guard let navigationController = from ?? UIApplication.topViewController?.navigationController else { return }
+
+        navigationController.pushViewController(viewController, animated: animated)
+    }
+
+    public func present(
+        _ viewController: UIViewController,
+        wrap: UINavigationController.Type?,
+        from: UIViewController?,
+        animated: Bool,
+        completion: (() -> Void)?
+    ) {
+        guard let fromViewController = from ?? UIApplication.topViewController else { return }
+
+        let viewControllerToPresent: UIViewController
+        if let navigationControllerClass = wrap, (viewController is UINavigationController) == false {
+            viewControllerToPresent = navigationControllerClass.init(rootViewController: viewController)
+        } else {
+            viewControllerToPresent = viewController
+        }
+
+        fromViewController.present(viewControllerToPresent, animated: animated, completion: completion)
+    }
+}
+
+extension UIApplication {
     
     /// The current application's top most view controller.
-    var topViewController: UIViewController? {
+    public static var topViewController: UIViewController? {
         let selector = NSSelectorFromString("sharedApplication")
         let sharedApplication = UIApplication.perform(selector)?.takeUnretainedValue() as? UIApplication
         
@@ -76,44 +96,6 @@ public extension NavigatorType {
         return UIViewController.topViewController(of: rootViewController)
     }
 }
-
-public struct Navigator: NavigatorType {
-        
-    public static let `default` = Navigator()
-    
-    private init() {}
-
-    public func push(
-        _ viewController: UIViewController,
-        from: UINavigationController?,
-        animated: Bool
-    ) {
-        guard (viewController is UINavigationController) == false else { return }
-        guard let navigationController = from ?? topViewController?.navigationController else { return }
-
-        navigationController.pushViewController(viewController, animated: animated)
-    }
-
-    public func present(
-        _ viewController: UIViewController,
-        wrap: UINavigationController.Type?,
-        from: UIViewController?,
-        animated: Bool,
-        completion: (() -> Void)?
-    ) {
-        guard let fromViewController = from ?? topViewController else { return }
-
-        let viewControllerToPresent: UIViewController
-        if let navigationControllerClass = wrap, (viewController is UINavigationController) == false {
-            viewControllerToPresent = navigationControllerClass.init(rootViewController: viewController)
-        } else {
-            viewControllerToPresent = viewController
-        }
-
-        fromViewController.present(viewControllerToPresent, animated: animated, completion: completion)
-    }
-}
-
 
 fileprivate extension UIViewController {
     

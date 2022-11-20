@@ -24,6 +24,7 @@ Pod::Spec.new do |s|
     ss.source_files = 'NNModule/ModuleManager/**/*'
     ss.dependency 'NNModule-swift/URLRouter'
     ss.dependency 'NNModule-swift/EventTransfer'
+    ss.dependency 'NNModule-swift/StickyNotification'
   end
   
   # URLRouter
@@ -36,6 +37,10 @@ Pod::Spec.new do |s|
     ss.source_files = 'NNModule/EventTransfer/*'
   end
 
+  # StickyNotification
+  s.subspec 'StickyNotification' do |ss|
+    ss.source_files = 'NNModule/StickyNotification/*'
+  end
   # s.resource_bundles = {
   #   'NNModule' => ['NNModule/Assets/*.png']
   # }

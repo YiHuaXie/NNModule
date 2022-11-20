@@ -7,8 +7,6 @@
 
 import Foundation
 
-public typealias RouteOriginalData = (route: URLRouteConvertible, params: [String: Any])
-
 /// RouteURL is a data structure used to describe a routing entry.
 /// Generally speaking, the URL data will be filled in RouteURL.
 public struct RouteURL {
@@ -21,20 +19,17 @@ public struct RouteURL {
     
     public let parameters: [String: Any]
     
-    public let originalData: RouteOriginalData
-    
     public var isWebLink: Bool { scheme.isWebScheme }
     
     public var combinedRoute: String { "\(scheme)://\(host)" }
     
-    public var identifier: String { scheme + host + path }
+    public var fullPath: String { "\(scheme)://\(host)\(path)" }
     
-    public init(scheme: String, host: String, path: String, parameters: [String: Any], originalData: RouteOriginalData) {
+    public init(scheme: String, host: String, path: String, parameters: [String: Any]) {
         self.scheme = scheme
         self.host = host
         self.path = path
         self.parameters = parameters
-        self.originalData = originalData
     }
 }
 
@@ -43,7 +38,7 @@ public protocol URLRouteParserType {
     
     /// Default URL scheme.
     /// If the url string does not contain a scheme, the default scheme will be used.
-    var defaultScheme: String { set get }
+    var defaultScheme: String { get }
     
     /// Returns the URL through the route.
     /// - Parameter route: Specify a route
@@ -67,40 +62,29 @@ public extension URLRouteParserType {
 
 public struct URLRouteParser: URLRouteParserType {
     
-    public var defaultScheme: String
+    public let defaultScheme: String
     
     public init(defaultScheme: String = "nn") {
         self.defaultScheme = defaultScheme.lowercased()
     }
     
     public func url(from route: URLRouteConvertible) -> URL? {
-        let urlString = route.routeString
-        guard urlString.count > 0 else { return nil }
+        var urlString = route.routeString
+        if urlString.isEmpty { return nil }
         
-        var newUrlString = urlString
-        let nsUrlString = urlString as NSString
-        let queryRange = nsUrlString.range(of: "?")
-        if queryRange.location != NSNotFound, queryRange.length > 0 {
-            var string = nsUrlString.substring(to: queryRange.location)
-            let queryString = nsUrlString.substring(from: queryRange.location + 1)
-            var index = 0
-            dictionary(from: queryString).forEach { (key, value) in
-                string += (index == 0 ? "?" : "&")
-                string += "\(key)=\(urlEncode(from: value))"
-                index += 1
-            }
-            
-            newUrlString = string
-        }
-        
-        let schemeRange = nsUrlString.range(of: "://")
-        if schemeRange.length == 0 || queryRange.length > 0 && schemeRange.location > queryRange.location {
-            newUrlString = defaultScheme + "://" + newUrlString
+        let schemeRange = (urlString as NSString).range(of: "://")
+        if schemeRange.location == NSNotFound {
+            urlString = defaultScheme + "://" + urlString
         } else if schemeRange.location == 0 {
-            newUrlString = defaultScheme + newUrlString
+            urlString = defaultScheme + urlString
         }
         
-        return URL(string: newUrlString)
+        let queryString = queryString(from: urlString)
+        if queryString.isEmpty { return URL(string: urlString) }
+        
+        var components = URLComponents(string: urlString)
+        components?.queryItems? = queryParameters(from: queryString).map { URLQueryItem(name: $0, value: $1) }
+        return components?.url
     }
     
     public func routeUrl(from route: URLRouteConvertible, params: [String : Any]) -> RouteURL? {
@@ -109,20 +93,37 @@ public struct URLRouteParser: URLRouteParserType {
         var scheme = url.scheme?.lowercased().removingPercentEncoding ?? ""
         let host = url.host?.lowercased().removingPercentEncoding ?? ""
         let path = url.path.removingPercentEncoding ?? ""
+        var parameters = parameters(with: url.query, exParameters: params)
         
-        var parameters = parameters(with: url.query, extraParameters: params)
-        if scheme.isWebScheme { parameters["url"] = url.absoluteString }
+        if scheme.isWebScheme {
+            let tmpParams = params.filter { _, value in value is String } as! [String: String]
+            parameters["url"] = url.appending(exQueries: tmpParams).absoluteString
+        }
+        
         if scheme == defaultScheme { scheme = "" }
         
-        return RouteURL(scheme: scheme, host: host, path: path, parameters: parameters, originalData: (route, params))
+        return RouteURL(scheme: scheme, host: host, path: path, parameters: parameters)
     }
-}
-
-fileprivate extension URLRouteParser {
     
-    func dictionary(from urlQuery: String) -> [String: String] {
+    private func queryString(from url: String) -> String {
+        let components = url.components(separatedBy: "?")
+        if components.count < 2 { return "" }
+        
+        return components[1].components(separatedBy: "#")[0]
+    }
+    
+    private func parameters(with urlQuery: String?, exParameters: [String: Any] = [:]) -> [String: Any] {
+        guard let query = urlQuery else { return exParameters }
+        
+        let parameters: [String: Any] = queryParameters(from: query)
+        return parameters.merging(exParameters) { _, second in second }
+    }
+    
+    private func queryParameters(from urlQuery: String?) -> [String: String] {
         var pairs: [String: String] = [:]
-        guard urlQuery.count > 0 else { return pairs }
+        guard let urlQuery = urlQuery, !urlQuery.isEmpty else {
+            return pairs
+        }
         
         let delimiterSet = CharacterSet(charactersIn: "&;")
         let scanner = Scanner(string: urlQuery)
@@ -140,40 +141,24 @@ fileprivate extension URLRouteParser {
         
         return pairs
     }
-    
-    func parameters(with urlQuery: String?, extraParameters: [String: Any] = [:]) -> [String: Any] {
-        guard let query = urlQuery else { return extraParameters }
-        var parameters = extraParameters
-        dictionary(from: query).forEach { parameters[$0] = $1.removingPercentEncoding }
-        
-        return parameters
-    }
-    
-    func urlEncode(from urlString: String) -> String {
-        var encodedString = ""
-        let count = urlString.utf8.count + 1
-        let result = UnsafeMutablePointer<Int8>.allocate(capacity: count)
-        urlString.withCString { result.initialize(from: $0, count: count) }
-        for i in 0..<strlen(result) {
-            let c = String(format: "%c", result[i])
-            if c == "." ||
-                c == "-" ||
-                c == "_" ||
-                c == "~" ||
-                (c >= "a" && c <= "z") ||
-                (c >= "A" && c <= "Z") ||
-                (c >= "0" && c <= "9") {
-                encodedString += String(c)
-            } else {
-                encodedString += String(format: "%%%02X", result[i])
-            }
-        }
-        
-        return encodedString
-    }
 }
 
 fileprivate extension String {
     
     var isWebScheme: Bool { lowercased() == "https" || lowercased() == "http" }
+}
+
+fileprivate extension URL {
+
+    func appending(exQueries queries: [String: String]) -> URL {
+        if queries.isEmpty { return self }
+        
+        let newQueryItems = queries.map { URLQueryItem(name: $0.key, value: $0.value) }
+        var components = URLComponents(url: self, resolvingAgainstBaseURL: true)
+        var oldQueryItems = components?.queryItems ?? []
+        oldQueryItems.removeAll { queryItem in newQueryItems.contains { queryItem.name == $0.name } }
+        components?.queryItems = oldQueryItems + newQueryItems
+        
+        return components?.url ?? self
+    }
 }

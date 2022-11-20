@@ -1,4 +1,5 @@
 import Foundation
+import SnapKit
 
 extension NSObject {
     
@@ -12,6 +13,24 @@ extension NSObject {
     }
 }
 
+extension UIView {
+    
+    public var safeAreaTop: ConstraintItem {
+        if #available(iOS 11.0, *) {
+            return safeAreaLayoutGuide.snp.top
+        } else {
+            return snp.top
+        }
+    }
+    
+    public var safeAreaBottom: ConstraintItem {
+        if #available(iOS 11.0, *) {
+            return safeAreaLayoutGuide.snp.bottom
+        } else {
+            return snp.bottom
+        }
+    }
+}
 
 func isAllScreen() -> Bool {
     if #available(iOS 11, *) {

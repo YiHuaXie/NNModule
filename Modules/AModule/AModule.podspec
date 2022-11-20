@@ -34,10 +34,14 @@ TODO: Add long description of the pod here.
   s.dependency 'NNModule-swift'
   s.dependency 'ModuleServices'
   s.dependency 'TabBarController'
+  s.dependency 'SnapKit'
+  s.dependency 'BaseModule'
+  s.dependency 'HandyJSON'
+  s.dependency 'MBProgressHUD'
   
-   s.resource_bundles = {
-     'AModule' => ['AModule/Assets/*.png']
-   }
+  s.resource_bundles = {
+    'AModule' => ['AModule/Assets/*.xcassets']
+  }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'

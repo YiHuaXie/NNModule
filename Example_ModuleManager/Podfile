@@ -17,5 +17,17 @@ target 'Example_ModuleManager' do
   pod 'BaseModule', :path => '../Modules/BaseModule'
   pod 'SnapKit'
   pod 'ESTabBarController-swift'
-  
+  pod 'HandyJSON'
+  pod 'MBProgressHUD'
 end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    if target.symbol_type == :bundle
+      target.build_configurations.each do |config|
+        config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+      end
+    end
+  end
+end
+

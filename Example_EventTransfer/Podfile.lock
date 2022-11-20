@@ -1,5 +1,5 @@
 PODS:
-  - NNModule-swift/EventTransfer (1.0.2)
+  - NNModule-swift/EventTransfer (1.0.4)
 
 DEPENDENCIES:
   - NNModule-swift/EventTransfer (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  NNModule-swift: 28c7ee6f2983f457a69dbb91106323acb0cfa1bb
+  NNModule-swift: 36bce169ee7dae4921205d5e8a00b5be81dc6e4a
 
 PODFILE CHECKSUM: 18d9ce800c78fc238c7fc48df9e5a8d1e060122e
 

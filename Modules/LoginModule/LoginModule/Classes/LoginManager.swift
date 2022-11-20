@@ -1,6 +1,7 @@
 import Foundation
 import ModuleServices
 import NNModule_swift
+import SnapKit
 
 extension Module.RegisterService {
     
@@ -13,26 +14,22 @@ internal final class LoginManager: LoginService {
 
     static let shared = LoginManager()
     
-    static var implInstance: LoginManager { shared }
+    static var implInstance: ModuleBasicService { shared }
     
     var isLogin: Bool = false
     
-    var eventSet = EventSet<LoginEvent>()
-    
     required init() {}
     
-    var loginMain: UIViewController { LoginViewController() }
+    var loginMain: UIViewController {
+        UINavigationController(rootViewController: LoginViewController())
+    }
     
-    func updateLoginStatus(with login: Bool) {
-        let impl = Module.service(of: LoginService.self)
-        isLogin = login
-        if isLogin {
-            Module.notificationService.post(name: LoginNotification.didLoginSuccess.rawValue)
-            impl.eventSet.send { $0.didLoginSuccess() }
-        } else {
-            Module.notificationService.post(name: LoginNotification.didLogoutSuccess.rawValue)
-            impl.eventSet.send { $0.didLogoutSuccess() }
-        }
+    func logout() { updateLoginStatus(false) }
+    
+    func updateLoginStatus(_ loginStatus: Bool) {
+        isLogin = loginStatus
+        let notification: Notification.Name = loginStatus ? .didLoginSuccess : .didLogoutSuccess
+        Module.notificationService.post(name: notification)
     }
 }
 
@@ -41,20 +38,25 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "LoginViewController"
+        navigationItem.title = "Example App"
         view.backgroundColor = .lightGray
         
-        let btn = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 30))
+        let btn = UIButton(frame: .zero)
         btn.setTitle("Login", for: .normal)
-        btn.setTitleColor(.black, for: .normal)
-        btn.backgroundColor = .white
+        btn.setTitleColor(.white, for: .normal)
+        btn.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        btn.titleLabel?.font = .systemFont(ofSize: 20, weight: .medium)
         btn.addTarget(self, action: #selector(didButtonPressed), for: .touchUpInside)
-        btn.sizeToFit()
         view.addSubview(btn)
+        btn.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.leading.equalToSuperview().offset(16)
+            $0.height.equalTo(30)
+        }
     }
     
     @objc private func didButtonPressed() {
-        Module.service(of: LoginService.self).updateLoginStatus(with: true)
+        LoginManager.shared.updateLoginStatus(true)
     }
 }
 

@@ -31,6 +31,7 @@ TODO: Add long description of the pod here.
   s.ios.deployment_target = '10.0'
   s.source_files = 'ModuleServices/Classes/**/*'
   s.dependency 'NNModule-swift'
+  s.dependency 'HandyJSON'
   
   # s.resource_bundles = {
   #   'ModuleServices' => ['ModuleServices/Assets/*.png']

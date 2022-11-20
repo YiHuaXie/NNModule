@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		609BFCF7124C2DDD1F59FB55 /* Pods_Example_ModuleManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB5A5BF87549F1EB5E2471F5 /* Pods_Example_ModuleManager.framework */; };
+		293F64CE723E1EA185FC4520 /* Pods_Example_ModuleManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D15AF1DCE2D3F0F0207C32A5 /* Pods_Example_ModuleManager.framework */; };
 		AEE7B8A026CA913A004AFE9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE7B89F26CA913A004AFE9F /* AppDelegate.swift */; };
 		AEE7B8A726CA913A004AFE9F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEE7B8A526CA913A004AFE9F /* Main.storyboard */; };
 		AEE7B8A926CA913C004AFE9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEE7B8A826CA913C004AFE9F /* Assets.xcassets */; };
@@ -34,8 +34,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		19C50C99D52D47B8279C9187 /* Pods-Example_ModuleManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example_ModuleManager.release.xcconfig"; path = "Target Support Files/Pods-Example_ModuleManager/Pods-Example_ModuleManager.release.xcconfig"; sourceTree = "<group>"; };
-		701F30F11C84D23CE684CE6C /* Pods-Example_ModuleManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example_ModuleManager.debug.xcconfig"; path = "Target Support Files/Pods-Example_ModuleManager/Pods-Example_ModuleManager.debug.xcconfig"; sourceTree = "<group>"; };
+		614C59933876D951CCC8C1D4 /* Pods-Example_ModuleManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example_ModuleManager.debug.xcconfig"; path = "Target Support Files/Pods-Example_ModuleManager/Pods-Example_ModuleManager.debug.xcconfig"; sourceTree = "<group>"; };
+		98A6D327CFFDB23564165C64 /* Pods-Example_ModuleManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example_ModuleManager.release.xcconfig"; path = "Target Support Files/Pods-Example_ModuleManager/Pods-Example_ModuleManager.release.xcconfig"; sourceTree = "<group>"; };
 		AEE7B89C26CA913A004AFE9F /* Example_ModuleManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example_ModuleManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEE7B89F26CA913A004AFE9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AEE7B8A626CA913A004AFE9F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -48,7 +48,7 @@
 		AEE7B8BD26CA913D004AFE9F /* Example_ModuleManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Example_ModuleManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEE7B8C126CA913D004AFE9F /* Example_ModuleManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example_ModuleManagerUITests.swift; sourceTree = "<group>"; };
 		AEE7B8C326CA913D004AFE9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EB5A5BF87549F1EB5E2471F5 /* Pods_Example_ModuleManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example_ModuleManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D15AF1DCE2D3F0F0207C32A5 /* Pods_Example_ModuleManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example_ModuleManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				609BFCF7124C2DDD1F59FB55 /* Pods_Example_ModuleManager.framework in Frameworks */,
+				293F64CE723E1EA185FC4520 /* Pods_Example_ModuleManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,19 +77,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		996D3502DB5619ECC6A02BBE /* Pods */ = {
+		49A570F1E7ADBCCAE01419D1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				701F30F11C84D23CE684CE6C /* Pods-Example_ModuleManager.debug.xcconfig */,
-				19C50C99D52D47B8279C9187 /* Pods-Example_ModuleManager.release.xcconfig */,
+				614C59933876D951CCC8C1D4 /* Pods-Example_ModuleManager.debug.xcconfig */,
+				98A6D327CFFDB23564165C64 /* Pods-Example_ModuleManager.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		AEBE680749EFC719F03A6E27 /* Frameworks */ = {
+		A9A4F8F9CECD90E9A87A13BE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EB5A5BF87549F1EB5E2471F5 /* Pods_Example_ModuleManager.framework */,
+				D15AF1DCE2D3F0F0207C32A5 /* Pods_Example_ModuleManager.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -101,8 +101,8 @@
 				AEE7B8B526CA913D004AFE9F /* Example_ModuleManagerTests */,
 				AEE7B8C026CA913D004AFE9F /* Example_ModuleManagerUITests */,
 				AEE7B89D26CA913A004AFE9F /* Products */,
-				996D3502DB5619ECC6A02BBE /* Pods */,
-				AEBE680749EFC719F03A6E27 /* Frameworks */,
+				49A570F1E7ADBCCAE01419D1 /* Pods */,
+				A9A4F8F9CECD90E9A87A13BE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -153,11 +153,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AEE7B8C626CA913D004AFE9F /* Build configuration list for PBXNativeTarget "Example_ModuleManager" */;
 			buildPhases = (
-				EAD5281C25C9D62358813F6C /* [CP] Check Pods Manifest.lock */,
+				E0B2245ACAB6A7223C26AEFB /* [CP] Check Pods Manifest.lock */,
 				AEE7B89826CA913A004AFE9F /* Sources */,
 				AEE7B89926CA913A004AFE9F /* Frameworks */,
 				AEE7B89A26CA913A004AFE9F /* Resources */,
-				D718106AB3DEAB12EF4ADA06 /* [CP] Embed Pods Frameworks */,
+				4E0333945E7BD1463AD7A7C2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -274,7 +274,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		D718106AB3DEAB12EF4ADA06 /* [CP] Embed Pods Frameworks */ = {
+		4E0333945E7BD1463AD7A7C2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -291,7 +291,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Example_ModuleManager/Pods-Example_ModuleManager-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EAD5281C25C9D62358813F6C /* [CP] Check Pods Manifest.lock */ = {
+		E0B2245ACAB6A7223C26AEFB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -493,35 +493,19 @@
 		};
 		AEE7B8C726CA913D004AFE9F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 701F30F11C84D23CE684CE6C /* Pods-Example_ModuleManager.debug.xcconfig */;
+			baseConfigurationReference = 614C59933876D951CCC8C1D4 /* Pods-Example_ModuleManager.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"CODECOVERAGE=1",
-				);
 				INFOPLIST_FILE = Example_ModuleManager/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-fprofile-instr-generate",
-					"-fcoverage-mapping",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-fprofile-instr-generate",
-				);
-				OTHER_SWIFT_FLAGS = "$(inherited) -profile-generate -profile-coverage-mapping";
 				PRODUCT_BUNDLE_IDENTIFIER = com.neroxie.Example_ModuleManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -529,35 +513,19 @@
 		};
 		AEE7B8C826CA913D004AFE9F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 19C50C99D52D47B8279C9187 /* Pods-Example_ModuleManager.release.xcconfig */;
+			baseConfigurationReference = 98A6D327CFFDB23564165C64 /* Pods-Example_ModuleManager.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"CODECOVERAGE=1",
-				);
 				INFOPLIST_FILE = Example_ModuleManager/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					"-fprofile-instr-generate",
-					"-fcoverage-mapping",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-fprofile-instr-generate",
-				);
-				OTHER_SWIFT_FLAGS = "$(inherited) -profile-generate -profile-coverage-mapping";
 				PRODUCT_BUNDLE_IDENTIFIER = com.neroxie.Example_ModuleManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -569,10 +537,6 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"CODECOVERAGE=1",
-				);
 				INFOPLIST_FILE = Example_ModuleManagerTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -580,12 +544,8 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.neroxie.Example_ModuleManagerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example_ModuleManager.app/Example_ModuleManager";
@@ -598,10 +558,6 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"CODECOVERAGE=1",
-				);
 				INFOPLIST_FILE = Example_ModuleManagerTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -609,12 +565,8 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.neroxie.Example_ModuleManagerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example_ModuleManager.app/Example_ModuleManager";
@@ -626,22 +578,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"CODECOVERAGE=1",
-				);
 				INFOPLIST_FILE = Example_ModuleManagerUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.neroxie.Example_ModuleManagerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Example_ModuleManager;
@@ -653,22 +597,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"CODECOVERAGE=1",
-				);
 				INFOPLIST_FILE = Example_ModuleManagerUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.neroxie.Example_ModuleManagerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Example_ModuleManager;

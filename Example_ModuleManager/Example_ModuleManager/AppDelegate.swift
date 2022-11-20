@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     override init() {
         super.init()
-        // Ensure that `ModuleManager.shared` is created first
+        
         _ = ModuleManager.shared
     }
     
@@ -32,9 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ) -> Bool {
         ModuleManager.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
-    
+
     override func forwardingTarget(for aSelector: Selector!) -> Any? { Module.applicationService }
-    
+
     override func responds(to aSelector: Selector!) -> Bool {
         super.responds(to: aSelector) || Module.applicationService.responds(to: aSelector)
     }

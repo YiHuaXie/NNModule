@@ -1,80 +1,41 @@
 import Foundation
 import NNModule_swift
-import SafariServices
 import ModuleServices
+import BaseModule
 
 extension Module.RegisterService {
     
     @objc static func applicationModule() {
         Module.register(service: ModuleApplicationService.self, used: ApplicationModuleImpl.self)
-        Module.register(service: ModuleRouteService.self, used: ApplicationModuleImpl.self)
+        Module.register(service: ModuleRouteService.self, used: ApplicationRouter.self)
+        Module.register(service: ModuleConfigService.self, used: ModuleConfigServiceImpl.self)
     }
 }
 
-class ApplicationModuleImpl: NSObject, ModuleApplicationService, ModuleRouteService {
+class ApplicationModuleImpl: NSObject, ModuleApplicationService {
     
     static var implPriority: Int { 100 }
-    
-    private var router: URLRouter = URLRouter()
-    
-    var routeParser: URLRouteParserType {
-        set { router.routeParser = newValue }
-        get { router.routeParser }
-    }
-    
-    var navigator: NavigatorType { router.navigator }
-    
+        
     var window: UIWindow?
     
     required override init() {
         super.init()
-
-        if let cls = NSClassFromString("TabBarController.TabBarController"),
-           let tabBarType = cls as? UITabBarController.Type {
-            Module.tabService.tabBarControllerType = tabBarType
-        }
-        
-        router.routeParser.defaultScheme = "app"
-        router.registerRoute(router.webLink) { url, navigator in
-            guard let string = url.parameters["url"] as? String, let url = URL(string: string) else {
-                return false
-            }
-            
-            navigator.push(SFSafariViewController(url: url))
-            return true
-        }
-        
-        Module.service(of: LoginService.self).eventSet.registerTarget(self)
-        
-        let notifications: [LoginNotification] = [.didLoginSuccess, .didLogoutSuccess]
-        let notificationImpl = Module.notificationService
-        notifications.forEach {
-            notificationImpl.observe(name: $0.rawValue) { [weak self] _ in self?.reloadMainViewController() }.disposed(by: self)
-        }
     }
     
-//    func application(
-//        _ application: UIApplication,
-//        willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
-//    ) -> Bool {
-//        window = UIWindow(frame: UIScreen.main.bounds)
-//        window?.backgroundColor = .red
-//
-//        return true
-//    }
+    func applicationWillAwake() {
+        let config = Module.service(of: ModuleConfigService.self)
+        Module.tabService.tabBarControllerType = config.tabBarControllerType
+    }
     
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]?
     ) -> Bool {
+        requestRedirectRoutes()
         setupAppearance()
+        addNotification()
         reloadMainViewController()
         
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//            let routes: [String: String] = ["b2page": "amodule/a3"]
-//            self.updateRedirectRoutes(routes)
-//        }
-       
         return true
     }
     
@@ -86,10 +47,7 @@ class ApplicationModuleImpl: NSObject, ModuleApplicationService, ModuleRouteServ
         print("\(type(of: self)): \(#function)")
     }
     
-    func application(
-        _ app: UIApplication,
-        open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]
-    ) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         if let scheme = url.scheme?.lowercased(), scheme == Module.routeService.routeParser.defaultScheme {
             var newOptions = [String: Any]()
             options.forEach { newOptions[$0.rawValue] = $1 }
@@ -102,37 +60,30 @@ class ApplicationModuleImpl: NSObject, ModuleApplicationService, ModuleRouteServ
     
     func reloadMainViewController() {
         let loginImpl = Module.service(of: LoginService.self)
+        if loginImpl.isLogin {
+            MockServer.shared.reset()
+            Module.tabService.needReloadTabBarController()
+        }
         let viewController: UIViewController = loginImpl.isLogin ? Module.tabService.tabBarController : loginImpl.loginMain
         window?.rootViewController = viewController
     }
     
-    func registerRoute(_ route: URLRouteConvertible, handleRouteFactory: @escaping HandleRouteFactory) {
-        router.registerRoute(route, handleRouteFactory: handleRouteFactory)
+    private func addNotification() {
+        let notificationImpl = Module.notificationService
+        notificationImpl.addObserver(forName: .didLogoutSuccess) { [weak self] _ in
+            self?.reloadMainViewController()
+        }.disposed(by: self)
+        
+        notificationImpl.addObserver(forName: .didLoginSuccess) { [weak self] _ in
+            self?.reloadMainViewController()
+        }.disposed(by: self)
     }
     
-    func registerRoute(_ route: URLRouteConvertible, combiner: URLRouteCombine) {
-        router.registerRoute(route, combiner: combiner)
+    private func requestRedirectRoutes() {
+        MockServer.shared.getRedirectRoutes {
+            Module.routeService.routeRedirector.resetRedirectRoutes($0)
+        }
     }
     
-    func openRoute(_ route: URLRouteConvertible, parameters: [String : Any]) -> Bool {
-        router.openRoute(route, parameters: parameters)
-    }
-}
-
-extension ApplicationModuleImpl: LoginEvent {
-    
-    func didLoginSuccess() {
-        debugPrint(Thread.current)
-        debugPrint("\(self) \(#function)")
-    }
-    
-    func didLogoutSuccess() {
-        debugPrint(Thread.current)
-        debugPrint("\(self) \(#function)")
-    }
-}
-
-private extension ApplicationModuleImpl {
-    
-    func setupAppearance() {}
+    private func setupAppearance() {}
 }

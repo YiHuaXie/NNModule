@@ -34,6 +34,7 @@ TODO: Add long description of the pod here.
   
   s.dependency 'NNModule-swift'
   s.dependency 'ModuleServices'
+  s.dependency 'SnapKit'
   
   # s.resource_bundles = {
   #   'LoginModule' => ['LoginModule/Assets/*.png']

@@ -87,7 +87,10 @@ final class ModuleServiceCenter {
     /// - Parameter serviceType: The type of serivce
     func removeService<Service>(of serviceType: Service.Type) {
         let key = ObjectIdentifier(serviceType)
-        serviceTypeMap.removeValue(forKey: key)
+        let implClass = serviceTypeMap.removeValue(forKey: key)
+        if (implClass as? ModuleRegisteredService.Type)?.keepaliveRegiteredImpl ?? false { return }
+        if let _  = serviceTypeMap.first(where: { _, value in value == implClass }) { return }
+        
         implInstanceMap.removeValue(forKey: key)
     }
     
@@ -106,8 +109,23 @@ final class ModuleServiceCenter {
         // save impl of this class if it is possible
         if keepaliveRegiteredImpl { implInstanceMap[key] = newImpl }
         
-        return newImpl
+        return newImpl as? ModuleRegisteredService
     }
+    
+//#if DEBUG
+//    public func mapInfoPrettyPrinted() {
+//        let map: [ String: Any] = [
+//            "serviceTypeMap": serviceTypeMap.map { ["\($0)", "\($1)"] },
+//            "implInstanceMap": implInstanceMap.map { ["\($0)", "\($1)"] }
+//                ]
+//        guard let jsonData = try? JSONSerialization.data(withJSONObject: map, options: .prettyPrinted) else {
+//            return
+//        }
+//
+//        let jsonString = String(data: jsonData, encoding: .utf8) ?? ""
+//        print(jsonString)
+//    }
+//#endif
 }
 
 

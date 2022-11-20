@@ -1,0 +1,16 @@
+PODS:
+  - NNModule-swift/StickyNotification (1.0.4)
+
+DEPENDENCIES:
+  - NNModule-swift/StickyNotification (from `../`)
+
+EXTERNAL SOURCES:
+  NNModule-swift:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  NNModule-swift: 36bce169ee7dae4921205d5e8a00b5be81dc6e4a
+
+PODFILE CHECKSUM: bfcb2951a8fea7148cccd8d79a2c98bfbafe4c49
+
+COCOAPODS: 1.11.3

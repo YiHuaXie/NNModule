@@ -11,6 +11,9 @@ import Foundation
 /// This service is used to implement the functions which in `UIApplicationDelegate`.
 public protocol ModuleApplicationService: ModuleFunctionalService, UIApplicationDelegate {
     
+    /// Invoke before calling class methods of Module.Awake and after calling class methods of Module.RegisterService.
+    func applicationWillAwake()
+    
     /// Reload the main view controller
     func reloadMainViewController()
     
@@ -19,5 +22,3 @@ public protocol ModuleApplicationService: ModuleFunctionalService, UIApplication
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool
 }
-
-

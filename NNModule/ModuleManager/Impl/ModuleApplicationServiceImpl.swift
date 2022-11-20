@@ -13,6 +13,8 @@ class ModuleApplicationServiceImpl: NSObject, ModuleApplicationService {
         super.init()
     }
     
+    func applicationWillAwake() {}
+    
     func reloadMainViewController() {}
     
     func application(
