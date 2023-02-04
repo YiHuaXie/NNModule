@@ -7,9 +7,11 @@
 
 import Foundation
 
+public typealias URLRouteName = String
+
 /// RouteURL is a data structure used to describe a routing entry.
 /// Generally speaking, the URL data will be filled in RouteURL.
-public struct RouteURL {
+@objcMembers public class RouteURL: NSObject {
     
     public let scheme: String
     
@@ -17,7 +19,7 @@ public struct RouteURL {
     
     public let path: String
     
-    public let parameters: [String: Any]
+    public private(set) var parameters: [String: Any]
     
     public var isWebLink: Bool { scheme.isWebScheme }
     
@@ -31,45 +33,57 @@ public struct RouteURL {
         self.path = path
         self.parameters = parameters
     }
+    
+    public func resetParameters(_ parameters: [String: Any]) {
+        self.parameters = parameters
+    }
+    
+    public func mergingParameters(_ parameters: [String: Any]) {
+        self.parameters = self.parameters.merging(parameters) { _, second in second }
+    }
+    
+    public override var description: String { "URL full path: \(fullPath)\nURL parameters: \(parameters)" }
 }
 
 /// A protocol used to convert URL or String to RouteURL.
-public protocol URLRouteParserType {
+@objc public protocol URLRouteParserType: NSObjectProtocol {
     
     /// Default URL scheme.
     /// If the url string does not contain a scheme, the default scheme will be used.
     var defaultScheme: String { get }
     
+    @objc(urlFromRoute:)
     /// Returns the URL through the route.
     /// - Parameter route: Specify a route
     /// - Returns: URL
-    func url(from route: URLRouteConvertible) -> URL?
+    func url(from route: URLRouteName) -> URL?
     
+    @objc(routeUrlFromRoute:params:)
     /// Returns the RouteURL through the route and custom parameters.
     /// - Parameters:
     ///   - route: Specify a route
     ///   - params: Those custom parameters that cannot be put in the URL.
     /// - Returns: RouteURL
-    func routeUrl(from route: URLRouteConvertible, params: [String: Any]) -> RouteURL?
+    func routeUrl(from route: URLRouteName, params: [String: Any]) -> RouteURL?
 }
 
 public extension URLRouteParserType {
     
-    func routeUrl(from route: URLRouteConvertible, params: [String: Any] = [:]) -> RouteURL? {
+    func routeUrl(from route: URLRouteName, params: [String: Any] = [:]) -> RouteURL? {
         routeUrl(from: route, params: params)
     }
 }
 
-public struct URLRouteParser: URLRouteParserType {
+@objcMembers public class URLRouteParser: NSObject, URLRouteParserType {
     
     public let defaultScheme: String
     
-    public init(defaultScheme: String = "nn") {
+    public required init(defaultScheme: String = "nn") {
         self.defaultScheme = defaultScheme.lowercased()
     }
     
-    public func url(from route: URLRouteConvertible) -> URL? {
-        var urlString = route.routeString
+    public func url(from routeString: String) -> URL? {
+        var urlString = routeString
         if urlString.isEmpty { return nil }
         
         let schemeRange = (urlString as NSString).range(of: "://")
@@ -87,8 +101,8 @@ public struct URLRouteParser: URLRouteParserType {
         return components?.url
     }
     
-    public func routeUrl(from route: URLRouteConvertible, params: [String : Any]) -> RouteURL? {
-        guard let url = url(from: route) else { return nil }
+    public func routeUrl(from routeString: String, params: [String : Any]) -> RouteURL? {
+        guard let url = url(from: routeString) else { return nil }
         
         var scheme = url.scheme?.lowercased().removingPercentEncoding ?? ""
         let host = url.host?.lowercased().removingPercentEncoding ?? ""
@@ -149,7 +163,7 @@ fileprivate extension String {
 }
 
 fileprivate extension URL {
-
+    
     func appending(exQueries queries: [String: String]) -> URL {
         if queries.isEmpty { return self }
         
@@ -162,3 +176,5 @@ fileprivate extension URL {
         return components?.url ?? self
     }
 }
+
+

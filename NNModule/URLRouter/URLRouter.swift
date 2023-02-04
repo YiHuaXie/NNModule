@@ -7,54 +7,70 @@
 
 import Foundation
 
-public class URLRouter: URLRouterType {
+@objcMembers public class URLRouter: NSObject, URLNestingRouterType, URLRouterTypeAttach {
+
+    // The default route to handle the URL has http or https.
+    public static var webLink: URLRouteName { "weblink" }
     
     private var _routeParser: URLRouteParserType = URLRouteParser()
     
     private var _navigator: NavigatorType = Navigator()
     
-    private var _routeRedirector = URLRouteRedirector()
+    private var _routeRedirector: URLRouteRedirector
     
-    private var _routeInterceptor = URLRouteInterceptor()
+    private var _routeInterceptor: URLRouteInterceptor
     
     private var delayedHandlers = [(URLRouterType) -> Void]()
     
     private var handleRouteFactories = [String: HandleRouteFactory]()
     
-    public private(set) weak var upperRouter: URLRouterType? = nil
+    public private(set) weak var upperRouter: URLNestingRouterType? = nil
     
     public var routeParser: URLRouteParserType { upperRouter?.routeParser ?? _routeParser }
     
     public var navigator: NavigatorType { upperRouter?.navigator ?? _navigator }
     
-    public var routeRedirector: URLRouteRedirector { upperRouter?.routeRedirector ?? _routeRedirector }
+    public var routeRedirector: URLRouteRedirector {
+        (upperRouter as? URLRouterTypeAttach)?.routeRedirector ?? _routeRedirector
+    }
     
-    public var routeInterceptor: URLRouteInterceptor { upperRouter?.routeInterceptor ?? _routeInterceptor }
+    public var routeInterceptor: URLRouteInterceptor {
+        (upperRouter as? URLRouterTypeAttach)?.routeInterceptor ?? _routeInterceptor
+    }
     
+    @objc(defaultRouter)
     public static var `default` = URLRouter()
     
-    public required init() {}
+    public required override init() {
+        _routeRedirector = URLRouteRedirector(with: _routeParser)
+        _routeInterceptor = URLRouteInterceptor(with: _routeParser)
+        
+        super.init()
+    }
     
-    public required init(routeParser: URLRouteParserType, navigator: NavigatorType = Navigator()) {
+    public required init(routeParser: URLRouteParserType = URLRouteParser(), navigator: NavigatorType = Navigator()) {
         _routeParser = routeParser
         _navigator = navigator
         _routeRedirector = URLRouteRedirector(with: routeParser)
         _routeInterceptor = URLRouteInterceptor(with: routeParser)
+        
+        super.init()
     }
     
-    public convenience init(with router: URLRouterType) {
+    @objc(initWithRouter:)
+    public convenience init(with router: URLNestingRouterType) {
         self.init(routeParser: router.routeParser, navigator: router.navigator)
         
-        _routeInterceptor = router.routeInterceptor
-        _routeRedirector = router.routeRedirector
         upperRouter = router
+        if let interceptor = (router as? URLRouterTypeAttach)?.routeInterceptor { _routeInterceptor = interceptor }
+        if let redirector = (router as? URLRouterTypeAttach)?.routeRedirector { _routeRedirector = redirector }
     }
     
-    public func delayedRegisterRoute(_ route: URLRouteConvertible, handleRouteFactory: @escaping HandleRouteFactory) {
+    public func delayedRegisterRoute(_ route: URLRouteName, handleRouteFactory: @escaping HandleRouteFactory) {
         delayedHandlers.append { $0.registerRoute(route, handleRouteFactory: handleRouteFactory) }
     }
     
-    public func registerRoute(_ route: URLRouteConvertible, handleRouteFactory: @escaping HandleRouteFactory) {
+    public func registerRoute(_ route: URLRouteName, handleRouteFactory: @escaping HandleRouteFactory) {
         guard let routeUrl = routeParser.routeUrl(from: route) else {
             URLRouterLog("route for (\(route)) is invalid")
             return
@@ -69,8 +85,8 @@ public class URLRouter: URLRouterType {
         handleRouteFactories[key] = handleRouteFactory
     }
     
-    public func registerRoute(_ route: URLRouteConvertible, used subRouter: URLRouterType) {
-        guard subRouter.upperRouter === self else {
+    public func registerRoute(_ route: URLRouteName, used subRouter: URLNestingRouterType) {
+        guard let upperRouter = subRouter.upperRouter, upperRouter === self else {
             URLRouterLog("upper router for (\(subRouter)) is not \(self)")
             return
         }
@@ -85,7 +101,7 @@ public class URLRouter: URLRouterType {
         }
     }
     
-    public func removeRoute(_ route: URLRouteConvertible) {
+    public func removeRoute(_ route: URLRouteName) {
         guard let routeUrl = routeParser.routeUrl(from: route) else {
             URLRouterLog("route for (\(route)) is invalid")
             return
@@ -100,7 +116,7 @@ public class URLRouter: URLRouterType {
     }
     
     @discardableResult
-    public func openRoute(_ route: URLRouteConvertible, parameters: [String: Any]) -> Bool {
+    public func openRoute(_ route: URLRouteName, parameters: [String: Any]) -> Bool {
         loadDelayedHandlerIfNeed()
         guard let routeUrl = routeParser.routeUrl(from: route, params: parameters) else {
             URLRouterLog("route for (\(route)) is invalid")
@@ -118,7 +134,7 @@ public class URLRouter: URLRouterType {
                 return invokeRouteHandler(handler, routeUrl: routeUrl)
             }
             
-            if let webLinkRouteUrl = routeParser.routeUrl(from: webLink),
+            if let webLinkRouteUrl = routeParser.routeUrl(from: URLRouter.webLink),
                let webLinkHandler = findRouteHandler(with: webLinkRouteUrl) {
                 return invokeRouteHandler(webLinkHandler, routeUrl: routeUrl)
             }
@@ -162,10 +178,9 @@ public class URLRouter: URLRouterType {
     }
     
     private func invokeRouteHandler(_ handler: HandleRouteFactory, routeUrl: RouteURL) -> Bool {
-        var finalRouteUrl = routeUrl
-        if routeInterceptor.interceptSuccessfully(for: &finalRouteUrl) { return false }
+        if routeInterceptor.interceptSuccessfully(for: routeUrl) { return false }
         
-        return handler(finalRouteUrl, navigator)
+        return handler(routeUrl, navigator)
     }
 }
 
