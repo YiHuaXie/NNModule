@@ -64,7 +64,7 @@ class RouteUtils {
     }
     
     private static func htmlTest() {
-        router.registerRoute(router.webLink) { routeUrl, navigator in
+        router.registerRoute(URLRouter.webLink) { routeUrl, navigator in
             guard let urlString = routeUrl.parameters["url"] as? String, let url = URL(string: urlString) else {
                 return false
             }
@@ -177,9 +177,9 @@ class RouteUtils {
     }
 }
 
-class LogAction: URLRouteInterceptionAction {
+class LogAction: NSObject, URLRouteInterceptionAction {
     
-    var specifiedRoutes: [URLRouteConvertible]? { nil }
+    var specifiedRoutes: [URLRouteName]? { nil }
 
     func interceptRoute(for routeUrl: RouteURL) -> URLRouteInterceptionResult {
         print("\n================ Test case ================")
@@ -189,9 +189,9 @@ class LogAction: URLRouteInterceptionAction {
     }
 }
 
-class LoginAction: URLRouteInterceptionAction {
+class LoginAction: NSObject, URLRouteInterceptionAction {
     
-    var specifiedRoutes: [URLRouteConvertible]? { ["module3/apage", "module3/main"] }
+    var specifiedRoutes: [URLRouteName]? { ["module3/apage", "module3/main"] }
 
     func interceptRoute(for routeUrl: RouteURL) -> URLRouteInterceptionResult {
         if routeUrl.parameters["uid"] == nil {
@@ -207,9 +207,9 @@ class LoginAction: URLRouteInterceptionAction {
     }
 }
 
-class PermissionAction: URLRouteInterceptionAction {
+class PermissionAction: NSObject, URLRouteInterceptionAction {
     
-    var specifiedRoutes: [URLRouteConvertible]? { ["module3"] }
+    var specifiedRoutes: [URLRouteName]? { ["module3"] }
     
     func interceptRoute(for routeUrl: RouteURL) -> URLRouteInterceptionResult {
         if routeUrl.path == "/apage", routeUrl.parameters["permission"] == nil {

@@ -1,5 +1,5 @@
 PODS:
-  - NNModule-swift/URLRouter (1.0.4)
+  - NNModule-swift/URLRouter (1.0.5)
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
@@ -15,7 +15,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  NNModule-swift: 36bce169ee7dae4921205d5e8a00b5be81dc6e4a
+  NNModule-swift: a31cdccc81edc25429721c2318d48be64b24c5c2
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
 PODFILE CHECKSUM: 330a011a29aba58f7869cbcd532c61c376c9b4ff
