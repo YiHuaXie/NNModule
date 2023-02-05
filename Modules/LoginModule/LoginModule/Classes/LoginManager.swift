@@ -10,7 +10,7 @@ extension Module.RegisterService {
     }
 }
 
-internal final class LoginManager: LoginService {
+internal final class LoginManager: NSObject, LoginService {
 
     static let shared = LoginManager()
     
@@ -18,7 +18,7 @@ internal final class LoginManager: LoginService {
     
     var isLogin: Bool = false
     
-    required init() {}
+    required override init() { super.init() }
     
     var loginMain: UIViewController {
         UINavigationController(rootViewController: LoginViewController())

@@ -9,7 +9,7 @@ import Foundation
 import NNModule_swift
 import ModuleServices
 
-class ModuleConfigServiceImpl: ModuleConfigService {
+class ModuleConfigServiceImpl: NSObject, ModuleConfigService {
     
     private(set) var appScheme: String = ""
     
@@ -17,7 +17,9 @@ class ModuleConfigServiceImpl: ModuleConfigService {
     
     private(set) var tabBarItems = [String]()
     
-    required init() {
+    required override init() {
+        super.init()
+        
         // 从主工程配置文件中读取
         appScheme = "nero"
         tabBarItems = ["example", "house", "user"]

@@ -21,7 +21,7 @@ extension Module.Awake {
     }
 }
 
-class HouseManager: HouseService {
+class HouseManager: NSObject, HouseService {
     
     static let shared = HouseManager()
     
@@ -31,7 +31,7 @@ class HouseManager: HouseService {
     
     var houseList: [HouseModel] = []
     
-    required init() {}
+    required override init() { super.init() }
     
     func addHouse(houseName: String) {
         MockServer.shared.addHouse(houseName: houseName) { [weak self] result in
