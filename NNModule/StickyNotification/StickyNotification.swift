@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension NotificationCenter {
+@objc extension NotificationCenter {
     
     /// Adds an entry to the notification center to receive notifications that passed to the provided block.
     /// - Parameters:

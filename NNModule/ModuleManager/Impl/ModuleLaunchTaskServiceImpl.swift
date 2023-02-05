@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ModuleLaunchTaskServiceImpl: ModuleLaunchTaskService {
+class ModuleLaunchTaskServiceImpl: NSObject, ModuleLaunchTaskService {
     
     private var syncMainTasks: [RegisterLaunchTaskService] = []
     
@@ -15,14 +15,15 @@ class ModuleLaunchTaskServiceImpl: ModuleLaunchTaskService {
     
     private var asyncGlobalTasks: [RegisterLaunchTaskService] = []
     
-    required init() {}
+    required override init() { super.init() }
     
     func addRegister(_ register: RegisterLaunchTaskService.Type) {
         guard let impl = Module.registerImpl(of: register) as? RegisterLaunchTaskService else {
             return
         }
         
-        switch impl.runMode {
+        
+        switch (impl.runMode ?? .asynOnGlobal) {
         case .asynOnGlobal: asyncGlobalTasks.append(impl)
         case .asyncOnMain: asyncMainTasks.append(impl)
         case .syncOnMain: syncMainTasks.append(impl)
@@ -38,7 +39,7 @@ class ModuleLaunchTaskServiceImpl: ModuleLaunchTaskService {
     }
     
     private func execute(tasks: [RegisterLaunchTaskService]) {
-        let sortedTasks = tasks.sorted { $0.priority.rawValue > $1.priority.rawValue }
+        let sortedTasks = tasks.sorted { ($0.priority ?? .default).rawValue > ($1.priority ?? .default).rawValue }
         
         sortedTasks.forEach { $0.startTask() }
     }

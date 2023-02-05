@@ -7,58 +7,94 @@
 
 import Foundation
 
-public final class Module {
+@objcMembers public final class Module: NSObject {
     
-    private init() {}
+    private override init() {}
     
-    static var serviceCenter: ModuleServiceCenter { ModuleServiceCenter.shared }
+    @objc(ModuleRegisterService)
+    /// A class to register functional servicies.
+    /// Adds static methods with @objc tag in category, register services in these static methods.
+    public final class RegisterService: NSObject {
+        
+        private override init() {}
+    }
+    
+    @objc(ModuleAwake)
+    /// A class to register registered servicies and other initialization operations.
+    /// Adds static methods with @objc tag in category, do something in these static methods.
+    public final class Awake: NSObject {
+        
+        private override init() {}
+    }
+}
 
-    public static var routeService: ModuleRouteService { service(of: ModuleRouteService.self) }
+public extension Module {
     
-    public static var applicationService: ModuleApplicationService { service(of: ModuleApplicationService.self) }
+    fileprivate static var serviceCenter: ModuleServiceCenter { ModuleServiceCenter.shared }
     
-    public static var tabService: ModuleTabService { service(of: ModuleTabService.self) }
+    static var routeService: ModuleRouteService { service(of: ModuleRouteService.self) }
     
-    public static var launchTaskService: ModuleLaunchTaskService { service(of: ModuleLaunchTaskService.self) }
+    static var applicationService: ModuleApplicationService { service(of: ModuleApplicationService.self) }
     
-    public static var notificationService: ModuleNotificationService { service(of: ModuleNotificationService.self) }
+    static var tabService: ModuleTabService { service(of: ModuleTabService.self) }
     
-    public static var topViewController: UIViewController? { UIApplication.topViewController }
+    static var launchTaskService: ModuleLaunchTaskService { service(of: ModuleLaunchTaskService.self) }
+    
+    static var notificationService: ModuleNotificationService { service(of: ModuleNotificationService.self) }
+    
+    static var topViewController: UIViewController? { UIApplication.topViewController }
     
     /// Register services
     /// - Parameters:
     ///   - serviceType: The type of serivce
-    ///   - implClass: The class that implements the service
-    public static func register<Service>(service serviceType: Service.Type, used implClass: AnyClass) {
+    ///   - implClass: The class that implements the service.
+    static func register<Service>(service serviceType: Service.Type, used implClass: AnyClass) {
         serviceCenter.register(service: serviceType, used: implClass)
+    }
+    
+    @objc(registerServiceOfProtocol:usedImplClass:)
+    /// Register services
+    /// - Parameters:
+    ///   - serviceType: The type of serivce
+    ///   - implClass: The class that implements the service.
+    static func register(service serviceProtocol: Protocol, used implClass: AnyClass) {
+        serviceCenter.register(service: serviceProtocol, used: implClass)
     }
     
     /// Get the instance of the service.
     /// Since the instance is lazy loaded, so pay attention to whether there is a service mutual reference in the constructor.
-    /// - Parameter serviceType: The type of serivce
-    public static func service<Service>(of serviceType: Service.Type) -> Service {
+    /// - Parameter serviceType: The type of serivce.
+    /// - Returns: The instance of serivce.
+    static func service<Service>(of serviceType: Service.Type) -> Service {
         serviceCenter.service(of: serviceType)!
+    }
+    
+    @objc(serivceOfProtocol:)
+    /// Get the instance of the service.
+    /// Since the instance is lazy loaded, so pay attention to whether there is a service mutual reference in the constructor.
+    /// - Parameter serviceType: The type of serivce.
+    /// - Returns: The instance of serivce.
+    static func service(of serviceProtocol: Protocol) -> Any {
+        serviceCenter.service(of: serviceProtocol)!
     }
     
     /// Remove service
     /// - Parameter serviceType: The type of serivce
-    public static func removeService<Service>(of serviceType: Service.Type) {
+    static func removeService<Service>(of serviceType: Service.Type) {
         serviceCenter.removeService(of: serviceType)
     }
     
-    /// Get the register impl instance of class
-    /// - Parameter implClass: The class that provides a service which conforms to protocol `ModuleRegisteredService`
-    public static func registerImpl(of implClass: AnyClass) -> ModuleRegisteredService? {
-        serviceCenter.registerImpl(of: implClass)
+    @objc(removeSerivceOfProtocol:)
+    /// Remove service
+    /// - Parameter serviceType: The type of serivce
+    static func removeService(of serviceProtocol: Protocol) {
+        serviceCenter.removeService(of: serviceProtocol)
     }
     
-//#if DEBUG
-//    public static func serviceMapInfoPrettyPrinted() {
-//        serviceCenter.mapInfoPrettyPrinted()
-//    }
-//#endif
-    
-    public final class RegisterService {}
-    
-    public final class Awake {}
+    @objc(registerImplOfClass:)
+    /// Get the register impl instance of class
+    /// - Parameter implClass: The class that provides a service which conforms to protocol `ModuleRegisteredService`
+    static func registerImpl(of implClass: AnyClass) -> ModuleRegisteredService? {
+        serviceCenter.registerImpl(of: implClass)
+    }
 }

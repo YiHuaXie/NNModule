@@ -7,45 +7,46 @@
 
 import UIKit
 
-public class ModuleTabServiceImpl: ModuleTabService {
+class ModuleTabServiceImpl: NSObject, ModuleTabService {
     
     private var _tabBarController: UITabBarController?
     
     private var tabItemImpls: [RegisterTabItemService] = []
     
-    public private(set) var tabBarItemMeta: [TabBarItemMeta] = []
+    private(set) var tabBarItemMeta: [TabBarItemMeta] = []
     
-    public var tabBarControllerType: UITabBarController.Type = TabBarController.self
+    var tabBarControllerType: UITabBarController.Type = TabBarController.self
     
-    public var tabBarController: UITabBarController { _tabBarController ?? tabBarControllerType.init() }
+    var tabBarController: UITabBarController { _tabBarController ?? tabBarControllerType.init() }
     
-    public required init() {}
+    required override init() { super.init() }
     
-    public func setupTabBarController(with tabBarController: UITabBarController) {
+    func setupTabBarController(with tabBarController: UITabBarController) {
         _tabBarController = tabBarController
         
         tabItemImpls.forEach { impl in
-            impl.setupTabBarController(tabBarController)
-            tabBarItemMeta += impl.registerTabBarItems().map {
-                var meta = $0;
-                meta.impl = impl;
-                return meta
-            }
+            impl.setupTabBarController?(tabBarController)
+            tabBarItemMeta += (impl.registerTabBarItems?() ?? []).map { $0.impl = impl; return $0 }
         }
         
         tabBarItemMeta = tabBarItemMeta.sorted(by: { $0.tabIndex < $1.tabIndex })
     }
     
-    public func addRegister(_ register: RegisterTabItemService.Type) {
-        // 
-        if let impl = Module.registerImpl(of: register) as? RegisterTabItemService {
-            tabItemImpls.append(impl)
-        }
+    func addRegister(_ register: RegisterTabItemService.Type) {
+        guard let impl = Module.registerImpl(of: register) as? RegisterTabItemService else { return }
+        
+        tabItemImpls.append(impl)
     }
     
-    public func needReloadTabBarController() {
+    func needReloadTabBarController() {
         tabBarItemMeta = []
         _tabBarController = nil
+    }
+    
+    func impl(in tabBarController: UITabBarController, of viewController: UIViewController) -> RegisterTabItemService? {
+        guard let index = tabBarController.children.firstIndex(of: viewController) else { return nil }
+        
+        return tabBarItemMeta[index].impl
     }
 }
 
@@ -53,7 +54,7 @@ fileprivate class TabBarController: UITabBarController, UITabBarControllerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         delegate = self
         
         Module.tabService.setupTabBarController(with: self)

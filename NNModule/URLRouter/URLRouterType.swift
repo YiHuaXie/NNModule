@@ -82,9 +82,9 @@ public extension URLNestingRouterType {
 @objc public protocol URLRouterTypeAttach: NSObjectProtocol {
     
     /// A redirector for redirecting routes.
-    @objc optional var routeRedirector: URLRouteRedirector { get }
+    var routeRedirector: URLRouteRedirector { get }
     
     /// A route interceptor that decides whether to execute the route.
-    @objc optional var routeInterceptor: URLRouteInterceptor { get }
+    var routeInterceptor: URLRouteInterceptor { get }
 }
 

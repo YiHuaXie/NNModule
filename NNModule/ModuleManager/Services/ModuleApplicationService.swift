@@ -9,7 +9,7 @@ import Foundation
 
 /// Application Service
 /// This service is used to implement the functions which in `UIApplicationDelegate`.
-public protocol ModuleApplicationService: ModuleFunctionalService, UIApplicationDelegate {
+@objc public protocol ModuleApplicationService: ModuleFunctionalService, UIApplicationDelegate {
     
     /// Invoke before calling class methods of Module.Awake and after calling class methods of Module.RegisterService.
     func applicationWillAwake()

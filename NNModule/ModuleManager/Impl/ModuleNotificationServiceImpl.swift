@@ -7,9 +7,9 @@
 
 import Foundation
 
-class ModuleNotificationServiceImpl: ModuleNotificationService {
+class ModuleNotificationServiceImpl: NSObject, ModuleNotificationService {
     
-    required init() {}
+    required override init() { super.init() }
     
     func addObserver(
         forName name: NSNotification.Name?,

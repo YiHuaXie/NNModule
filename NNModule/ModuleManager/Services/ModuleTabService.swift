@@ -8,7 +8,7 @@
 import UIKit
 
 /// TabBar service.
-public protocol ModuleTabService: ModuleFunctionalService {
+@objc public protocol ModuleTabService: ModuleFunctionalService {
     
     /// The Type of tabBar controller
     var tabBarControllerType: UITabBarController.Type { set get }
@@ -26,45 +26,29 @@ public protocol ModuleTabService: ModuleFunctionalService {
     /// Add register of tabBar item
     func addRegister(_ register: RegisterTabItemService.Type)
     
+    /// Need to reload the tabBar.
     func needReloadTabBarController()
-}
-
-public extension ModuleTabService {
     
     /// Get the instance of RegisterTabItemService corresponding to the viewController.
     /// - Parameters:
     ///   - tabBarController: The instance of current tabBar controller
     ///   - viewController: The specified ViewController
     /// - Returns: RegisterTabItemService
-    func impl(in tabBarController: UITabBarController, of viewController: UIViewController) -> RegisterTabItemService? {
-        guard let index = tabBarController.children.firstIndex(of: viewController) else {
-            return nil
-        }
-        
-        return tabBarItemMeta[index].impl
-    }
+    func impl(in tabBarController: UITabBarController, of viewController: UIViewController) -> RegisterTabItemService?
 }
 
 /// Register tabBar item
-public protocol RegisterTabItemService: ModuleRegisteredService, UITabBarControllerDelegate {
+@objc public protocol RegisterTabItemService: ModuleRegisteredService, UITabBarControllerDelegate {
     
     /// Setup the tabBar controller when created
-    func setupTabBarController(_ tabBarController: UITabBarController)
+    @objc optional func setupTabBarController(_ tabBarController: UITabBarController)
     
     /// Register tabBar items
-    func registerTabBarItems() -> [TabBarItemMeta]
+    @objc optional func registerTabBarItems() -> [TabBarItemMeta]
 }
-
-extension RegisterTabItemService {
-    
-    public func setupTabBarController(_ tabBarController: UITabBarController) {}
-    
-    public func registerTabBarItems() -> [TabBarItemMeta] { [] }
-}
-
 
 /// The meta that describe tabBar item.
-public struct TabBarItemMeta {
+@objcMembers public class TabBarItemMeta: NSObject {
     
     internal var impl: RegisterTabItemService?
     
@@ -75,5 +59,7 @@ public struct TabBarItemMeta {
     public init(viewController: UIViewController, tabIndex: Int) {
         self.viewController = viewController
         self.tabIndex = tabIndex
+        
+        super.init()
     }
 }

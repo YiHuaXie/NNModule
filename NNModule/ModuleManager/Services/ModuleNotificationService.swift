@@ -8,7 +8,7 @@
 import Foundation
 
 /// Notification Service
-public protocol ModuleNotificationService: ModuleFunctionalService {
+@objc public protocol ModuleNotificationService: ModuleFunctionalService {
     
     /// Adds an entry to the notification center to receive notifications that passed to the provided block.
     /// - Parameters:

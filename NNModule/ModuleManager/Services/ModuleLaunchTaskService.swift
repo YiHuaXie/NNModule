@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum ModuleLaunchTaskRunMode : Int {
+@objc public enum ModuleLaunchTaskRunMode : Int {
     
     case asyncOnMain
     
@@ -16,7 +16,7 @@ public enum ModuleLaunchTaskRunMode : Int {
     case syncOnMain
 }
 
-public enum ModuleLaunchTaskPriority: Int {
+@objc public enum ModuleLaunchTaskPriority: Int {
     
     case low = 100
     
@@ -26,7 +26,7 @@ public enum ModuleLaunchTaskPriority: Int {
 }
 
 /// Launch Task Service
-public protocol ModuleLaunchTaskService: ModuleFunctionalService {
+@objc public protocol ModuleLaunchTaskService: ModuleFunctionalService {
     
     /// Add register of launch tasks
     func addRegister(_ register: RegisterLaunchTaskService.Type)
@@ -43,22 +43,22 @@ extension ModuleLaunchTaskService {
 }
 
 /// The service of register launch tasks
-public protocol RegisterLaunchTaskService: ModuleRegisteredService {
+@objc public protocol RegisterLaunchTaskService: ModuleRegisteredService {
     
     /// Run mode of launch task, default is `ModuleLaunchTaskRunModeasynOnGlobal`
-    var runMode: ModuleLaunchTaskRunMode { get }
+    @objc optional var runMode: ModuleLaunchTaskRunMode { get }
     
     /// Priority of launch task, defualt is `ModuleLaunchTaskPriority.default`
-    var priority: ModuleLaunchTaskPriority { get }
+    @objc optional var priority: ModuleLaunchTaskPriority { get }
     
     /// Start task
     func startTask()
 }
 
-public extension RegisterLaunchTaskService {
-    
-    var runMode: ModuleLaunchTaskRunMode { .asynOnGlobal }
-    
-    var priority: ModuleLaunchTaskPriority { .default }
-}
+//public extension RegisterLaunchTaskService {
+//    
+//    var runMode: ModuleLaunchTaskRunMode { .asynOnGlobal }
+//    
+//    var priority: ModuleLaunchTaskPriority { .default }
+//}
 
