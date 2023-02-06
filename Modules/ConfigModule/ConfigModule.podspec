@@ -1,5 +1,5 @@
 #
-# Be sure to run `pod lib lint ApplicationModule.podspec' to ensure this is a
+# Be sure to run `pod lib lint ConfigModule.podspec' to ensure this is a
 # valid spec before submitting.
 #
 # Any lines starting with a # are optional, but their use is encouraged
@@ -7,9 +7,9 @@
 #
 
 Pod::Spec.new do |s|
-  s.name             = 'ApplicationModule'
+  s.name             = 'ConfigModule'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of ApplicationModule.'
+  s.summary          = 'A short description of ConfigModule.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -21,25 +21,25 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/xyh30902@163.com/ApplicationModule'
+  s.homepage         = 'https://github.com/xyh30902@163.com/ConfigModule'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'NeroXie' => 'xyh30902@163.com' }
-  s.source           = { :git => 'https://github.com/xyh30902@163.com/ApplicationModule.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/xyh30902@163.com/ConfigModule.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '10.0'
 
-  s.source_files = 'ApplicationModule/Classes/**/*'
-  s.dependency 'NNModule-swift'
+  s.source_files = 'ConfigModule/Classes/**/*'
+  s.module_map = 'ConfigModule/module.modulemap'
+  s.dependency 'NNModule-swift/ModuleManager'
   s.dependency 'ModuleServices'
-  s.dependency 'BaseModule'
-  s.dependency 'ConfigModule'
+  # s.dependency 'BaseModule'
 
 #  s.dependency 'LinkedOrder'
   
   # s.resource_bundles = {
-  #   'ApplicationModule' => ['ApplicationModule/Assets/*.png']
+  #   'ConfigModule' => ['ConfigModule/Assets/*.png']
   # }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
