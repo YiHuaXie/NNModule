@@ -36,17 +36,17 @@ PODS:
   - ModuleServices (0.1.0):
     - HandyJSON
     - NNModule-swift
-  - NNModule-swift (1.0.5):
-    - NNModule-swift/EventTransfer (= 1.0.5)
-    - NNModule-swift/ModuleManager (= 1.0.5)
-    - NNModule-swift/StickyNotification (= 1.0.5)
-    - NNModule-swift/URLRouter (= 1.0.5)
-  - NNModule-swift/EventTransfer (1.0.5)
-  - NNModule-swift/ModuleManager (1.0.5):
+  - NNModule-swift (1.0.6):
+    - NNModule-swift/EventTransfer (= 1.0.6)
+    - NNModule-swift/ModuleManager (= 1.0.6)
+    - NNModule-swift/StickyNotification (= 1.0.6)
+    - NNModule-swift/URLRouter (= 1.0.6)
+  - NNModule-swift/EventTransfer (1.0.6)
+  - NNModule-swift/ModuleManager (1.0.6):
     - NNModule-swift/StickyNotification
     - NNModule-swift/URLRouter
-  - NNModule-swift/StickyNotification (1.0.5)
-  - NNModule-swift/URLRouter (1.0.5)
+  - NNModule-swift/StickyNotification (1.0.6)
+  - NNModule-swift/URLRouter (1.0.6)
   - SnapKit (5.6.0)
   - TabBarController (0.1.0):
     - BaseModule
@@ -110,7 +110,7 @@ SPEC CHECKSUMS:
   LoginModule: 4273b8c921ec0367846b6961248b2b5ef29655a0
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   ModuleServices: 890f7568b55e59356cf41d56300698c853b151e4
-  NNModule-swift: d637d33f6ddf28e0f8cf2cb152d29f20b3d9e92f
+  NNModule-swift: d8d8dcc1302ed93ca262dfe5d44e8c2eca4a9b56
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   TabBarController: 1022ae0cd42087e68fa1092da506a4ed9410b2e0
 

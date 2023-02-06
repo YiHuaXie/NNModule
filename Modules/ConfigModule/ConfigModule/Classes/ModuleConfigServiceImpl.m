@@ -7,6 +7,18 @@
 
 #import "ModuleConfigServiceImpl.h"
 
+@interface ModuleRegisterService (ModuleConfigService)
+
+@end
+
+@implementation ModuleRegisterService (ModuleConfigService)
+
++ (void)registerModuleConfigService {
+    [Module registerServiceOfProtocol:@protocol(ModuleConfigService) usedImplClass:ModuleConfigServiceImpl.class];
+}
+
+@end
+
 @interface ModuleConfigServiceImpl()
 
 @property (nonatomic, copy) NSString *appScheme;

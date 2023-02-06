@@ -155,11 +155,11 @@ final class ModuleServiceCenter {
 struct SerivceName {
     
     static func value(of aProtocol: Protocol) -> String {
-        NSStringFromProtocol(aProtocol)
+        return NSStringFromProtocol(aProtocol)
     }
     
     static func value<Generic>(of aGenericType: Generic.Type) -> String {
-        String(reflecting: aGenericType).replacingOccurrences(of: ".Protocol", with: "")
+        return String(reflecting: aGenericType)
     }
 }
 
