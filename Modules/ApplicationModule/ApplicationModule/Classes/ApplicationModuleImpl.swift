@@ -2,12 +2,13 @@ import Foundation
 import NNModule_swift
 import ModuleServices
 import BaseModule
+import ConfigModule
 
 extension Module.RegisterService {
     
     @objc static func applicationModule() {
         Module.register(service: ModuleApplicationService.self, used: ApplicationModuleImpl.self)
-        Module.register(service: ModuleRouteService.self, used: ApplicationRouter.self)
+        Module.register(service: ModuleRouteService.self, used: Router.self)
         Module.register(service: ModuleConfigService.self, used: ModuleConfigServiceImpl.self)
     }
 }
@@ -18,9 +19,7 @@ class ApplicationModuleImpl: NSObject, ModuleApplicationService {
         
     var window: UIWindow?
     
-    required override init() {
-        super.init()
-    }
+    required override init() { super.init() }
     
     func applicationWillAwake() {
         let config = Module.service(of: ModuleConfigService.self)

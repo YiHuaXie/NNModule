@@ -13,6 +13,7 @@ target 'Example_ModuleManager' do
   pod 'BModule', :path => '../Modules/BModule'
   pod 'CModule', :path => '../Modules/CModule'
   pod 'ApplicationModule', :path => '../Modules/ApplicationModule'
+  pod 'ConfigModule', :path => '../Modules/ConfigModule'
   pod 'TabBarController', :path => '../Modules/TabBarController'
   pod 'BaseModule', :path => '../Modules/BaseModule'
   pod 'SnapKit'

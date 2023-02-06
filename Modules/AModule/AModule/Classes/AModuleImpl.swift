@@ -16,7 +16,7 @@ extension Module.Awake {
     
     @objc static func aModuleAwake() {
         let subRouter = AModuleImpl.router
-        Module.routeService.registerRoutes(["house", subRouter.webLink], used: subRouter)
+        Module.routeService.registerRoutes(["house", URLRouter.webLink], used: subRouter)
         Module.tabService.addRegister(AModuleImpl.self)
         Module.launchTaskService.addRegister(ModuleLaunchTaskTest.self)
     }
@@ -26,7 +26,7 @@ class AModuleImpl: NSObject, RegisterTabItemService {
 
     fileprivate(set) static var router: URLRouter = {
         let router = URLRouter(with: Module.routeService)
-        router.delayedRegisterRoute(router.webLink) { url, navigator in
+        router.delayedRegisterRoute(URLRouter.webLink) { url, navigator in
             guard let string = url.parameters["url"] as? String, let url = URL(string: string) else { return false }
             
             navigator.push(SFSafariViewController(url: url))

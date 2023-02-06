@@ -7,43 +7,44 @@
 
 import Foundation
 
-/// The result of intercepting a route
-public enum URLRouteInterceptionResult {
+/// The result of intercepting a route.
+@objc public enum URLRouteInterceptionResult: Int {
     
     // interception failed, can continue
-    case next
+    case next = 0
     
     // interception success, can not continue
-    case reject
-    
-    // reset the parameters of route, can continue
-    case reset(parameters: [String: Any])
+    case reject = 1
 }
 
-public protocol URLRouteInterceptionAction: AnyObject {
+/// A route interception action.
+@objc public protocol URLRouteInterceptionAction: NSObjectProtocol {
     
     /// Specified routes.
     /// It will match all routes if the value is nil or an empty array.
-    var specifiedRoutes: [URLRouteConvertible]? { get }
+    var specifiedRoutes: [URLRouteName]? { get }
     
+    @objc(interceptRouteForRouteUrl:)
     /// Intercepts route.
     /// - Parameter routeUrl: A data used to describe a route
     /// - Returns: The result of intercepting the route
     func interceptRoute(for routeUrl: RouteURL) -> URLRouteInterceptionResult
 }
 
-public class URLRouteInterceptor {
-
+@objcMembers public class URLRouteInterceptor: NSObject {
+    
     private var routeFullPathsMap: [ObjectIdentifier: [RouteURLFullPath]] = [:]
     
     public private(set) var actions: [URLRouteInterceptionAction] = []
-        
+    
     private var routeParser: URLRouteParserType
     
+    @objc(initWithRouteParser:)
     public init(with routeParser: URLRouteParserType = URLRouteParser()) {
         self.routeParser = routeParser
     }
     
+    @objc(insertAction:atIndex:)
     /// Inserts a new action at the specified position.
     /// - Parameters:
     ///   - action: The new action to insert into the action.
@@ -53,7 +54,8 @@ public class URLRouteInterceptor {
         
         if updateRouteFullPaths(by: action) { actions.insert(action, at: i) }
     }
-        
+    
+    @objc(appendAction:)
     /// Adds a new action at the end of the actions.
     /// - Parameter action: The action to append to the actions.
     public func append(_ action: URLRouteInterceptionAction) {
@@ -72,13 +74,11 @@ public class URLRouteInterceptor {
     /// The result of intercepting a route.
     /// - Parameter routeUrl: A data used to describe a route.
     /// - Returns: The result of interception.
-    public func interceptSuccessfully(for routeUrl: inout RouteURL) -> Bool {
+    public func interceptSuccessfully(for routeUrl: RouteURL) -> Bool {
         for action in matchedActions(for: routeUrl) {
             switch action.interceptRoute(for: routeUrl) {
             case .next: break
             case .reject: return true
-            case .reset(let params):
-                routeUrl = RouteURL(scheme: routeUrl.scheme, host: routeUrl.host, path: routeUrl.path, parameters: params)
             }
         }
         
@@ -113,20 +113,22 @@ public class URLRouteInterceptor {
 
 extension URLRouteInterceptor {
     
-    public class Action: URLRouteInterceptionAction {
+    @objc(URLRouteInterceptorAction)
+    /// Default interception action.
+    @objcMembers public class Action: NSObject, URLRouteInterceptionAction {
+        
+        public private(set) var specifiedRoutes: [URLRouteName]?
         
         public typealias Handler = (_ routeUrl: RouteURL) -> URLRouteInterceptionResult
         
         private var interceptionHandler: Handler
         
-        public private(set) var specifiedRoutes: [URLRouteConvertible]?
-        
-        public init(specifiedRoutes: [URLRouteConvertible]? = nil, handler: @escaping Handler) {
+        public init(specifiedRoutes: [URLRouteName]? = nil, handler: @escaping Handler) {
             self.specifiedRoutes = specifiedRoutes
             self.interceptionHandler = handler
         }
         
-        public convenience init(specifiedRoute: URLRouteConvertible, handler: @escaping Handler) {
+        public convenience init(specifiedRoute: String, handler: @escaping Handler) {
             self.init(specifiedRoutes: [specifiedRoute], handler: handler)
         }
         

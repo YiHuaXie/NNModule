@@ -7,15 +7,17 @@
 
 import UIKit
 
-public protocol NavigatorType {
+@objc public protocol NavigatorType: NSObjectProtocol {
     
+    @objc(pushViewController:from:animated:)
     /// Pushes a matching view controller to the navigation controller stack.
     /// - Parameters:
     ///   - viewController: The view controller to push onto the stack.
     ///   - from: Specify a navigation controller stack.
     ///   - animated: Specify true to animate the transition or false if you do not want the transition to be animated.
     func push(_ viewController: UIViewController, from: UINavigationController?, animated: Bool)
-
+    
+    @objc(presentViewController:wrap:from:animated:completion:)
     /// Presents a matching view controller.
     /// - Parameters:
     ///   - viewController: The view controller to display over the current view controller’s content.
@@ -31,8 +33,8 @@ public extension NavigatorType {
     func push(_ viewController: UIViewController, from: UINavigationController? = nil, animated: Bool = true) {
         push(viewController, from: from, animated: animated)
     }
-
-   func present(
+    
+    func present(
         _ viewController: UIViewController,
         wrap: UINavigationController.Type? = nil,
         from: UIViewController? = nil,
@@ -43,17 +45,17 @@ public extension NavigatorType {
     }
 }
 
-public struct Navigator: NavigatorType {
+public class Navigator: NSObject, NavigatorType {
     
-    public init() {}
-
+    public override init() { super.init() }
+    
     public func push(_ viewController: UIViewController, from: UINavigationController?, animated: Bool) {
         guard (viewController is UINavigationController) == false else { return }
         guard let navigationController = from ?? UIApplication.topViewController?.navigationController else { return }
-
+        
         navigationController.pushViewController(viewController, animated: animated)
     }
-
+    
     public func present(
         _ viewController: UIViewController,
         wrap: UINavigationController.Type?,
@@ -62,14 +64,14 @@ public struct Navigator: NavigatorType {
         completion: (() -> Void)?
     ) {
         guard let fromViewController = from ?? UIApplication.topViewController else { return }
-
+        
         let viewControllerToPresent: UIViewController
         if let navigationControllerClass = wrap, (viewController is UINavigationController) == false {
             viewControllerToPresent = navigationControllerClass.init(rootViewController: viewController)
         } else {
             viewControllerToPresent = viewController
         }
-
+        
         fromViewController.present(viewControllerToPresent, animated: animated, completion: completion)
     }
 }
@@ -77,7 +79,7 @@ public struct Navigator: NavigatorType {
 extension UIApplication {
     
     /// The current application's top most view controller.
-    public static var topViewController: UIViewController? {
+    @objc public static var topViewController: UIViewController? {
         let selector = NSSelectorFromString("sharedApplication")
         let sharedApplication = UIApplication.perform(selector)?.takeUnretainedValue() as? UIApplication
         

@@ -8,17 +8,19 @@
 import Foundation
 import NNModule_swift
 
-public protocol ModuleConfigService: ModuleFunctionalService {
+@objc public protocol ModuleConfigService: ModuleFunctionalService {
     
     var appScheme: String { get }
     
     var tabBarControllerType: UITabBarController.Type { get }
     
     var tabBarItems: [String] { get }
+    
+//    func tabBarItemIndex(for itemName: String) -> Int
 }
 
 extension ModuleConfigService {
-    
+
     public func tabBarItemIndex(for itemName: String) -> Int? {
         tabBarItems.firstIndex { $0 == itemName }
     }

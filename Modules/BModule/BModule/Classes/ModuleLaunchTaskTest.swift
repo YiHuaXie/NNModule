@@ -8,11 +8,11 @@
 import Foundation
 import NNModule_swift
 
-final class ModuleLaunchTaskTest: RegisterLaunchTaskService {
+final class ModuleLaunchTaskTest: NSObject, RegisterLaunchTaskService {
     
     static var keepaliveRegiteredImpl: Bool { true }
     
-    required init() {}
+    required override init() { super.init() }
     
     func startTask() {
         let className = NSStringFromClass(type(of: self))

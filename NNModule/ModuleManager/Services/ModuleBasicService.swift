@@ -9,43 +9,29 @@ import Foundation
 
 /// Basic service.
 /// All services must be based on this service.
-public protocol ModuleBasicService: AnyObject {
+@objc public protocol ModuleBasicService: NSObjectProtocol {
     
     /// Init Method.
     init()
     
     /// The instance of implementing service.
-    static var implInstance: ModuleBasicService { get }
-}
-
-public extension ModuleBasicService {
-    
-    static var implInstance: ModuleBasicService { self.init() }
+    @objc optional static var implInstance: ModuleBasicService { get }
 }
 
 /// Functional service
-public protocol ModuleFunctionalService: ModuleBasicService {
+@objc public protocol ModuleFunctionalService: ModuleBasicService {
     
     /// priority of instance, default is 0
-    static var implPriority: Int { get }
-}
-
-public extension ModuleFunctionalService {
-    
-    static var implPriority: Int { 0 }
+    @objc optional static var implPriority: Int { get }
 }
 
 /// Register service.
-public protocol ModuleRegisteredService: ModuleBasicService {
+@objc public protocol ModuleRegisteredService: ModuleBasicService {
     
     /// keep alive the instance
     /// It will save the instance to a global map when return true.
-    static var keepaliveRegiteredImpl: Bool { get }
+    @objc optional static var keepaliveRegiteredImpl: Bool { get }
 }
 
-public extension ModuleRegisteredService {
-    
-    static var keepaliveRegiteredImpl: Bool { false }
-}
 
 

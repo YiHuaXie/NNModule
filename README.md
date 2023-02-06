@@ -11,10 +11,22 @@ NNModule-swift 用于 Swift 项目的模块管理，主要用于业务模块之�
 
 NNModule-swift 提供的功能如下：
 
+**Swift 与 OC 通用功能**
+
 + 组件化管理器：[ModuleManager](./Resources/ModuleManager.md)
 + 路由：[URLRouter](./Resources/URLRouter.md)
-+ 事件传输：[EventTransfer](./Resources/EventTransfer.md)
 + 带黏连值的 Notification：[StickyNotification](./Resources/StickyNotification.md)
+
+**仅 Swift 支持的功能**
+
++ 事件传输：[EventTransfer](./Resources/EventTransfer.md)
+
+## 更新记录
+
+版本号 | 备注 
+--------- | ------------- 
+v1.0.5 | 正式版
+v1.0.6 | ModuleManager，URLRouter，StickyNotification 支持 OC
 
 ## 使用
 
@@ -298,6 +310,8 @@ NNModule-swift 支持对单个功能的单独引用
 ```ruby
 # 全量安装
 pod 'NNModule-swift'
+# ModuleManager 安装
+pod 'NNModule-swift/ModuleManager'
 # URLRouter 安装
 pod 'NNModule-swift/URLRouter'
 # EventTransfer 安装

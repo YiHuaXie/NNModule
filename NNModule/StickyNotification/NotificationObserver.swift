@@ -9,7 +9,7 @@ import Foundation
 
 private var observerKey: Void?
 
-public final class NotificationObserver {
+@objcMembers public final class NotificationObserver: NSObject {
 
     private var next: NotificationObserver? = nil
 

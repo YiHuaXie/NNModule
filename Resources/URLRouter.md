@@ -8,6 +8,7 @@ URLRouter 是一个基于对 URL 的解析，简单、方便、轻量的路由�
 + 路由拦截
 + 路由重定向
 + router 嵌套
++ 兼容 OC
 
 ## 使用
 
@@ -16,6 +17,8 @@ URLRouter 是一个基于对 URL 的解析，简单、方便、轻量的路由�
 在使用前先介绍下 URLRouter 中的相关概念：
 
 + `URLRouterType`: 定义 router 的接口，`URLRouter` 为默认实现
++ `URLNestingRouterType`: 定义 router 嵌套的接口，`URLRouter` 为默认实现
++ `URLRouterTypeAttach`: 定义了 router 的其他拓展功能的接口， `URLRouter` 为默认实现
 + `URLRouteParserType`: 定义 URL 解析的接口，`URLRouteParser` 为默认实现
 + `NavigatorType`: 定义导航的接口，`Navigator` 为默认实现
 + `URLRouteRedirector`: 路由重定向器
@@ -226,6 +229,12 @@ router.openRoute("bmodule/main?id=123")
 + 使用 URLRouter 类作为子 router 必须使用 `URLRouter.init(with: rootRouter)` 函数进行初始化，子 router 匹配不了的路由会交给它的 `upperRouter` 去转发，这里的 `upperRouter` 一般就是根 router
 + `upperRouter` 使用`registerRoute(_ route: URLRouteConvertible, used subRouter: URLRouterType)` 函数提前绑定路由与子 router 的映射关系，以便跳转时能找到正确的子 router
 + 注册子 router 的使用路由为聚合路由即 `scheme://host`，如注册的路由中携带 path 将会被忽略
+
+### 兼容 OC
+
+URLRouter 已支持对 OC 的兼容，可以在混编项目或纯 OC 项目中使用。OC 项目中使用 URLRouter 需引入 `#import <NNModule_swift/NNModule_swift-Swift.h>`。 
+
+在 OC 项目中自定义 Router 可参考 [OC 自定义 Router](https://github.com/YiHuaXie/NNModule/blob/supportOC/Modules/ConfigModule/ConfigModule/Classes/Router.m) 。
 
 ### 其他
 

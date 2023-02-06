@@ -8,20 +8,22 @@
 import Foundation
 import UIKit
 
-public final class ModuleManager {
+@objcMembers public final class ModuleManager: NSObject {
     
+    @objc(sharedInstance)
     public static let shared = ModuleManager()
     
     private var registerServices = [Method]()
     
     private var awakes = [Method]()
     
-    private init() {
+    private override init() {
+        super.init()
+        
         // register services
         Module.register(service: ModuleRouteService.self, used: URLRouter.self)
         Module.register(service: ModuleTabService.self, used: ModuleTabServiceImpl.self)
         Module.register(service: ModuleLaunchTaskService.self, used: ModuleLaunchTaskServiceImpl.self)
-//        Module.register(service: ModuleEventBusService.self, used: EventBus.self)
         Module.register(service: ModuleNotificationService.self, used: ModuleNotificationServiceImpl.self)
         Module.register(service: ModuleApplicationService.self, used: ModuleApplicationServiceImpl.self)
         
