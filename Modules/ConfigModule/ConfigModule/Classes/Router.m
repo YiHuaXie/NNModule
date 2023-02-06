@@ -1,6 +1,6 @@
 //
 //  Router.m
-//  OCApplicationModule
+//  ConfigModule
 //
 //  Created by NeroXie on 2023/2/5.
 //
@@ -47,32 +47,20 @@ typedef void(^DelayedHandler)(id <URLRouterType>);
     return self;
 }
 
+#pragma mark - ModuleFunctionalService
+
 + (NSInteger)implPriority {
     return 100;
 }
 
+#pragma mark - URLRouteType
+
 - (id<URLRouteParserType>)routeParser {
-   return self.upperRouter.routeParser ?: _routeParser;
+    return self.upperRouter.routeParser ?: _routeParser;
 }
 
 - (id<NavigatorType>)navigator {
     return self.upperRouter.navigator ?: _navigator;
-}
-
-- (URLRouteRedirector *)routeRedirector {
-    if ([self.upperRouter conformsToProtocol:@protocol(URLRouterTypeAttach)]) {
-        return ((id<URLRouterTypeAttach>)self.upperRouter).routeRedirector;
-    }
-    
-    return _routeRedirector;
-}
-
-- (URLRouteInterceptor *)routeInterceptor {
-    if ([self.upperRouter conformsToProtocol:@protocol(URLRouterTypeAttach)]) {
-        return ((id<URLRouterTypeAttach>)self.upperRouter).routeInterceptor;
-    }
-    
-    return _routeInterceptor;
 }
 
 - (void)delayedRegisterRoute:(NSString *)route handleRouteFactory:(BOOL (^)(RouteURL *, id<NavigatorType>))handleRouteFactory {
@@ -84,40 +72,26 @@ typedef void(^DelayedHandler)(id <URLRouterType>);
 - (void)registerRoute:(NSString *)route handleRouteFactory:(BOOL (^)(RouteURL * _Nonnull, id<NavigatorType> _Nonnull))handleRouteFactory {
     RouteURL *routeUrl = [self.routeParser routeUrlFromRoute:route params:@{}];
     if (!routeUrl) {
-        [self _routerLogWithMessage:[NSString stringWithFormat:@"route for (%@) is invalid", route]];
+        NSString *message = [NSString stringWithFormat:@"route for (%@) is invalid", route];
+        [self _routerLogWithMessage:message];
         return;
     }
     
     NSString *key = routeUrl.fullPath;
     if (self.handleRouteFactories[key]) {
-        [self _routerLogWithMessage:[NSString stringWithFormat:@"route for (%@) already exist", route]];
+        NSString *message = [NSString stringWithFormat:@"route for (%@) already exist", route];
+        [self _routerLogWithMessage:message];
         return;
     }
     
     self.handleRouteFactories[key] = handleRouteFactory;
 }
 
-- (void)registerRoute:(NSString *)route used:(id<URLNestingRouterType>)subRouter {
-    if (!subRouter.upperRouter || subRouter.upperRouter != self) {
-        [self _routerLogWithMessage:[NSString stringWithFormat:@"upper router for (%@) is not \(%@)", subRouter, self]];
-        return;
-    }
-    
-    RouteURL *routeUrl = [self.routeParser routeUrlFromRoute:route params:@{}];
-    if (!routeUrl) {
-        [self _routerLogWithMessage:[NSString stringWithFormat:@"route for (%@) is invalid", route]];
-        return;
-    }
-    
-    [self registerRoute:routeUrl.combinedRoute handleRouteFactory:^BOOL(RouteURL *routeUrl, id<NavigatorType> navigator) {
-        return [subRouter openRoute:routeUrl.fullPath parameters:routeUrl.parameters];
-    }];
-}
-
 - (void)removeRoute:(NSString *)route {
     RouteURL *routeUrl = [self.routeParser routeUrlFromRoute:route params:@{}];
     if (!routeUrl) {
-        [self _routerLogWithMessage:[NSString stringWithFormat:@"route for (%@) is invalid", route]];
+        NSString *message = [NSString stringWithFormat:@"route for (%@) is invalid", route];
+        [self _routerLogWithMessage:message];
         return;
     }
     
@@ -134,7 +108,8 @@ typedef void(^DelayedHandler)(id <URLRouterType>);
     
     RouteURL *routeUrl = [self.routeParser routeUrlFromRoute:route params:parameters];
     if (!routeUrl) {
-        [self _routerLogWithMessage:[NSString stringWithFormat:@"route for (%@) is invalid", route]];
+        NSString *message = [NSString stringWithFormat:@"route for (%@) is invalid", route];
+        [self _routerLogWithMessage:message];
         return NO;
     }
     
@@ -163,6 +138,47 @@ typedef void(^DelayedHandler)(id <URLRouterType>);
     
     return [self.upperRouter openRoute:route parameters:parameters];
 }
+
+#pragma mark - URLNestingRouteType
+
+- (void)registerRoute:(NSString *)route used:(id<URLNestingRouterType>)subRouter {
+    if (!subRouter.upperRouter || subRouter.upperRouter != self) {
+        NSString *message = [NSString stringWithFormat:@"upper router for (%@) is not \(%@)", subRouter, self];
+        [self _routerLogWithMessage:message];
+        return;
+    }
+    
+    RouteURL *routeUrl = [self.routeParser routeUrlFromRoute:route params:@{}];
+    if (!routeUrl) {
+        NSString *message = [NSString stringWithFormat:@"route for (%@) is invalid", route];
+        [self _routerLogWithMessage:message];
+        return;
+    }
+    
+    [self registerRoute:routeUrl.combinedRoute handleRouteFactory:^BOOL(RouteURL *routeUrl, id<NavigatorType> navigator) {
+        return [subRouter openRoute:routeUrl.fullPath parameters:routeUrl.parameters];
+    }];
+}
+
+#pragma mark - URLRouterTypeAttach
+
+- (URLRouteRedirector *)routeRedirector {
+    if ([self.upperRouter conformsToProtocol:@protocol(URLRouterTypeAttach)]) {
+        return ((id<URLRouterTypeAttach>)self.upperRouter).routeRedirector;
+    }
+    
+    return _routeRedirector;
+}
+
+- (URLRouteInterceptor *)routeInterceptor {
+    if ([self.upperRouter conformsToProtocol:@protocol(URLRouterTypeAttach)]) {
+        return ((id<URLRouterTypeAttach>)self.upperRouter).routeInterceptor;
+    }
+    
+    return _routeInterceptor;
+}
+
+#pragma mark - Private Method
 
 - (void)_loadDelayedHandlerIfNeed {
     for (DelayedHandler handler in self.delayedHandlers) {

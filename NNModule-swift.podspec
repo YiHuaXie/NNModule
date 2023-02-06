@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'NNModule-swift'
-  s.version          = '1.0.5'
+  s.version          = '1.0.6'
   s.summary          = 'a module decoupling tool under Swift project'
   s.homepage         = 'https://github.com/YiHuaXie/NNModule'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
@@ -23,7 +23,6 @@ Pod::Spec.new do |s|
   s.subspec 'ModuleManager' do |ss|
     ss.source_files = 'NNModule/ModuleManager/**/*'
     ss.dependency 'NNModule-swift/URLRouter'
-    ss.dependency 'NNModule-swift/EventTransfer'
     ss.dependency 'NNModule-swift/StickyNotification'
   end
   
