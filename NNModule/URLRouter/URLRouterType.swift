@@ -61,7 +61,7 @@ extension URLRouterType {
 @objc public protocol URLNestingRouterType: URLRouterType {
     
     /// Upper-level router of the current router.
-    var upperRouter: URLNestingRouterType? { get }
+    weak var upperRouter: URLNestingRouterType? { get }
     
     /// Registers an URL with a subRouter.
     /// - Parameters:

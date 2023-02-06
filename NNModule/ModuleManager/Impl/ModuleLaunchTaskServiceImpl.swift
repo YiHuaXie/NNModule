@@ -18,10 +18,7 @@ class ModuleLaunchTaskServiceImpl: NSObject, ModuleLaunchTaskService {
     required override init() { super.init() }
     
     func addRegister(_ register: RegisterLaunchTaskService.Type) {
-        guard let impl = Module.registerImpl(of: register) as? RegisterLaunchTaskService else {
-            return
-        }
-        
+        guard let impl = Module.registerImpl(of: register) as? RegisterLaunchTaskService else { return }
         
         switch (impl.runMode ?? .asynOnGlobal) {
         case .asynOnGlobal: asyncGlobalTasks.append(impl)
@@ -32,9 +29,7 @@ class ModuleLaunchTaskServiceImpl: NSObject, ModuleLaunchTaskService {
     
     func execute() {
         execute(tasks: syncMainTasks)
-        
         DispatchQueue.main.async { self.execute(tasks: self.asyncMainTasks) }
-        
         DispatchQueue.global().async { self.execute(tasks: self.asyncGlobalTasks) }
     }
     

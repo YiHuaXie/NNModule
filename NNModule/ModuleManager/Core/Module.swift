@@ -52,6 +52,31 @@ public extension Module {
         serviceCenter.register(service: serviceType, used: implClass)
     }
     
+    /// Get the instance of the service.
+    /// Since the instance is lazy loaded, so pay attention to whether there is a service mutual reference in the constructor.
+    /// - Parameter serviceType: The type of serivce.
+    /// - Returns: The instance of serivce.
+    static func service<Service>(of serviceType: Service.Type) -> Service {
+        serviceCenter.service(of: serviceType)!
+    }
+    
+    /// Remove service
+    /// - Parameter serviceType: The type of serivce
+    static func removeService<Service>(of serviceType: Service.Type) {
+        serviceCenter.removeService(of: serviceType)
+    }
+    
+    @objc(registerImplOfClass:)
+    /// Get the register impl instance of class
+    /// - Parameter implClass: The class that provides a service which conforms to protocol `ModuleRegisteredService`
+    static func registerImpl(of implClass: AnyClass) -> ModuleRegisteredService? {
+        serviceCenter.registerImpl(of: implClass)
+    }
+}
+
+@available(swift, obsoleted: 3.0, message: "Only used in Objective-C")
+public extension Module {
+    
     @objc(registerServiceOfProtocol:usedImplClass:)
     /// Register services
     /// - Parameters:
@@ -59,14 +84,6 @@ public extension Module {
     ///   - implClass: The class that implements the service.
     static func register(service serviceProtocol: Protocol, used implClass: AnyClass) {
         serviceCenter.register(service: serviceProtocol, used: implClass)
-    }
-    
-    /// Get the instance of the service.
-    /// Since the instance is lazy loaded, so pay attention to whether there is a service mutual reference in the constructor.
-    /// - Parameter serviceType: The type of serivce.
-    /// - Returns: The instance of serivce.
-    static func service<Service>(of serviceType: Service.Type) -> Service {
-        serviceCenter.service(of: serviceType)!
     }
     
     @objc(serivceOfProtocol:)
@@ -78,23 +95,10 @@ public extension Module {
         serviceCenter.service(of: serviceProtocol)!
     }
     
-    /// Remove service
-    /// - Parameter serviceType: The type of serivce
-    static func removeService<Service>(of serviceType: Service.Type) {
-        serviceCenter.removeService(of: serviceType)
-    }
-    
     @objc(removeSerivceOfProtocol:)
     /// Remove service
     /// - Parameter serviceType: The type of serivce
     static func removeService(of serviceProtocol: Protocol) {
         serviceCenter.removeService(of: serviceProtocol)
-    }
-    
-    @objc(registerImplOfClass:)
-    /// Get the register impl instance of class
-    /// - Parameter implClass: The class that provides a service which conforms to protocol `ModuleRegisteredService`
-    static func registerImpl(of implClass: AnyClass) -> ModuleRegisteredService? {
-        serviceCenter.registerImpl(of: implClass)
     }
 }
