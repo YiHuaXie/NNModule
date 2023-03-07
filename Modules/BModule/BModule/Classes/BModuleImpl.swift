@@ -9,6 +9,7 @@ extension Module.Awake {
     @objc static func bModuleAwake() {
         Module.tabService.addRegister(BModuleImpl.self)
         Module.launchTaskService.addRegister(ModuleLaunchTaskTest.self)
+        print(#function)
     }
 }
 

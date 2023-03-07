@@ -39,3 +39,6 @@ Carthage/Build
 Pods
 !Podfile
 !Podfile.lock
+
+CodeCoverage
+.idea

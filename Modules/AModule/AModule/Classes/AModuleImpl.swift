@@ -19,6 +19,7 @@ extension Module.Awake {
         Module.routeService.registerRoutes(["house", URLRouter.webLink], used: subRouter)
         Module.tabService.addRegister(AModuleImpl.self)
         Module.launchTaskService.addRegister(ModuleLaunchTaskTest.self)
+        print(#function)
     }
 }
 

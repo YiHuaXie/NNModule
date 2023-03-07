@@ -17,6 +17,7 @@ class AddHouseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print(#function)
         navigationItem.title = "Add house"
         view.backgroundColor = .white
         

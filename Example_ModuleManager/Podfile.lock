@@ -23,6 +23,9 @@ PODS:
     - SnapKit
     - TabBarController
   - CModule (0.1.0)
+  - CocoaLumberjack (3.7.4):
+    - CocoaLumberjack/Core (= 3.7.4)
+  - CocoaLumberjack/Core (3.7.4)
   - ConfigModule (0.1.0):
     - ModuleServices
     - NNModule-swift/ModuleManager
@@ -36,22 +39,34 @@ PODS:
   - ModuleServices (0.1.0):
     - HandyJSON
     - NNModule-swift
+  - NNCodeCoverage (1.0.0)
   - NNModule-swift (1.0.6):
     - NNModule-swift/EventTransfer (= 1.0.6)
     - NNModule-swift/ModuleManager (= 1.0.6)
     - NNModule-swift/StickyNotification (= 1.0.6)
     - NNModule-swift/URLRouter (= 1.0.6)
-  - NNModule-swift/EventTransfer (1.0.6)
+  - NNModule-swift/EventTransfer (1.0.6):
+    - SnapKit
   - NNModule-swift/ModuleManager (1.0.6):
+    - CocoaLumberjack
     - NNModule-swift/StickyNotification
     - NNModule-swift/URLRouter
   - NNModule-swift/StickyNotification (1.0.6)
-  - NNModule-swift/URLRouter (1.0.6)
+  - NNModule-swift/URLRouter (1.0.6):
+    - NNModule-swift/URLRouter/Navigator (= 1.0.6)
+  - NNModule-swift/URLRouter/Navigator (1.0.6):
+    - CocoaLumberjack/Core
+    - YYModel
   - SnapKit (5.6.0)
   - TabBarController (0.1.0):
     - BaseModule
     - ESTabBarController-swift
     - NNModule-swift
+  - TuyaSmartNetworkKit (3.34.5):
+    - TuyaSmartUtil (>= 3.32.5)
+    - YYModel
+  - TuyaSmartUtil (3.32.5)
+  - YYModel (1.0.4)
 
 DEPENDENCIES:
   - AModule (from `../Modules/AModule`)
@@ -65,16 +80,22 @@ DEPENDENCIES:
   - LoginModule (from `../Modules/LoginModule`)
   - MBProgressHUD
   - ModuleServices (from `../Modules/ModuleServices`)
+  - NNCodeCoverage (from `/Users/neroxie/Programs/NNCodeCoverage`)
   - NNModule-swift (from `../`)
   - SnapKit
   - TabBarController (from `../Modules/TabBarController`)
+  - TuyaSmartNetworkKit
 
 SPEC REPOS:
   trunk:
+    - CocoaLumberjack
     - ESTabBarController-swift
     - HandyJSON
     - MBProgressHUD
     - SnapKit
+    - TuyaSmartNetworkKit
+    - TuyaSmartUtil
+    - YYModel
 
 EXTERNAL SOURCES:
   AModule:
@@ -93,6 +114,8 @@ EXTERNAL SOURCES:
     :path: "../Modules/LoginModule"
   ModuleServices:
     :path: "../Modules/ModuleServices"
+  NNCodeCoverage:
+    :path: "/Users/neroxie/Programs/NNCodeCoverage"
   NNModule-swift:
     :path: "../"
   TabBarController:
@@ -104,16 +127,21 @@ SPEC CHECKSUMS:
   BaseModule: 7dcb4d56db42ad8afe269326a86147d0fb1b0f46
   BModule: 97e33a3be84360849b7ae53eacf881bcf10c8006
   CModule: 78f2887954a5121f5e9c8c04f603a71d9ad4dcf9
+  CocoaLumberjack: 543c79c114dadc3b1aba95641d8738b06b05b646
   ConfigModule: 3dc42208ac0e0bd8830dcb5caed6cb40427c7f1f
   ESTabBarController-swift: 05593a6ad64700b03c0eb60ff625916370aa4136
   HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
   LoginModule: 4273b8c921ec0367846b6961248b2b5ef29655a0
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   ModuleServices: 890f7568b55e59356cf41d56300698c853b151e4
-  NNModule-swift: d8d8dcc1302ed93ca262dfe5d44e8c2eca4a9b56
+  NNCodeCoverage: 95798755363b5dee665efc79902f3da234cc3cc0
+  NNModule-swift: 06d3fe5116923c5f313c347ee3a6162a525c43d1
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   TabBarController: 1022ae0cd42087e68fa1092da506a4ed9410b2e0
+  TuyaSmartNetworkKit: 5fb3b467aa547ef7e3dddf1e07bdcd659cec6931
+  TuyaSmartUtil: 2e39e5fefd117767c7b2a4d8e2333afca1072170
+  YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: cdd371f40e8f67429dc5eeb10c50707e78944fe0
+PODFILE CHECKSUM: d0ad0e83e16d7f079f9a4060067159ce89aa0be8
 
 COCOAPODS: 1.11.3

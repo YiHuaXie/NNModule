@@ -158,6 +158,7 @@
 				AEE7B89926CA913A004AFE9F /* Frameworks */,
 				AEE7B89A26CA913A004AFE9F /* Resources */,
 				4E0333945E7BD1463AD7A7C2 /* [CP] Embed Pods Frameworks */,
+				41D3A18EAE4C0C722CC17094 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -274,6 +275,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		41D3A18EAE4C0C722CC17094 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Example_ModuleManager/Pods-Example_ModuleManager-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Example_ModuleManager/Pods-Example_ModuleManager-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Example_ModuleManager/Pods-Example_ModuleManager-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		4E0333945E7BD1463AD7A7C2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -290,6 +308,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Example_ModuleManager/Pods-Example_ModuleManager-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		D30FA0DDCD10478AE8979D66 /* Code Coverage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Code Coverage";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/CodeCoverage/coverage_env.sh";
 		};
 		E0B2245ACAB6A7223C26AEFB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

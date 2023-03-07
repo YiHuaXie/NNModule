@@ -24,16 +24,23 @@ Pod::Spec.new do |s|
     ss.source_files = 'NNModule/ModuleManager/**/*'
     ss.dependency 'NNModule-swift/URLRouter'
     ss.dependency 'NNModule-swift/StickyNotification'
+    ss.dependency 'CocoaLumberjack'
   end
   
   # URLRouter
   s.subspec 'URLRouter' do |ss|
     ss.source_files = 'NNModule/URLRouter/*'
+    ss.subspec 'Navigator' do |sss|
+      sss.source_files = 'NNModule/URLRouter/Navigator.swift'
+      sss.dependency 'YYModel'
+      sss.dependency 'CocoaLumberjack/Core'
+    end
   end
 
   # EventTransfer
   s.subspec 'EventTransfer' do |ss|
     ss.source_files = 'NNModule/EventTransfer/*'
+    ss.dependency 'SnapKit'
   end
 
   # StickyNotification

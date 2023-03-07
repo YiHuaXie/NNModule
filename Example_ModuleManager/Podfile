@@ -4,6 +4,10 @@ use_frameworks!
 #inhibit_all_warnings!
 
 platform :ios, '10.0'
+#
+#plugin 'cocoapods-nn-module'
+#$coverage_on = false
+#$coverage_ignore_pods = []
 
 target 'Example_ModuleManager' do
   pod 'NNModule-swift', :path => '../'
@@ -20,10 +24,12 @@ target 'Example_ModuleManager' do
   pod 'ESTabBarController-swift'
   pod 'HandyJSON'
   pod 'MBProgressHUD'
+  pod 'NNCodeCoverage', :path => '/Users/neroxie/Programs/NNCodeCoverage'
+  pod 'TuyaSmartNetworkKit'
 end
 
 post_install do |installer|
-  installer.pods_project.targets.each do |target|
+  installer.pods_project.native_targets.each do |target|
     if target.symbol_type == :bundle
       target.build_configurations.each do |config|
         config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'

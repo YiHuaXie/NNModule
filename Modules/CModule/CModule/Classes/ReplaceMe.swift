@@ -54,7 +54,7 @@ public class CModuleTestE {
 
 public class CModuleTestF {
     
-    public init() {}
+    public init() { print(#function) }
     
     public static func testMethod() {
         print("\(self) \(#function)")
