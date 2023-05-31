@@ -33,5 +33,5 @@ import Foundation
     @objc optional static var keepaliveRegiteredImpl: Bool { get }
 }
 
-
-
+/// Functional service birdge.
+@objc public protocol ModuleServiceBridgeEnable: ModuleRegisteredService {}

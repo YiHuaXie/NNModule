@@ -21,14 +21,14 @@ class ApplicationModuleImpl: NSObject, ModuleApplicationService {
     required override init() { super.init() }
     
     func applicationWillAwake() {
-        let config = Module.service(of: ModuleConfigService.self)
+        let config = Module.serviceImpl(of: ModuleConfigService.self)
         Module.tabService.tabBarControllerType = config.tabBarControllerType
     }
     
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]?
-    ) -> Bool {
+    ) -> Bool {        
         requestRedirectRoutes()
         setupAppearance()
         addNotification()
@@ -57,7 +57,7 @@ class ApplicationModuleImpl: NSObject, ModuleApplicationService {
     }
     
     func reloadMainViewController() {
-        let loginImpl = Module.service(of: LoginService.self)
+        let loginImpl = Module.serviceImpl(of: LoginService.self)
         if loginImpl.isLogin {
             MockServer.shared.reset()
             Module.tabService.needReloadTabBarController()

@@ -9,14 +9,13 @@ extension Module.Awake {
     @objc static func bModuleAwake() {
         Module.tabService.addRegister(BModuleImpl.self)
         Module.launchTaskService.addRegister(ModuleLaunchTaskTest.self)
-        print(#function)
     }
 }
 
 class BModuleImpl: NSObject, RegisterTabItemService {
     
     func registerTabBarItems() -> [TabBarItemMeta] {
-        let configImpl = Module.service(of: ModuleConfigService.self)
+        let configImpl = Module.serviceImpl(of: ModuleConfigService.self)
         guard let index = configImpl.tabBarItemIndex(for: "user") else { return [] }
             
         let bundle = resourceBundle(of: "BModule")

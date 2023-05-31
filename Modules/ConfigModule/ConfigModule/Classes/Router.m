@@ -37,7 +37,7 @@ typedef void(^DelayedHandler)(id <URLRouterType>);
         _delayedHandlers = NSMutableArray.array;
         _handleRouteFactories = NSMutableDictionary.dictionary;
         
-        id <ModuleConfigService> configImpl = [Module serivceOfProtocol:@protocol(ModuleConfigService)];
+        id <ModuleConfigService> configImpl = [Module serivceImplOfProtocol:@protocol(ModuleConfigService)];
         _routeParser = [[RouteParser alloc] initWithDefaultScheme:configImpl.appScheme];
         _navigator = Navigator.new;
         _routeRedirector = [[URLRouteRedirector alloc] initWithRouteParser:_routeParser];

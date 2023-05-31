@@ -35,12 +35,12 @@ class AddHouseViewController: UIViewController {
             $0.height.equalTo(30)
         }
         
-        Module.service(of: HouseService.self).houseEvent.addTarget(self)
+        Module.serviceImpl(of: HouseService.self).houseEvent.addTarget(self)
     }
     
     @objc private func didButtonPressed() {
         MBProgressHUD.showAdded(to: view, animated: true)
-        Module.service(of: HouseService.self).addHouse(houseName: "House")
+        Module.serviceImpl(of: HouseService.self).addHouse(houseName: "House")
     }
 }
 

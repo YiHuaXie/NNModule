@@ -81,6 +81,6 @@ class UserViewController: UIViewController {
     }
     
     @objc private func didButtonPressed() {
-        Module.service(of: LoginService.self).logout()
+        Module.serviceImpl(of: LoginService.self).logout()
     }
 }

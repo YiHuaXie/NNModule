@@ -3,11 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		293F64CE723E1EA185FC4520 /* Pods_Example_ModuleManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D15AF1DCE2D3F0F0207C32A5 /* Pods_Example_ModuleManager.framework */; };
+		82DAC0E0FBB936AB551BBE02 /* Pods_Example_ModuleManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6409E69BAD5E13800D2F4693 /* Pods_Example_ModuleManager.framework */; };
 		AEE7B8A026CA913A004AFE9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE7B89F26CA913A004AFE9F /* AppDelegate.swift */; };
 		AEE7B8A726CA913A004AFE9F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEE7B8A526CA913A004AFE9F /* Main.storyboard */; };
 		AEE7B8A926CA913C004AFE9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEE7B8A826CA913C004AFE9F /* Assets.xcassets */; };
@@ -35,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		614C59933876D951CCC8C1D4 /* Pods-Example_ModuleManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example_ModuleManager.debug.xcconfig"; path = "Target Support Files/Pods-Example_ModuleManager/Pods-Example_ModuleManager.debug.xcconfig"; sourceTree = "<group>"; };
+		6409E69BAD5E13800D2F4693 /* Pods_Example_ModuleManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example_ModuleManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		98A6D327CFFDB23564165C64 /* Pods-Example_ModuleManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example_ModuleManager.release.xcconfig"; path = "Target Support Files/Pods-Example_ModuleManager/Pods-Example_ModuleManager.release.xcconfig"; sourceTree = "<group>"; };
 		AEE7B89C26CA913A004AFE9F /* Example_ModuleManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example_ModuleManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEE7B89F26CA913A004AFE9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -48,7 +49,6 @@
 		AEE7B8BD26CA913D004AFE9F /* Example_ModuleManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Example_ModuleManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEE7B8C126CA913D004AFE9F /* Example_ModuleManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example_ModuleManagerUITests.swift; sourceTree = "<group>"; };
 		AEE7B8C326CA913D004AFE9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D15AF1DCE2D3F0F0207C32A5 /* Pods_Example_ModuleManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example_ModuleManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				293F64CE723E1EA185FC4520 /* Pods_Example_ModuleManager.framework in Frameworks */,
+				82DAC0E0FBB936AB551BBE02 /* Pods_Example_ModuleManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,7 +89,7 @@
 		A9A4F8F9CECD90E9A87A13BE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D15AF1DCE2D3F0F0207C32A5 /* Pods_Example_ModuleManager.framework */,
+				6409E69BAD5E13800D2F4693 /* Pods_Example_ModuleManager.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -157,8 +157,7 @@
 				AEE7B89826CA913A004AFE9F /* Sources */,
 				AEE7B89926CA913A004AFE9F /* Frameworks */,
 				AEE7B89A26CA913A004AFE9F /* Resources */,
-				4E0333945E7BD1463AD7A7C2 /* [CP] Embed Pods Frameworks */,
-				41D3A18EAE4C0C722CC17094 /* [CP] Copy Pods Resources */,
+				14BF2EE970EB5E5D15517EA2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -211,6 +210,7 @@
 		AEE7B89426CA913A004AFE9F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
@@ -275,24 +275,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		41D3A18EAE4C0C722CC17094 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Example_ModuleManager/Pods-Example_ModuleManager-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Example_ModuleManager/Pods-Example_ModuleManager-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Example_ModuleManager/Pods-Example_ModuleManager-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4E0333945E7BD1463AD7A7C2 /* [CP] Embed Pods Frameworks */ = {
+		14BF2EE970EB5E5D15517EA2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -308,24 +291,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Example_ModuleManager/Pods-Example_ModuleManager-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		D30FA0DDCD10478AE8979D66 /* Code Coverage */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Code Coverage";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "$SRCROOT/CodeCoverage/coverage_env.sh";
 		};
 		E0B2245ACAB6A7223C26AEFB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -462,7 +427,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -517,7 +482,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -534,14 +499,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 97ZDU8T5WN;
 				INFOPLIST_FILE = Example_ModuleManager/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.neroxie.Example_ModuleManager;
+				PRODUCT_BUNDLE_IDENTIFIER = com.neroxie.ExampleModuleManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -555,14 +520,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZJK22TZQEN;
+				DEVELOPMENT_TEAM = 97ZDU8T5WN;
 				INFOPLIST_FILE = Example_ModuleManager/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.neroxie.Example_ModuleManager;
+				PRODUCT_BUNDLE_IDENTIFIER = com.neroxie.ExampleModuleManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

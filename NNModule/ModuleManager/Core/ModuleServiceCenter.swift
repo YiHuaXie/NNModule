@@ -12,7 +12,9 @@ final class ModuleServiceCenter {
     
     static let shared = ModuleServiceCenter()
     
-    private var serviceTypeMap: [String: ModuleFunctionalService.Type] = [:]
+    private var proxyList: [ServiceBridgeProxy] = []
+    
+    private(set) var serviceTypeMap: [ServiceIdentifier: ModuleFunctionalService.Type] = [:]
     
     private var implInstanceMap: [ObjectIdentifier: ModuleBasicService] = [:]
     
@@ -22,86 +24,12 @@ final class ModuleServiceCenter {
     
     private init() {}
     
-    func register<Service>(service serviceType: Service.Type, used implClass: AnyClass) {
-        guard implClass is Service else {
-            assertionFailure("\(implClass) must conforms to service \(serviceType)")
-            return
-        }
-        
-        register(service: SerivceName.value(of: serviceType), used: implClass)
-    }
-    
-    func register(service serviceProtocol: Protocol, used implClass: AnyClass) {
-        guard implClass.conforms(to: serviceProtocol) else {
-            assertionFailure("\(implClass) must conforms to service \(serviceProtocol)")
-            return
-        }
-        
-        register(service: SerivceName.value(of: serviceProtocol), used: implClass)
-    }
-    
-    func service<Service>(of serviceType: Service.Type) -> Service? {
-        let serviceTypeName = SerivceName.value(of: serviceType)
-        let impl: Service? = service(of: serviceTypeName)
-        return impl
-    }
-    
-    func service(of serviceProtocol: Protocol) -> ModuleFunctionalService? {
-        let serviceTypeName = SerivceName.value(of: serviceProtocol)
-        let impl: ModuleFunctionalService? = service(of: serviceTypeName)
-        return impl
-    }
-    
-    func removeService<Service>(of serviceType: Service.Type) {
-        let serviceTypeName = SerivceName.value(of: serviceType)
-        
-        removeService(of: serviceTypeName)
-    }
-    
-    func removeService(of serviceProtocol: Protocol) {
-        let serviceTypeName = SerivceName.value(of: serviceProtocol)
-        
-        removeService(of: serviceTypeName)
-    }
-    
-    func registerImpl(of implClass: AnyClass) -> ModuleRegisteredService? {
-        guard let registerImplClass = implClass as? ModuleRegisteredService.Type else { return nil }
-        
-        let key = ObjectIdentifier(registerImplClass)
-        let keepaliveRegiteredImpl = registerImplClass.keepaliveRegiteredImpl ?? false
-        if keepaliveRegiteredImpl, let impl = implInstanceMap[key] {
-            return impl as? ModuleRegisteredService
-        }
-        
-        let newImpl = registerImplClass.implInstance ?? registerImplClass.init()
-        // save impl of this class if it is possible
-        if keepaliveRegiteredImpl { implInstanceMap[key] = newImpl }
-        
-        return newImpl as? ModuleRegisteredService
-    }
-    
-//    #if DEBUG
-//        public func mapInfoPrettyPrinted() {
-//            let map: [ String: Any] = [
-//                "serviceTypeMap": serviceTypeMap.map { ["\($0)", "\($1)"] },
-//                "implInstanceMap": implInstanceMap.map { ["\($0)", "\($1)"] }
-//                    ]
-//            guard let jsonData = try? JSONSerialization.data(withJSONObject: map, options: .prettyPrinted) else {
-//                return
-//            }
-//
-//            let jsonString = String(data: jsonData, encoding: .utf8) ?? ""
-//            print(jsonString)
-//        }
-//    #endif
-    
-    private func register(service serviceTypeName: String, used implClass: AnyClass) {
+    func registerService(of identifier: ServiceIdentifier, used implClass: AnyClass) {
         guard let newImplClass = implClass as? ModuleFunctionalService.Type else {
-            assertionFailure("\(serviceTypeName) must conforms to service `ModuleFunctionalService`")
+            assertionFailure("\(identifier.value) must conforms to service `ModuleFunctionalService`")
             return
         }
         
-        let identifier = serviceTypeName
         guard let oldImplClass = serviceTypeMap[identifier] else {
             serviceTypeMap[identifier] = newImplClass
             return
@@ -112,14 +40,28 @@ final class ModuleServiceCenter {
         }
     }
     
-    private func service<Service>(of serviceTypeName: String) -> Service? {
-        guard let implClass = serviceTypeMap[serviceTypeName] else {
-            assertionFailure("the impl class of \(serviceTypeName) is nil, please register it first")
+    func serviceImpl(of identifier: ServiceIdentifier) -> ModuleFunctionalService? {
+        guard let proxy = proxyList.first(where: { $0.identifier == identifier.value }) else {
+            return serviceNativeImpl(of: identifier)
+        }
+        
+        guard let nativeImpl = serviceNativeImpl(of: identifier) else {
+            proxyList.removeAll { $0.identifier == identifier.value }
+            return nil
+        }
+        
+        proxy.nativeImpl = nativeImpl
+        return proxy as? ModuleFunctionalService
+    }
+    
+    func serviceNativeImpl(of identifier: ServiceIdentifier) -> ModuleFunctionalService? {
+        guard let implClass = serviceTypeMap[identifier] else {
+            assertionFailure("the impl class of \(identifier.value) is nil, please register it first")
             return nil
         }
         
         let implKey = ObjectIdentifier(implClass)
-        if let impl = implInstanceMap[implKey] as? Service { return impl }
+        if let impl = implInstanceMap[implKey] as? ModuleFunctionalService { return impl }
         
 #if DEBUG
         let className = "\(implClass)"
@@ -140,26 +82,77 @@ final class ModuleServiceCenter {
 #endif
         implInstanceMap[implKey] = newImpl
         
-        return newImpl as? Service
+        return newImpl as? ModuleFunctionalService
     }
     
-    private func removeService(of serviceTypeName: String) {
-        guard let implClass = serviceTypeMap.removeValue(forKey: serviceTypeName) else { return }
+    func registerImpl(of implClass: AnyClass) -> ModuleRegisteredService? {
+        guard let registerImplClass = implClass as? ModuleRegisteredService.Type else {
+            return nil
+        }
+        
+        let key = ObjectIdentifier(registerImplClass)
+        let keepaliveRegiteredImpl = registerImplClass.keepaliveRegiteredImpl ?? false
+        if keepaliveRegiteredImpl, let impl = implInstanceMap[key] {
+            return impl as? ModuleRegisteredService
+        }
+        
+        let newImpl = registerImplClass.implInstance ?? registerImplClass.init()
+        // save impl of this class if it is possible
+        if keepaliveRegiteredImpl { implInstanceMap[key] = newImpl }
+        
+        return newImpl as? ModuleRegisteredService
+    }
+    
+    func removeService(of identifier: ServiceIdentifier) {
+        guard let implClass = serviceTypeMap.removeValue(forKey: identifier) else { return }
         
         if (implClass as? ModuleRegisteredService.Type)?.keepaliveRegiteredImpl ?? false { return }
         if let _  = serviceTypeMap.first(where: { _, value in value == implClass }) { return }
         implInstanceMap.removeValue(forKey: ObjectIdentifier(implClass))
     }
-}
-
-struct SerivceName {
     
-    static func value(of aProtocol: Protocol) -> String {
-        return NSStringFromProtocol(aProtocol)
+    func bridge(method: Selector, isClassMethod: Bool, of identifier: ServiceIdentifier, used aClass: AnyClass) {
+        guard let _  = aClass as? ModuleServiceBridgeEnable.Type else {
+            assertionFailure("\(aClass) must conforms to service `ModuleServiceBridgeEnable`")
+            return
+        }
+        
+        guard let _ = serviceTypeMap[identifier] else {
+            assertionFailure("the impl class of \(identifier.value) is nil, please register it first")
+            return
+        }
+        
+        var proxy = proxyList.first { $0.identifier == identifier.value }
+        if proxy == nil {
+            proxy = ServiceBridgeProxy(identifier: identifier.value)
+            proxyList.append(proxy!)
+        }
+        
+        proxy?.setBridgeClass(aClass, forMethod: method, isClassMethod: isClassMethod)
     }
     
-    static func value<Generic>(of aGenericType: Generic.Type) -> String {
-        return String(reflecting: aGenericType)
+    func serviceInfoPrettyPrinted() {
+#if DEBUG
+        let newProxyList = proxyList.map {
+            guard let data = $0.description.data(using: .utf8),
+                  let json = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed) as? [String: Any] else {
+                return [String: Any]()
+            }
+            
+            return json
+        }
+        
+        let map: [ String: Any] = [
+            "bridgeProxyList": newProxyList,
+            "serviceTypeMap": Dictionary(uniqueKeysWithValues: serviceTypeMap.map { ("\($0)", "\($1)") }) ,
+            "implInstanceMap": Dictionary(uniqueKeysWithValues: implInstanceMap.map { ("\($0)", "\($1)") })
+        ]
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: map, options: .prettyPrinted) else {
+            return
+        }
+        
+        let jsonString = String(data: jsonData, encoding: .utf8) ?? ""
+        print(jsonString)
+#endif
     }
 }
-

@@ -5,7 +5,7 @@ import SnapKit
 
 extension Module.RegisterService {
     
-    @objc static func registerLoginService() {
+    @objc static func loginModuleRegisterService() {
         Module.register(service: LoginService.self, used: LoginManager.self)
     }
 }

@@ -19,7 +19,6 @@ extension Module.Awake {
         Module.routeService.registerRoutes(["house", URLRouter.webLink], used: subRouter)
         Module.tabService.addRegister(AModuleImpl.self)
         Module.launchTaskService.addRegister(ModuleLaunchTaskTest.self)
-        print(#function)
     }
 }
 
@@ -65,7 +64,7 @@ class AModuleImpl: NSObject, RegisterTabItemService {
     func registerTabBarItems() -> [TabBarItemMeta] {
         let bundle = resourceBundle(of: "AModule")
         var metaList = [TabBarItemMeta]()
-        let configImpl = Module.service(of: ModuleConfigService.self)
+        let configImpl = Module.serviceImpl(of: ModuleConfigService.self)
         
         if let index = configImpl.tabBarItemIndex(for: "example") {
             let nav = UINavigationController(rootViewController: ExampleViewController())

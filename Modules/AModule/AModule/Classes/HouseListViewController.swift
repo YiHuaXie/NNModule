@@ -42,7 +42,7 @@ class HouseListViewController: UIViewController, UITableViewDataSource, UITableV
         tableView.rowHeight = 50
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
-        let houseImpl = Module.service(of: HouseService.self)
+        let houseImpl = Module.serviceImpl(of: HouseService.self)
         houseImpl.houseEvent.addTarget(self)
         houseList = houseImpl.houseList
         if houseList.isEmpty { MBProgressHUD.showAdded(to: view, animated: true) }
@@ -70,13 +70,13 @@ class HouseListViewController: UIViewController, UITableViewDataSource, UITableV
 extension HouseListViewController: HouseEvent {
     
     func didAddHouse(_ house: HouseModel) {
-        houseList = Module.service(of: HouseService.self).houseList
+        houseList = Module.serviceImpl(of: HouseService.self).houseList
         tableView.reloadData()
     }
     
     func didUpdateHouseList() {
         MBProgressHUD.hide(for: view, animated: true)
-        houseList = Module.service(of: HouseService.self).houseList
+        houseList = Module.serviceImpl(of: HouseService.self).houseList
         tableView.reloadData()
     }
 }
